@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>2D Polygon</title>
+</head>
+<body>
+    <canvas id="canvas" width="320" height="256"></canvas>
+    <script>
+        function drawPolygon(vertices) {
+            // Get the canvas element
+            var canvas = document.getElementById("canvas");
+            // Get the 2D rendering context
+            var ctx = canvas.getContext("2d");
+            ctx.fillStyle = 'red';
+            ctx.strokeStyle = 'black';
+            // Begin the path
+            ctx.beginPath();
+            // Move to the first vertex
+            ctx.moveTo(vertices[0], vertices[1]);
+            // Loop through the rest of the vertices
+            for (var i = 2; i < 8; i += 2) {
+                // Draw a line to the next vertex
+                ctx.lineTo(vertices[i], vertices[i + 1]);
+            }
+            // Close the path to form the polygon
+            ctx.closePath();
+            // Fill the polygon
+            //ctx.fill();
+            ctx.lineWidth = 1;
+            ctx.stroke();
+        }
+        var vertices = [188, 120, 179, 113, 187, 110, 185, 118];
+        drawPolygon(vertices);
+    </script>
+</body>
+</html>

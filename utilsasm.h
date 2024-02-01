@@ -1,0 +1,1 @@
+extern void __DecompressLZ4( ULONG *, ULONG *, ULONG);

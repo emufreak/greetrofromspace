@@ -1,0 +1,1 @@
+//extern void __CopyMem( ULONG *, ULONG *, ULONG);

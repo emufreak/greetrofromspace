@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Draw Points on Canvas</title>
+	<style>
+		canvas {
+			border: 1px solid black;
+		}
+	</style>
+</head>
+<body>
+	<form>
+		<label for="x">Enter x coordinate:</label>
+		<input type="number" id="x" name="x"><br>
+		<label for="y">Enter y coordinate:</label>
+		<input type="number" id="y" name="y"><br>
+		<input type="button" value="Add Point" onclick="addPoint()">
+	</form>
+
+	<canvas id="canvas" width="320" height="256"></canvas>
+
+	<script>
+		var canvas = document.getElementById("canvas");
+		var ctx = canvas.getContext("2d");
+		var points = [];
+
+		function addPoint() {
+			var x = parseInt(document.getElementById("x").value);
+			var y = parseInt(document.getElementById("y").value);
+			points.push({ x: x, y: y });
+			drawPoints();
+		}
+
+		function drawPoints() {
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
+			ctx.fillStyle = "blue";
+			for (var i = 0; i < points.length; i++) {
+				ctx.fillRect(points[i].x, points[i].y, 2, 2);
+			}
+		}
+	</script>
+</body>
+</html>

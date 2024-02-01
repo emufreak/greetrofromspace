@@ -1,0 +1,22 @@
+//BLUEBERRY
+/*#define BGCOLOR 0x101
+#define TABLECOLOR 0x213
+#define SIDE1COLOR 0x68a
+#define SIDE2COLOR 0x658
+#define SIDE3COLOR 0x616
+#define FONTCOLOR 0x6ee*/
+
+/*#define BGCOLOR 0x324
+#define TABLECOLOR 0x737
+#define SIDE1COLOR 0xd94
+#define SIDE2COLOR 0xb72
+#define SIDE3COLOR 0x843
+#define FONTCOLOR 0xeb7*/
+
+#define BGCOLOR 0x012
+#define TABLECOLOR 0x034
+#define TABLECOLOR2 0x023
+#define SIDE1COLOR 0x055
+#define SIDE2COLOR 0x075
+#define SIDE3COLOR 0x083
+#define FONTCOLOR 0x589

@@ -1,0 +1,13 @@
+{
+    "files.associations": {
+        "utils.h": "c",
+        "3dframework.h": "c",
+        "intbits.h": "c",
+        "custom.h": "c",
+        "import.h": "c",
+        "execbase.h": "c",
+        "exec.h": "c",
+        "gcc8_c_support.h": "c",
+        "graphics.h": "c"
+    }
+}
