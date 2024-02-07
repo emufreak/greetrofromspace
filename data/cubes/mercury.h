@@ -1,11 +1,11 @@
-INCBIN(MercuryCubeData1, "data/mercury_cube_data1.bin")
-INCBIN(MercuryCubeData1Lz4, "data/mercury_cube_data_diff1.lz4")
-INCBIN(MercuryLetterData1, "data/mercury_letter_data1.bin")
-INCBIN(MercuryLetterData1Lz4, "data/mercury_letter_data_diff1.lz4")
-INCBIN(MercuryCubeData2, "data/mercury_cube_data2.bin")
-INCBIN(MercuryCubeData2Lz4, "data/mercury_cube_data_diff2.lz4")
-INCBIN(MercuryLetterData2, "data/mercury_letter_data2.bin")
-INCBIN(MercuryLetterData2Lz4, "data/mercury_letter_data_diff2.lz4")
+INCBIN(MercuryCubeData1, "data/cubes/mercury_cube_data1.bin")
+INCBIN(MercuryCubeData1Lz4, "data/cubes/mercury_cube_data_diff1.lz4")
+INCBIN(MercuryLetterData1, "data/cubes/mercury_letter_data1.bin")
+INCBIN(MercuryLetterData1Lz4, "data/cubes/mercury_letter_data_diff1.lz4")
+INCBIN(MercuryCubeData2, "data/cubes/mercury_cube_data2.bin")
+INCBIN(MercuryCubeData2Lz4, "data/cubes/mercury_cube_data_diff2.lz4")
+INCBIN(MercuryLetterData2, "data/cubes/mercury_letter_data2.bin")
+INCBIN(MercuryLetterData2Lz4, "data/cubes/mercury_letter_data_diff2.lz4")
 
 
 static UWORD CubeNrReverseSizeMercury1[] = {

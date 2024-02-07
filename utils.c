@@ -461,3 +461,42 @@ void Utils_ReadFile( char *filename, UWORD *target) {
   UWORD length = Read( fh, target, 100000);
   Close( fh);
 }
+
+UBYTE LetterSize[] = {
+    15,18,28,42,36,64,47,15,26,25,33,41,18,25,16,33,36,34,37,36,37,36,36,36,37,36,18,19,41,40,42,31,47,41,38,36,42,34,34,40,40,27,27,42,34,45,40,43,38,43,43,37,35,40,40,57,40,40,36,25,35,24,42,39,27,32,36,30,34,34,25,34,35,16,20,37,16,52,35,35,36,34,27,31,25,35,35,
+    51,35,35,31,34,20,35,42};
+
+void Utils_WriteLine( UWORD *font, ULONG targetbuffer, char *text) {
+    
+    int x = 0;
+    while(x + LetterSize[*text - 0x20] < 640) 
+    {
+        Utils_WriteLetter( font, targetbuffer, x, *text);
+        x += LetterSize[*text++ - 0x20];
+    }
+
+}
+
+void Utils_WriteLetter(UWORD *font, ULONG targetbuffer, int x, char letter) {
+
+    volatile struct Custom *custom = (struct Custom*)0xdff000; 
+
+    WaitBlit();
+
+    custom->bltamod = 0;
+    custom->bltbmod = 72;
+    custom->bltdmod = 72;
+    custom->bltafwm = 0xffff;
+    custom->bltalwm = 0xffff;
+    custom->bltcon1 = 0;  
+
+    int restx = x & 0xf;
+    custom->bltcon0 = 0xdfc + (restx << 12);
+    int index = letter - 0x20;
+
+    custom->bltapt = font+4*50*index;
+    ULONG targetlocation = targetbuffer + 0 + (x >> 4)*2;
+    custom->bltbpt = targetlocation;
+    custom->bltdpt = targetlocation;
+    custom->bltsize = 4+64*50;
+}

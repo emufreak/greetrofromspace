@@ -1,11 +1,9 @@
-INCBIN(PointCubeData, "data/point_cube_data.bin")
-INCBIN(PointCubeDataLz4, "data/point_cube_data_diff.lz4")
-INCBIN(PointLetterData, "data/point_letter_data.bin")
-INCBIN(PointLetterDataLz4, "data/point_letter_data_diff.lz4")
-INCBIN(PointReversedLetterData, "data/point_reversed_letter_data.bin")
-INCBIN(PointReversedLetterDataLz4, "data/point_reversed_letter_data_diff.lz4")
+INCBIN(FlexCubeData, "data/cubes/flex_cube_data.bin")
+INCBIN(FlexCubeDataLz4, "data/cubes/flex_cube_data_diff.lz4")
+INCBIN(FlexLetterData, "data/cubes/flex_letter_data.bin")
+INCBIN(FlexLetterDataLz4, "data/cubes/flex_letter_data_diff.lz4")
 
-static UWORD CubeNrReverseSizePoint[] = {
+static UWORD CubeNrReverseSize[] = {
 1,
 1,
 1,
@@ -194,32 +192,35 @@ static UWORD CubeNrReverseSizePoint[] = {
 1,
 1,
 1,
-2,
-2,
-2,
-2,
-2,
-2,
-2,
-2,
-2,
-2,
-2,
-2,
-2,
-2,
-2,
-2,
-2,
-2,
-2,
-2,
-2,
-2,
-2,
-2,
-2,
-2,
+1,
+1,
+1,
+1,
+1,
+1,
+1,
+1,
+1,
+1,
+1,
+1,
+1,
+1,
+1,
+1,
+1,
+1,
+1,
+1,
+1,
+1,
+1,
+1,
+1,
+1,
+1,
+1,
+1,
 2,
 2,
 2,
@@ -269,19 +270,24 @@ static UWORD CubeNrReverseSizePoint[] = {
 //1,0,2
 //0,1,2
 
-static WORD LetterMetaDataPoint[] = {
-0,1,3, 
-4,
-4,
-0,
-1,1,2,
+static WORD LetterMetaDataFlex[] = {
+0,1,2, 
 4,
 0,
-2,1,1,
+1,1,3,
+4,
+0,
+0,
+2,1,3,
+4,
+0,
+0,
+3,1,2,
+4,
 4
 };
 
-static WORD LetterMetaDataReversedPoint[] = {
+static WORD LetterMetaDataReversed[] = {
 1,1,2, 
 4,
 4,

@@ -10,6 +10,7 @@
 #include <hardware/dmabits.h>
 #include <hardware/intbits.h>
 #include "3dframework.h"
+#include "swscroller.h"
 
 //config
 #define MUSIC
@@ -380,10 +381,17 @@ int main() {
 	TakeSystem();
 	WaitVbl();
 
-		
-	custom->dmacon = 0x87ff;
-	PrepareDisplay();	
+	Sw_PrepareDisplay();
+	custom->dmacon = 0x83ff;
 	custom->intena=0xc010;//Enable vblank
+
+	while(1) {
+		Sw_Run();
+	}
+		
+	custom->dmacon = 0x83ff;
+	PrepareDisplay();	
+	custom->intena=0xc020;//Enable vblank
 
 	//WarmUp
 	SetBplPointers();

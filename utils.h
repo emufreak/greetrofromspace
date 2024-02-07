@@ -9,4 +9,7 @@ void Utils_DrawLinePrepare();
 void Utils_FillLong( ULONG *target, ULONG pattern, int lines, int linelength, ULONG mod );
 void Utils_FillPolygon(UWORD startx, UWORD starty, UWORD height, UWORD length, UBYTE *startbuffer, UBYTE *targetbuffer, WORD startfill);
 void Utils_ReadFile( char *filename, UWORD *target);
+void Utils_WriteLine( UWORD *font, ULONG targetbuffer, char *text);
+void Utils_WriteLetter( UWORD *font, ULONG targetbuffer, int x, char letter);
 //void Utils_Lz4DepackAsm( UBYTE *, UBYTE *, UWORD);
+

@@ -1,7 +1,7 @@
-INCBIN(AtwCubeData, "data/atw_cube_data.bin")
-INCBIN(AtwCubeDataLz4, "data/atw_cube_data_diff.lz4")
-INCBIN(AtwLetterData, "data/atw_letter_data.bin")
-INCBIN(AtwLetterDataLz4, "data/atw_letter_data_diff.lz4")
+INCBIN(AtwCubeData, "data/cubes/atw_cube_data.bin")
+INCBIN(AtwCubeDataLz4, "data/cubes/atw_cube_data_diff.lz4")
+INCBIN(AtwLetterData, "data/cubes/atw_letter_data.bin")
+INCBIN(AtwLetterDataLz4, "data/cubes/atw_letter_data_diff.lz4")
 
 static UWORD CubeNrReverseAtw[] = {
 2,

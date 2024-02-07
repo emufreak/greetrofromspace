@@ -1,9 +1,9 @@
-INCBIN(FlexCubeData, "data/flex_cube_data.bin")
-INCBIN(FlexCubeDataLz4, "data/flex_cube_data_diff.lz4")
-INCBIN(FlexLetterData, "data/flex_letter_data.bin")
-INCBIN(FlexLetterDataLz4, "data/flex_letter_data_diff.lz4")
+INCBIN(TekCubeData, "data/cubes/tek_cube_data.bin")
+INCBIN(TekCubeDataLz4, "data/cubes/tek_cube_data_diff.lz4")
+INCBIN(TekLetterData, "data/cubes/tek_letter_data.bin")
+INCBIN(TekLetterDataLz4, "data/cubes/tek_letter_data_diff.lz4")
 
-static UWORD CubeNrReverseSize[] = {
+static UWORD CubeNrReverseSizeTek[] = {
 1,
 1,
 1,
@@ -270,25 +270,12 @@ static UWORD CubeNrReverseSize[] = {
 //1,0,2
 //0,1,2
 
-static WORD LetterMetaDataFlex[] = {
-0,1,2, 
-4,
-0,
-1,1,3,
+static WORD LetterMetaDataTek[] = {
+0,1,3, 
 4,
 0,
 0,
-2,1,3,
-4,
-0,
-0,
-3,1,2,
-4,
-4
-};
-
-static WORD LetterMetaDataReversed[] = {
-1,1,2, 
+1,1,2,
 4,
 4,
 2,1,3,

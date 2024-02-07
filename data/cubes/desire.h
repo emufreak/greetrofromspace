@@ -1,9 +1,9 @@
-INCBIN(DesireCubeData, "data/desire_cube_data.bin")
-INCBIN(DesireCubeDataLz4, "data/desire_cube_data_diff.lz4")
-INCBIN(DesireLetterData, "data/desire_letter_data.bin")
-INCBIN(DesireLetterDataLz4, "data/desire_letter_data_diff.lz4")
-INCBIN(DesireReversedLetterData, "data/desire_reversed_letter_data.bin")
-INCBIN(DesireReversedLetterDataLz4, "data/desire_reversed_letter_data_diff.lz4")
+INCBIN(DesireCubeData, "data/cubes/desire_cube_data.bin")
+INCBIN(DesireCubeDataLz4, "data/cubes/desire_cube_data_diff.lz4")
+INCBIN(DesireLetterData, "data/cubes/desire_letter_data.bin")
+INCBIN(DesireLetterDataLz4, "data/cubes/desire_letter_data_diff.lz4")
+INCBIN(DesireReversedLetterData, "data/cubes/desire_reversed_letter_data.bin")
+INCBIN(DesireReversedLetterDataLz4, "data/cubes/desire_reversed_letter_data_diff.lz4")
 
 static UWORD CubeNrReverseSizeDesire[] = {
 2,

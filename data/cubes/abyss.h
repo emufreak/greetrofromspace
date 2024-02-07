@@ -1,9 +1,9 @@
-INCBIN(AbyssCubeData, "data/abyss_cube_data.bin")
-INCBIN(AbyssCubeDataLz4, "data/abyss_cube_data_diff.lz4")
-INCBIN(AbyssLetterData, "data/abyss_letter_data.bin")
-INCBIN(AbyssLetterDataLz4, "data/abyss_letter_data_diff.lz4")
-INCBIN(AbyssReversedLetterData, "data/abyss_reversed_letter_data.bin")
-INCBIN(AbyssReversedLetterDataLz4, "data/abyss_reversed_letter_data_diff.lz4")
+INCBIN(AbyssCubeData, "data/cubes/abyss_cube_data.bin")
+INCBIN(AbyssCubeDataLz4, "data/cubes/abyss_cube_data_diff.lz4")
+INCBIN(AbyssLetterData, "data/cubes/abyss_letter_data.bin")
+INCBIN(AbyssLetterDataLz4, "data/cubes/abyss_letter_data_diff.lz4")
+INCBIN(AbyssReversedLetterData, "data/cubes/abyss_reversed_letter_data.bin")
+INCBIN(AbyssReversedLetterDataLz4, "data/cubes/abyss_reversed_letter_data_diff.lz4")
 
 static UWORD CubeNrReverseSizeAbyss[] = {
 1,

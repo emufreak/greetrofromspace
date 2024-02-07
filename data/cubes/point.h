@@ -1,9 +1,11 @@
-INCBIN(TekCubeData, "data/tek_cube_data.bin")
-INCBIN(TekCubeDataLz4, "data/tek_cube_data_diff.lz4")
-INCBIN(TekLetterData, "data/tek_letter_data.bin")
-INCBIN(TekLetterDataLz4, "data/tek_letter_data_diff.lz4")
+INCBIN(PointCubeData, "data/cubes/point_cube_data.bin")
+INCBIN(PointCubeDataLz4, "data/cubes/point_cube_data_diff.lz4")
+INCBIN(PointLetterData, "data/cubes/point_letter_data.bin")
+INCBIN(PointLetterDataLz4, "data/cubes/point_letter_data_diff.lz4")
+INCBIN(PointReversedLetterData, "data/cubes/point_reversed_letter_data.bin")
+INCBIN(PointReversedLetterDataLz4, "data/cubes/point_reversed_letter_data_diff.lz4")
 
-static UWORD CubeNrReverseSizeTek[] = {
+static UWORD CubeNrReverseSizePoint[] = {
 1,
 1,
 1,
@@ -192,35 +194,32 @@ static UWORD CubeNrReverseSizeTek[] = {
 1,
 1,
 1,
-1,
-1,
-1,
-1,
-1,
-1,
-1,
-1,
-1,
-1,
-1,
-1,
-1,
-1,
-1,
-1,
-1,
-1,
-1,
-1,
-1,
-1,
-1,
-1,
-1,
-1,
-1,
-1,
-1,
+2,
+2,
+2,
+2,
+2,
+2,
+2,
+2,
+2,
+2,
+2,
+2,
+2,
+2,
+2,
+2,
+2,
+2,
+2,
+2,
+2,
+2,
+2,
+2,
+2,
+2,
 2,
 2,
 2,
@@ -270,12 +269,20 @@ static UWORD CubeNrReverseSizeTek[] = {
 //1,0,2
 //0,1,2
 
-static WORD LetterMetaDataTek[] = {
+static WORD LetterMetaDataPoint[] = {
 0,1,3, 
 4,
-0,
+4,
 0,
 1,1,2,
+4,
+0,
+2,1,1,
+4
+};
+
+static WORD LetterMetaDataReversedPoint[] = {
+1,1,2, 
 4,
 4,
 2,1,3,
