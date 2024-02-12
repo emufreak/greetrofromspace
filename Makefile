@@ -28,7 +28,7 @@ VASM = vasmm68k_mot_win32.exe
 SDKDIR = $(call forward-to-backward,$(abspath $(dir $(shell where $(CC)))..\m68k-amiga-elf\sys-include))
 
 #-Ofast
-CCFLAGS = -g -MP -MMD -m68000 -O2 -nostdlib -Wextra -Wno-unused-function -Wno-volatile-register-var -fomit-frame-pointer -fno-tree-loop-distribution -flto -fwhole-program -fno-exceptions
+CCFLAGS = -g -MP -MMD -O2 -m68000 -nostdlib -Wextra -Wno-unused-function -Wno-volatile-register-var -fomit-frame-pointer -fno-tree-loop-distribution -flto -fwhole-program -fno-exceptions
 CPPFLAGS= $(CCFLAGS) -fno-rtti -fcoroutines -fno-use-cxa-atexit
 ASFLAGS = -Wa,-g,--register-prefix-optional,-I$(SDKDIR),-D
 LDFLAGS = -Wl,--emit-relocs,-Ttext=0,-Map=$(OUT).map

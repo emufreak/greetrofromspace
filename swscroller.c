@@ -27,6 +27,7 @@ UWORD *Sw_DrawBuffer;
 UWORD *Sw_ViewBufferP1;
 UWORD *Sw_ViewBufferP2;
 UWORD *Sw_ViewBufferP3;
+UWORD SwScrollerFinished = 0;
 volatile UWORD FrameCountBufferDraw = 2;
 volatile UWORD Sw_BlitFrame = 0;
 
@@ -56,22 +57,40 @@ ULONG Sw_ClColor[] = { 0x1800000,0x1820ff0,0x1840000, 0x1860ff0,
                    0x1800000,0x1820f00,0x1840000, 0x1860f00
                   };     
 
-char Sw_text[] =   "Lorem ipsum dolor sit amet, consetetur  "    
-                "sadipscing elitr, sed diam nonumy eirmod"
-                "tempor invidunt ut labore et dolore     "
-                "magna aliquyam erat, sed diam voluptua. "
-                "At vero eos et accusam et justo duo     "
-                "dolores et ea rebum. Stet clita kasd    "
-                "gubergren, no sea takimata sanctus est  "
-                "Lorem ipsum dolor sit amet. Lorem ipsum "
-                "dolor sit amet, consetetur sadipscing   "
-                "elitr, sed diam nonumy eirmod tempor    " 
-                "invidunt ut labore et dolore magna      "
-                "aliquyam erat, sed diam voluptua. At    " 
-                "vero eos et accusam et justo duo dolores"
-                "et ea rebum. Stet clita kasd gubergren, "
-                "no sea takimata sanctus est Lorem ipsum " 
-                "dolor sit amet.                         ";
+char Sw_text[] =   
+"Void proudly presents                   "
+"this     Greetro      from              "    
+"Space.      Too       many              "
+"times we  left  out  the                "
+"Greetings       in       our            "
+"Productions.  Time   to                 "
+"fix this!  Greetings  go                "
+"to       the         mighty:            "
+"                                        "
+"          ALCATRAZ                      "
+"         ANDROMEDA                      "
+"          DEKADENCE                     "
+"          GHOSTOWN                      "
+"           LOGICOMA                     "
+"             PACIFIC                    "
+"         PLANET JAZZ                    "
+"             RAM JAM                    "
+"                                        "
+"               AND....                  "
+"                                        "
+"                                        "
+"                                        "
+"                                        "
+"                                        "
+"                                        "
+"                                        "
+"                                        "
+"                                        "
+"                                        "
+"                                        "
+"                                        "
+"                                        ";
+
 
 void Sw_Run() {                                     
 	Sw_WritePlainText();
@@ -91,8 +110,9 @@ void Sw_WritePlainText() {
     Utils_WriteLine( Sw_font, (ULONG) Sw_FontBuffer, Sw_text+Sw_textoffset);
 
     Sw_textoffset += 40;
-    if( Sw_textoffset >= 16*40) {
+    if( Sw_textoffset >= 32*40) {
       Sw_textoffset = 0;
+      SwScrollerFinished = 1;
     }    
   }  
   Sw_framecount++;
@@ -268,7 +288,8 @@ UWORD Sw_ScreenBufferOffset = 0;
 
 void Sw_VblankHandler() {
 
-  custom->intreq = 0x0010;
+  custom->intreq = 0x0020;
+  //p61Music();
 
   if( FrameCountBufferDraw == 2) {
     FrameCountBufferDraw = 0;
@@ -286,20 +307,28 @@ void Sw_VblankHandler() {
   }
   Sw_SetBplPointers();
   Sw_SetColors();
-  Sw_SwapCl();
+  //Sw_SwapCl();
 }
 
 ULONG *Sw_ScreenBufferList[15];
 
+UWORD debugpal[] = { 0x0000, 0x0fff };
+
 int Sw_PrepareDisplay() {
 
-  Sw_FontBuffer = AllocMem( 80*50, MEMF_CHIP);  
+  SwScrollerFinished = 0;
 
+  debug_register_palette( debugpal, "debug.pal", 2, 0);
+
+  Sw_FontBuffer = AllocMem( 80*50, MEMF_CHIP);  
+  debug_register_bitmap( Sw_FontBuffer, "fontbuffer.bpl", 512, 50, 1, 0);
+  
   Sw_ScreenBuffer3 = AllocMem( BPLSIZE*BPLDEPTH, MEMF_CHIP);
   if(Sw_ScreenBuffer3 == 0) {
     Write(Output(), "Cannot allocate Memory for Bitplane1.\n",38);
     Exit(1);
-  }    
+  }
+  debug_register_bitmap( Sw_ScreenBuffer3, "screenbuffer3.bpl", 512, 256, 1, 0);
 
   Utils_FillLong( (ULONG *)Sw_ScreenBuffer3, 0, 257, 20,0);   
 
@@ -309,6 +338,7 @@ int Sw_PrepareDisplay() {
     Write(Output(), "Cannot allocate Memory for Bitplane2.\n", 38);
     Exit(1);
   }
+  debug_register_bitmap( Sw_ScreenBuffer2, "screenbuffer2.bpl", 512, 256, 1, 0);
 
   Utils_FillLong( (ULONG *) Sw_ScreenBuffer2, 0, 257, 20,0);  
  
@@ -319,6 +349,7 @@ int Sw_PrepareDisplay() {
     Write(Output(), "Cannot allocate Memory for Bitplane2.\n", 38);
     Exit(1);
   }
+  debug_register_bitmap( Sw_ScreenBuffer1, "screenbuffer1.bpl", 512, 256, 1, 0);
 
   Utils_FillLong( (ULONG *) Sw_ScreenBuffer1, 0, 257, 20,0);  
 
@@ -361,6 +392,20 @@ int Sw_PrepareDisplay() {
 
   return 0;
 }
+
+void Sw_Cleanup() {
+  FreeMem( Sw_ScreenBuffer1, BPLSIZE*BPLDEPTH);
+  FreeMem( Sw_ScreenBuffer2, BPLSIZE*BPLDEPTH);
+  FreeMem( Sw_ScreenBuffer3, BPLSIZE*BPLDEPTH);
+  FreeMem( Sw_FontBuffer,  80*50);
+  FreeMem( Sw_font, 38000);
+}
+
+
+/*INCBIN_CHIP( Sw_font, "data/swscroller/font.fnt");
+INCBIN_CHIP( Sw_XMaskLeft, "data/swscroller/xmaskleft.raw")
+INCBIN_CHIP( Sw_XMaskRight, "data/swscroller/xmaskright.raw")
+INCBIN( Sw_ClColorDim, "data/swscroller/clcolordim.raw")*/
 
 void Sw_SetBplPointers() {
 
@@ -435,10 +480,10 @@ void Sw_SetColors() {
 
 void Sw_SwapCl() {
 
-  ULONG tmp = (ULONG) Sw_DrawCopper;
+  /*ULONG tmp = (ULONG) Sw_DrawCopper;
   Sw_DrawCopper = Sw_ViewCopper;
-  Sw_ViewCopper = (UWORD *)tmp;
-  custom->cop1lc = (ULONG) Sw_ViewCopper;
+  Sw_ViewCopper = (UWORD *)tmp;*/
+  custom->cop1lc = (ULONG) Sw_DrawCopper;
   //custom->copjmp1 = tmp;
 }
 

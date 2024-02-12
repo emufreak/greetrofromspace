@@ -370,24 +370,27 @@ int main() {
 	Write(Output(), (APTR)"Hello console!\n", 15);
 	Delay(50);
 
-	warpmode(1);
+	//warpmode(1);
 	// TODO: precalc stuff here
 #ifdef MUSIC
 	if(p61Init(module) != 0)
 		KPrintF("p61Init failed!\n");
 #endif
-	warpmode(0);
+	//warpmode(0);
 
 	TakeSystem();
 	WaitVbl();
 
 	Sw_PrepareDisplay();
-	custom->dmacon = 0x83ff;
-	custom->intena=0xc010;//Enable vblank
+	custom->dmacon = 0x83ff;	
+	custom->intena=0xc020;//Enable vblank
 
-	while(1) {
+	while(SwScrollerFinished == 0) {
 		Sw_Run();
 	}
+	Sw_Cleanup();
+
+	WaitBlit();
 		
 	custom->dmacon = 0x83ff;
 	PrepareDisplay();	
@@ -397,11 +400,9 @@ int main() {
 	SetBplPointers();
 	//LoadVectors();
 	SwapCl();
-	WaitVbl();
+	WaitVbl();	
 
-	
-
-	while(1 == 1) {		
+	while(1) {		
 		DrawScreen();
 		SetBplPointers();
 		debug_start_idle();

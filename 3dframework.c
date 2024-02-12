@@ -384,10 +384,11 @@ volatile UWORD FrameCounter = 0;
 
 void VblankHandler() {
 
-  volatile struct Custom *custom = (struct Custom*)0xdff000;  
+  volatile struct Custom *custom = (struct Custom*)0xdff000;    
 
   custom->intreq = 1 << INTB_VERTB;
   custom->intreq = 1 << INTB_VERTB;
+  p61Music();
   FrameCounter++;
 }
 
