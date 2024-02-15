@@ -12,6 +12,8 @@
 #include "3dframework.h"
 #include "swscroller.h"
 
+
+UWORD CubesFinished;
 //config
 #define MUSIC
 
@@ -195,7 +197,8 @@ void* doynaxdepack(const void* input, void* output) { // returns end of output d
 	// The Player® 6.1A: Copyright © 1992-95 Jarno Paananen
 	// P61.testmod - Module by Skylord/Sector 7 
 	INCBIN(player, "player610.6.no_cia.bin")
-	INCBIN_CHIP(module, "testmod.p61")
+	INCBIN_CHIP(module, "data/music/p61.sat")
+	INCBIN_CHIP(module2, "data/music/p61.pchips")
 
 	int p61Init(const void* module) { // returns 0 if success, non-zero otherwise
 		register volatile const void* _a0 ASM("a0") = module;
@@ -373,7 +376,7 @@ int main() {
 	//warpmode(1);
 	// TODO: precalc stuff here
 #ifdef MUSIC
-	if(p61Init(module) != 0)
+	if(p61Init(module2) != 0)
 		KPrintF("p61Init failed!\n");
 #endif
 	//warpmode(0);
@@ -383,7 +386,7 @@ int main() {
 
 	Sw_PrepareDisplay();
 	custom->dmacon = 0x83ff;	
-	custom->intena=0xc020;//Enable vblank
+	custom->intena=0xe020;//Enable vblank
 
 	while(SwScrollerFinished == 0) {
 		Sw_Run();
@@ -402,7 +405,7 @@ int main() {
 	SwapCl();
 	WaitVbl();	
 
-	while(1) {		
+	while( CubeFinished == 0) {		
 		DrawScreen();
 		SetBplPointers();
 		debug_start_idle();
@@ -415,6 +418,19 @@ int main() {
 		debug_stop_idle();
 		SwapCl();
 	}
+
+	CleanUp( );
+	WaitVbl();
+	custom->dmacon = 0x83ff;
+	custom->intena=0xe020;//Enable vblank
+	
+	End_PrepareDisplay();
+
+	while(1) {
+		WaitVbl();
+		End_Run();
+	}
+
 
 #ifdef MUSIC  
 	p61End();

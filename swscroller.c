@@ -40,7 +40,7 @@ INCBIN_CHIP( Sw_font, "data/swscroller/font.fnt");
 INCBIN_CHIP( Sw_XMaskLeft, "data/swscroller/xmaskleft.raw")
 INCBIN_CHIP( Sw_XMaskRight, "data/swscroller/xmaskright.raw")
 INCBIN( Sw_ClColorDim, "data/swscroller/clcolordim.raw")
-
+//INCBIN_CHIP( theend, "data/theend/voidlogo2.raw")
 
 ULONG Sw_ClsSprites[] = { 0x001200000, 0x001220000,0x001240000,0x001260000, 0x001280000, 
         0x0012a0000, 0x0012c0000, 0x0012e0000, 0x001300000, 0x001320000, 0x001340000,
@@ -258,12 +258,12 @@ UWORD * Sw_ClBuild() {
   clpartinstruction = Sw_ClScreen;
   for(int i=0; i<12;i++)
     *cl++ = *clpartinstruction++;
-  *cl++ = 0x000e00000;
-  *cl++ = 0x000e20000;
-  *cl++ = 0x000e40000;
-  *cl++ = 0x000e60000;
-  *cl++ = 0x000e80000;
-  *cl++ = 0x000ea0000;
+  *cl++ = 0x00e00000;
+  *cl++ = 0x00e20000;
+  *cl++ = 0x00e40000;
+  *cl++ = 0x00e60000;
+  *cl++ = 0x00e80000;
+  *cl++ = 0x00ea0000;
   clpartinstruction = Sw_ClColor;
   for(int i=0; i<4;i++)
   {
@@ -285,29 +285,31 @@ UWORD * Sw_ClBuild() {
 
 struct Interrupt *Sw_Vbint;
 UWORD Sw_ScreenBufferOffset = 0;
+UWORD Sw_InitComplete = 0;
 
 void Sw_VblankHandler() {
 
   custom->intreq = 0x0020;
   //p61Music();
 
-  if( FrameCountBufferDraw == 2) {
-    FrameCountBufferDraw = 0;
-    Sw_BlitFrame = 1;
+  if( Sw_InitComplete == 1) {
+    if( FrameCountBufferDraw == 2) {
+      FrameCountBufferDraw = 0;
+      Sw_BlitFrame = 1;
 
-    if(Sw_ScreenBufferOffset == 0) { 
-      Sw_ScreenBufferOffset = 2; 
-    } else {
-      Sw_ScreenBufferOffset = 0; 
+      if(Sw_ScreenBufferOffset == 0) { 
+        Sw_ScreenBufferOffset = 2; 
+      } else {
+        Sw_ScreenBufferOffset = 0; 
+      }
+    } 
+    else
+    {
+      FrameCountBufferDraw++;
     }
-  } 
-  else
-  {
-    FrameCountBufferDraw++;
+    Sw_SetBplPointers();
+    Sw_SetColors();   
   }
-  Sw_SetBplPointers();
-  Sw_SetColors();
-  //Sw_SwapCl();
 }
 
 ULONG *Sw_ScreenBufferList[15];
@@ -322,15 +324,17 @@ int Sw_PrepareDisplay() {
 
   Sw_FontBuffer = AllocMem( 80*50, MEMF_CHIP);  
   debug_register_bitmap( Sw_FontBuffer, "fontbuffer.bpl", 512, 50, 1, 0);
+
+  Utils_FillLong( (ULONG *)Sw_FontBuffer, 0x0, 50, 20,0);   
   
   Sw_ScreenBuffer3 = AllocMem( BPLSIZE*BPLDEPTH, MEMF_CHIP);
   if(Sw_ScreenBuffer3 == 0) {
     Write(Output(), "Cannot allocate Memory for Bitplane1.\n",38);
     Exit(1);
   }
-  debug_register_bitmap( Sw_ScreenBuffer3, "screenbuffer3.bpl", 512, 256, 1, 0);
+  debug_register_bitmap( Sw_ScreenBuffer3, "screenbuffer3.bpl", 512, 257, 1, 0);
 
-  Utils_FillLong( (ULONG *)Sw_ScreenBuffer3, 0, 257, 20,0);   
+  Utils_FillLong( (ULONG *)Sw_ScreenBuffer3, 0, 256, 20,0);   
 
   Sw_ScreenBuffer2 = AllocMem(BPLSIZE*BPLDEPTH, MEMF_CHIP);
   
@@ -338,9 +342,9 @@ int Sw_PrepareDisplay() {
     Write(Output(), "Cannot allocate Memory for Bitplane2.\n", 38);
     Exit(1);
   }
-  debug_register_bitmap( Sw_ScreenBuffer2, "screenbuffer2.bpl", 512, 256, 1, 0);
+  debug_register_bitmap( Sw_ScreenBuffer2, "screenbuffer2.bpl", 512, 257, 1, 0);
 
-  Utils_FillLong( (ULONG *) Sw_ScreenBuffer2, 0, 257, 20,0);  
+  Utils_FillLong( (ULONG *) Sw_ScreenBuffer2, 0, 256, 20,0);  
  
 
   Sw_ScreenBuffer1 = AllocMem(BPLSIZE*BPLDEPTH, MEMF_CHIP);
@@ -349,14 +353,25 @@ int Sw_PrepareDisplay() {
     Write(Output(), "Cannot allocate Memory for Bitplane2.\n", 38);
     Exit(1);
   }
-  debug_register_bitmap( Sw_ScreenBuffer1, "screenbuffer1.bpl", 512, 256, 1, 0);
+  debug_register_bitmap( Sw_ScreenBuffer1, "screenbuffer1.bpl", 512, 257, 1, 0);
 
-  Utils_FillLong( (ULONG *) Sw_ScreenBuffer1, 0, 257, 20,0);  
+  Utils_FillLong( (ULONG *) Sw_ScreenBuffer1, 0, 256, 20,0);  
 
   Sw_ViewCopper = Sw_ClBuild( );
   Sw_DrawCopper = Sw_ClBuild( );
   //SetBplPointers(); //Set Buffer 1
   Sw_SwapCl();
+
+  if ((Sw_Vbint = AllocMem(sizeof(struct Interrupt),    
+                         MEMF_PUBLIC|MEMF_CLEAR))) {
+    Sw_Vbint->is_Node.ln_Type = NT_INTERRUPT;       
+    Sw_Vbint->is_Node.ln_Pri = -60;
+    Sw_Vbint->is_Node.ln_Name = "VertB-Example";
+    Sw_Vbint->is_Data = NULL;
+    Sw_Vbint->is_Code = Sw_VblankHandler;
+  }
+
+  AddIntServer( INTB_COPER, Sw_Vbint);
   //SetBplPointers(); //Set Buffer 2  
 
   /*
@@ -377,18 +392,9 @@ int Sw_PrepareDisplay() {
   Sw_ScreenBufferList[1] = Sw_ScreenBuffer2;    
 
   Sw_ScreenBufferList[2] = Sw_ScreenBuffer2;
-  Sw_ScreenBufferList[3] = Sw_ScreenBuffer1;  
+  Sw_ScreenBufferList[3] = Sw_ScreenBuffer1;   
 
-  if ((Sw_Vbint = AllocMem(sizeof(struct Interrupt),    
-                         MEMF_PUBLIC|MEMF_CLEAR))) {
-    Sw_Vbint->is_Node.ln_Type = NT_INTERRUPT;       
-    Sw_Vbint->is_Node.ln_Pri = -60;
-    Sw_Vbint->is_Node.ln_Name = "VertB-Example";
-    Sw_Vbint->is_Data = NULL;
-    Sw_Vbint->is_Code = Sw_VblankHandler;
-  }
-
-  AddIntServer( INTB_COPER, Sw_Vbint);
+  Sw_InitComplete = 1;
 
   return 0;
 }
@@ -399,6 +405,7 @@ void Sw_Cleanup() {
   FreeMem( Sw_ScreenBuffer3, BPLSIZE*BPLDEPTH);
   FreeMem( Sw_FontBuffer,  80*50);
   FreeMem( Sw_font, 38000);
+  RemIntServer( INTB_COPER, Sw_Vbint);
 }
 
 

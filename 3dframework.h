@@ -69,7 +69,8 @@ void SetBplPointers();
 //void SmartLineFill(UWORD startx, UWORD starty, WORD height, UWORD length, UWORD minterm, UWORD bltwidth, UWORD bltstart);
 void Utils_Lz4DepackAsm(UBYTE *src, UBYTE *dst, UWORD size)  __attribute__((optimize("-O0")));
 void SwapCl();
-
+void CleanUp();
+extern UWORD CubeFinished;
 
  //Test
  

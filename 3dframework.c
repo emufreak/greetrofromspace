@@ -40,6 +40,7 @@
 #define XC 160
 #define YC 128
 
+UWORD CubeFinished = 0;
 struct Cube Cubes[4];
 UWORD *CubeNrReversePtr;
 UBYTE *ViewCopper;
@@ -269,7 +270,10 @@ void DrawScreen()
       break;
 
     case 17:
-      DrawDices( CubeNrReverseAtw, LetterMetaDataMercury2, LetterMetaDataMercury2, 11, 0, 4, 0, 110, 132);
+      result = DrawDices( CubeNrReverseAtw, LetterMetaDataMercury2, LetterMetaDataMercury2, 11, 0, 4, 0, 110, 132);      
+      break;
+    case 18:
+      CubeFinished = 1;
       break;
   }
 
@@ -1130,6 +1134,17 @@ inline void SmartLineFill(UWORD startx, UWORD starty, WORD height, UWORD length,
 
 int PrepareDisplay() {
 
+  if ((Vbint = AllocMem(sizeof(struct Interrupt),    
+                         MEMF_PUBLIC|MEMF_CLEAR))) {
+    Vbint->is_Node.ln_Type = NT_INTERRUPT;       
+    Vbint->is_Node.ln_Pri = -60;
+    Vbint->is_Node.ln_Name = "VertB-Example";
+    Vbint->is_Data = NULL;
+    Vbint->is_Code = VblankHandler;
+  }
+
+  AddIntServer( INTB_VERTB, Vbint); 
+
   WorkingMem =  AllocMem( 25000, MEMF_ANY);
 
   LineBuffer = AllocMem( 12*100*100, MEMF_CHIP);
@@ -1195,23 +1210,24 @@ int PrepareDisplay() {
   SetBplPointers(); 
   SwapCl();
 
-  //ptrvector = VectorsMercury1;
-
-  if ((Vbint = AllocMem(sizeof(struct Interrupt),    
-                         MEMF_PUBLIC|MEMF_CLEAR))) {
-    Vbint->is_Node.ln_Type = NT_INTERRUPT;       
-    Vbint->is_Node.ln_Pri = -60;
-    Vbint->is_Node.ln_Name = "VertB-Example";
-    Vbint->is_Data = NULL;
-    Vbint->is_Code = VblankHandler;
-  }
-
-  AddIntServer( INTB_VERTB, Vbint); 
+  //ptrvector = VectorsMercury1;  
 
   /*Utils_ReadFile(&"tek_cube_data.bin", VectorBuffer );
   Utils_ReadFile(&"tek_letter_data.bin", LetterBuffer);*/
 
   return 0;
+}
+
+void CleanUp() {
+  FreeMem(WorkingMem, 25000);
+  FreeMem(LineBuffer, 12*100*100);
+  FreeMem(PrepareBuffer, 64*(BPLHEIGHT+2)*2);
+  FreeMem(Bitmap1, 64*(BPLHEIGHT+2)*BPLDEPTH);
+  FreeMem(Bitmap2, 64*(BPLHEIGHT+2)*BPLDEPTH);
+  FreeMem(Bitmap3, 64*(BPLHEIGHT+2)*BPLDEPTH);
+  FreeMem(DrawCopper, ZMCPSIZE);
+  FreeMem(ViewCopper, ZMCPSIZE);
+  RemIntServer( INTB_VERTB, Vbint);
 }
 
 
