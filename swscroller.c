@@ -46,7 +46,7 @@ ULONG Sw_ClsSprites[] = { 0x001200000, 0x001220000,0x001240000,0x001260000, 0x00
         0x0012a0000, 0x0012c0000, 0x0012e0000, 0x001300000, 0x001320000, 0x001340000,
                  0x001360000, 0x001380000, 0x0013a0000, 0x0013c0000, 0x0013e0000  };
 
-ULONG Sw_ClScreen[] = { 0x001fc0000, 0x001060000, 0x0009683ff, 0x0008e2c81, 0x000902ac1,
+ULONG Sw_ClScreen[] = { 0x001fc0000, 0x001060000, 0x0009683f0, 0x0008e2c81, 0x000902ac1,
          0x00092003c, 0x0009400d4, 0x001020000, 0x001040000, 0x001080000, 0x0010a0000, 
                                                                   0x00100a200 };
 
@@ -69,18 +69,18 @@ char Sw_text[] =
 "                                        "
 "          ALCATRAZ                      "
 "         ANDROMEDA                      "
+"            ATLANTIS                    "
 "          DEKADENCE                     "
+"            ECHTZEIT                    "
 "          GHOSTOWN                      "
 "           LOGICOMA                     "
+"          NAH-KOLOR                     "
 "             PACIFIC                    "
 "         PLANET JAZZ                    "
 "             RAM JAM                    "
+"          SPACEBALLS                    "
 "                                        "
 "               AND....                  "
-"                                        "
-"                                        "
-"                                        "
-"                                        "
 "                                        "
 "                                        "
 "                                        "

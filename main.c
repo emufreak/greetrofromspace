@@ -197,9 +197,8 @@ void* doynaxdepack(const void* input, void* output) { // returns end of output d
 	// The Player® 6.1A: Copyright © 1992-95 Jarno Paananen
 	// P61.testmod - Module by Skylord/Sector 7 
 	INCBIN(player, "player610.6.no_cia.bin")
-	INCBIN_CHIP(module, "data/music/p61.sat")
-	INCBIN_CHIP(module2, "data/music/p61.pchips")
-
+	INCBIN_CHIP(module, "data/music/p61.mountainbytes")
+	
 	int p61Init(const void* module) { // returns 0 if success, non-zero otherwise
 		register volatile const void* _a0 ASM("a0") = module;
 		register volatile const void* _a1 ASM("a1") = NULL;

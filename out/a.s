@@ -66,27 +66,27 @@ int main() {
       68:	                                                                      movem.l d2-d7/a2-a6,-(sp)
 	SysBase = *((struct ExecBase**)4UL);
       6c:	                                                                      movea.l 4 <_start+0x4>,a6
-      70:	                                                                      move.l a6,85304 <SysBase>
+      70:	                                                                      move.l a6,89598 <SysBase>
 	custom = (struct Custom*)0xdff000;
-      76:	                                                                      move.l #14675968,85300 <custom>
+      76:	                                                                      move.l #14675968,89594 <custom>
 
 	// We will use the graphics library only to locate and restore the system copper list once we are through.
 	GfxBase = (struct GfxBase *)OpenLibrary((CONST_STRPTR)"graphics.library",0);
       80:	                                                                      lea 3d1d7 <incbin_MercuryLetterData2Lz4_end+0x119>,a1
       86:	                                                                      moveq #0,d0
       88:	                                                                      jsr -552(a6)
-      8c:	                                                                      move.l d0,852fc <GfxBase>
+      8c:	                                                                      move.l d0,89590 <GfxBase>
 	if (!GfxBase)
       92:	               /----------------------------------------------------- beq.w 93c <main+0x8d6>
 		Exit(0);
 
 	// used for printing
 	DOSBase = (struct DosLibrary*)OpenLibrary((CONST_STRPTR)"dos.library", 0);
-      96:	               |                                                      movea.l 85304 <SysBase>,a6
+      96:	               |                                                      movea.l 89598 <SysBase>,a6
       9c:	               |                                                      lea 3d1e8 <incbin_MercuryLetterData2Lz4_end+0x12a>,a1
       a2:	               |                                                      moveq #0,d0
       a4:	               |                                                      jsr -552(a6)
-      a8:	               |                                                      move.l d0,852f8 <DOSBase>
+      a8:	               |                                                      move.l d0,8958c <DOSBase>
 	if (!DOSBase)
       ae:	         /-----|----------------------------------------------------- beq.w 8d6 <main+0x870>
 		Exit(0);
@@ -100,15 +100,15 @@ int main() {
       be:	         |  |  |                                                      jsr (a4)
 #endif
 	Write(Output(), (APTR)"Hello console!\n", 15);
-      c0:	         |  |  |                                                      movea.l 852f8 <DOSBase>,a6
+      c0:	         |  |  |                                                      movea.l 8958c <DOSBase>,a6
       c6:	         |  |  |                                                      jsr -60(a6)
-      ca:	         |  |  |                                                      movea.l 852f8 <DOSBase>,a6
+      ca:	         |  |  |                                                      movea.l 8958c <DOSBase>,a6
       d0:	         |  |  |                                                      move.l d0,d1
       d2:	         |  |  |                                                      move.l #250384,d2
       d8:	         |  |  |                                                      moveq #15,d3
       da:	         |  |  |                                                      jsr -48(a6)
 	Delay(50);
-      de:	         |  |  |                                                      movea.l 852f8 <DOSBase>,a6
+      de:	         |  |  |                                                      movea.l 8958c <DOSBase>,a6
       e4:	         |  |  |                                                      moveq #50,d1
       e6:	         |  |  |                                                      jsr -198(a6)
 		register volatile const void* _a0 ASM("a0") = module;
@@ -132,24 +132,24 @@ int main() {
      106:	         |  |  |                                                      tst.l d0
      108:	         |  |  |  /-------------------------------------------------- bne.w 854 <main+0x7ee>
 	Forbid();
-     10c:	         |  |  |  |  /----------------------------------------------> movea.l 85304 <SysBase>,a6
+     10c:	         |  |  |  |  /----------------------------------------------> movea.l 89598 <SysBase>,a6
      112:	         |  |  |  |  |                                                jsr -132(a6)
 	SystemADKCON=custom->adkconr;
-     116:	         |  |  |  |  |                                                movea.l 85300 <custom>,a0
+     116:	         |  |  |  |  |                                                movea.l 89594 <custom>,a0
      11c:	         |  |  |  |  |                                                move.w 16(a0),d0
 	SystemInts=custom->intenar;
      120:	         |  |  |  |  |                                                move.w 28(a0),d0
 	SystemDMA=custom->dmaconr;
      124:	         |  |  |  |  |                                                move.w 2(a0),d0
 	LoadView(0);
-     128:	         |  |  |  |  |                                                movea.l 852fc <GfxBase>,a6
+     128:	         |  |  |  |  |                                                movea.l 89590 <GfxBase>,a6
      12e:	         |  |  |  |  |                                                suba.l a1,a1
      130:	         |  |  |  |  |                                                jsr -222(a6)
 	WaitTOF();
-     134:	         |  |  |  |  |                                                movea.l 852fc <GfxBase>,a6
+     134:	         |  |  |  |  |                                                movea.l 89590 <GfxBase>,a6
      13a:	         |  |  |  |  |                                                jsr -270(a6)
 	WaitTOF();
-     13e:	         |  |  |  |  |                                                movea.l 852fc <GfxBase>,a6
+     13e:	         |  |  |  |  |                                                movea.l 89590 <GfxBase>,a6
      144:	         |  |  |  |  |                                                jsr -270(a6)
 	WaitVbl();
      148:	         |  |  |  |  |                                                lea c06 <WaitVbl>,a2
@@ -157,13 +157,13 @@ int main() {
 	WaitVbl();
      150:	         |  |  |  |  |                                                jsr (a2)
 	OwnBlitter();
-     152:	         |  |  |  |  |                                                movea.l 852fc <GfxBase>,a6
+     152:	         |  |  |  |  |                                                movea.l 89590 <GfxBase>,a6
      158:	         |  |  |  |  |                                                jsr -456(a6)
 	WaitBlit();	
-     15c:	         |  |  |  |  |                                                movea.l 852fc <GfxBase>,a6
+     15c:	         |  |  |  |  |                                                movea.l 89590 <GfxBase>,a6
      162:	         |  |  |  |  |                                                jsr -228(a6)
 	custom->intena=0x7fff;//disable all interrupts
-     166:	         |  |  |  |  |                                                movea.l 85300 <custom>,a0
+     166:	         |  |  |  |  |                                                movea.l 89594 <custom>,a0
      16c:	         |  |  |  |  |                                                move.w #32767,154(a0)
 	custom->intreq=0x7fff;//Clear any interrupts that were pending
      172:	         |  |  |  |  |                                                move.w #32767,156(a0)
@@ -190,7 +190,7 @@ int main() {
      1a2:	         |  |  |  |  |  |                                             move.w #2049,48(sp)
      1a8:	         |  |  |  |  |  |                                             move.w #20083,50(sp)
 	if (SysBase->AttnFlags & AFF_68010) 
-     1ae:	         |  |  |  |  |  |                                             movea.l 85304 <SysBase>,a6
+     1ae:	         |  |  |  |  |  |                                             movea.l 89598 <SysBase>,a6
      1b4:	         |  |  |  |  |  |                                             btst #0,297(a6)
      1ba:	/--------|--|--|--|--|--|-------------------------------------------- beq.w b94 <main+0xb2e>
 		vbr = (APTR)Supervisor((ULONG (*)())getvbr);
@@ -200,9 +200,9 @@ int main() {
      1c4:	|        |  |  |  |  |  |                                             jsr -30(a6)
      1c8:	|        |  |  |  |  |  |                                             exg d7,a5
 	VBR=GetVBR();
-     1ca:	|        |  |  |  |  |  |                                             move.l d0,851ea <VBR>
+     1ca:	|        |  |  |  |  |  |                                             move.l d0,8947e <VBR>
 	return *(volatile APTR*)(((UBYTE*)VBR)+0x6c);
-     1d0:	|        |  |  |  |  |  |                                             movea.l 851ea <VBR>,a0
+     1d0:	|        |  |  |  |  |  |                                             movea.l 8947e <VBR>,a0
      1d6:	|        |  |  |  |  |  |                                             move.l 108(a0),d0
 		KPrintF("p61Init failed!\n");
 #endif
@@ -215,19 +215,19 @@ int main() {
 	Sw_PrepareDisplay();
      1dc:	|        |  |  |  |  |  |                                             jsr 4cea <Sw_PrepareDisplay.isra.0>
 	custom->dmacon = 0x83f0;	
-     1e2:	|        |  |  |  |  |  |                                             movea.l 85300 <custom>,a0
+     1e2:	|        |  |  |  |  |  |                                             movea.l 89594 <custom>,a0
      1e8:	|        |  |  |  |  |  |                                             move.w #-31760,150(a0)
 	custom->intena=0xe020;//Enable vblank
      1ee:	|        |  |  |  |  |  |                                             move.w #-8160,154(a0)
 
 	while(SwScrollerFinished == 0) {
      1f4:	|        |  |  |  |  |  |                                             lea cc6 <Sw_Run>,a3
-     1fa:	|        |  |  |  |  |  |                                             tst.w 852f6 <SwScrollerFinished>
+     1fa:	|        |  |  |  |  |  |                                             tst.w 8958a <SwScrollerFinished>
      200:	|  /-----|--|--|--|--|--|-------------------------------------------- bne.s 20c <main+0x1a6>
 		Sw_Run();
      202:	|  |  /--|--|--|--|--|--|-------------------------------------------> jsr (a3)
 	while(SwScrollerFinished == 0) {
-     204:	|  |  |  |  |  |  |  |  |                                             tst.w 852f6 <SwScrollerFinished>
+     204:	|  |  |  |  |  |  |  |  |                                             tst.w 8958a <SwScrollerFinished>
      20a:	|  |  +--|--|--|--|--|--|-------------------------------------------- beq.s 202 <main+0x19c>
 
   return 0;
@@ -235,44 +235,44 @@ int main() {
 
 void Sw_Cleanup() {
   FreeMem( Sw_ScreenBuffer1, BPLSIZE*BPLDEPTH);
-     20c:	|  >--|--|--|--|--|--|--|-------------------------------------------> movea.l 85304 <SysBase>,a6
-     212:	|  |  |  |  |  |  |  |  |                                             movea.l 851fe <Sw_ScreenBuffer1>,a1
+     20c:	|  >--|--|--|--|--|--|--|-------------------------------------------> movea.l 89598 <SysBase>,a6
+     212:	|  |  |  |  |  |  |  |  |                                             movea.l 89492 <Sw_ScreenBuffer1>,a1
      218:	|  |  |  |  |  |  |  |  |                                             move.l #20560,d0
      21e:	|  |  |  |  |  |  |  |  |                                             jsr -210(a6)
   FreeMem( Sw_ScreenBuffer2, BPLSIZE*BPLDEPTH);
-     222:	|  |  |  |  |  |  |  |  |                                             movea.l 85304 <SysBase>,a6
-     228:	|  |  |  |  |  |  |  |  |                                             movea.l 851fa <Sw_ScreenBuffer2>,a1
+     222:	|  |  |  |  |  |  |  |  |                                             movea.l 89598 <SysBase>,a6
+     228:	|  |  |  |  |  |  |  |  |                                             movea.l 8948e <Sw_ScreenBuffer2>,a1
      22e:	|  |  |  |  |  |  |  |  |                                             move.l #20560,d0
      234:	|  |  |  |  |  |  |  |  |                                             jsr -210(a6)
   FreeMem( Sw_ScreenBuffer3, BPLSIZE*BPLDEPTH);
-     238:	|  |  |  |  |  |  |  |  |                                             movea.l 85304 <SysBase>,a6
-     23e:	|  |  |  |  |  |  |  |  |                                             movea.l 851f6 <Sw_ScreenBuffer3>,a1
+     238:	|  |  |  |  |  |  |  |  |                                             movea.l 89598 <SysBase>,a6
+     23e:	|  |  |  |  |  |  |  |  |                                             movea.l 8948a <Sw_ScreenBuffer3>,a1
      244:	|  |  |  |  |  |  |  |  |                                             move.l #20560,d0
      24a:	|  |  |  |  |  |  |  |  |                                             jsr -210(a6)
   FreeMem( Sw_FontBuffer,  80*50);
-     24e:	|  |  |  |  |  |  |  |  |                                             movea.l 85304 <SysBase>,a6
-     254:	|  |  |  |  |  |  |  |  |                                             movea.l 851f2 <Sw_FontBuffer>,a1
+     24e:	|  |  |  |  |  |  |  |  |                                             movea.l 89598 <SysBase>,a6
+     254:	|  |  |  |  |  |  |  |  |                                             movea.l 89486 <Sw_FontBuffer>,a1
      25a:	|  |  |  |  |  |  |  |  |                                             move.l #4000,d0
      260:	|  |  |  |  |  |  |  |  |                                             jsr -210(a6)
   FreeMem( Sw_font, 38000);
-     264:	|  |  |  |  |  |  |  |  |                                             movea.l 85304 <SysBase>,a6
-     26a:	|  |  |  |  |  |  |  |  |                                             lea 6a1f2 <incbin_Sw_font_start>,a1
+     264:	|  |  |  |  |  |  |  |  |                                             movea.l 89598 <SysBase>,a6
+     26a:	|  |  |  |  |  |  |  |  |                                             lea 6e486 <incbin_Sw_font_start>,a1
      270:	|  |  |  |  |  |  |  |  |                                             move.l #38000,d0
      276:	|  |  |  |  |  |  |  |  |                                             jsr -210(a6)
   RemIntServer( INTB_COPER, Sw_Vbint);
-     27a:	|  |  |  |  |  |  |  |  |                                             movea.l 85304 <SysBase>,a6
+     27a:	|  |  |  |  |  |  |  |  |                                             movea.l 89598 <SysBase>,a6
      280:	|  |  |  |  |  |  |  |  |                                             moveq #4,d0
-     282:	|  |  |  |  |  |  |  |  |                                             movea.l 851ee <Sw_Vbint>,a1
+     282:	|  |  |  |  |  |  |  |  |                                             movea.l 89482 <Sw_Vbint>,a1
      288:	|  |  |  |  |  |  |  |  |                                             jsr -174(a6)
 	}
 	Sw_Cleanup();
 
 	WaitBlit();
-     28c:	|  |  |  |  |  |  |  |  |                                             movea.l 852fc <GfxBase>,a6
+     28c:	|  |  |  |  |  |  |  |  |                                             movea.l 89590 <GfxBase>,a6
      292:	|  |  |  |  |  |  |  |  |                                             jsr -228(a6)
 		
 	custom->dmacon = 0x83ff;
-     296:	|  |  |  |  |  |  |  |  |                                             movea.l 85300 <custom>,a0
+     296:	|  |  |  |  |  |  |  |  |                                             movea.l 89594 <custom>,a0
      29c:	|  |  |  |  |  |  |  |  |                                             move.w #-31745,150(a0)
 }
 
@@ -280,12 +280,12 @@ void Sw_Cleanup() {
 int PrepareDisplay() {
 
   if ((Vbint = AllocMem(sizeof(struct Interrupt),    
-     2a2:	|  |  |  |  |  |  |  |  |                                             movea.l 85304 <SysBase>,a6
+     2a2:	|  |  |  |  |  |  |  |  |                                             movea.l 89598 <SysBase>,a6
      2a8:	|  |  |  |  |  |  |  |  |                                             moveq #22,d0
      2aa:	|  |  |  |  |  |  |  |  |                                             move.l #65537,d1
      2b0:	|  |  |  |  |  |  |  |  |                                             jsr -198(a6)
      2b4:	|  |  |  |  |  |  |  |  |                                             movea.l d0,a1
-     2b6:	|  |  |  |  |  |  |  |  |                                             move.l d0,852ce <Vbint>
+     2b6:	|  |  |  |  |  |  |  |  |                                             move.l d0,89562 <Vbint>
      2bc:	|  |  |  |  |  |  |  |  |                                         /-- beq.s 2d8 <main+0x272>
                          MEMF_PUBLIC|MEMF_CLEAR))) {
     Vbint->is_Node.ln_Type = NT_INTERRUPT;       
@@ -300,23 +300,23 @@ int PrepareDisplay() {
   }
 
   AddIntServer( INTB_VERTB, Vbint); 
-     2d8:	|  |  |  |  |  |  |  |  |                                         \-> movea.l 85304 <SysBase>,a6
+     2d8:	|  |  |  |  |  |  |  |  |                                         \-> movea.l 89598 <SysBase>,a6
      2de:	|  |  |  |  |  |  |  |  |                                             moveq #5,d0
      2e0:	|  |  |  |  |  |  |  |  |                                             jsr -168(a6)
 
   WorkingMem =  AllocMem( 25000, MEMF_ANY);
-     2e4:	|  |  |  |  |  |  |  |  |                                             movea.l 85304 <SysBase>,a6
+     2e4:	|  |  |  |  |  |  |  |  |                                             movea.l 89598 <SysBase>,a6
      2ea:	|  |  |  |  |  |  |  |  |                                             move.l #25000,d0
      2f0:	|  |  |  |  |  |  |  |  |                                             moveq #0,d1
      2f2:	|  |  |  |  |  |  |  |  |                                             jsr -198(a6)
-     2f6:	|  |  |  |  |  |  |  |  |                                             move.l d0,852ee <WorkingMem>
+     2f6:	|  |  |  |  |  |  |  |  |                                             move.l d0,89582 <WorkingMem>
 
   LineBuffer = AllocMem( 12*100*100, MEMF_CHIP);
-     2fc:	|  |  |  |  |  |  |  |  |                                             movea.l 85304 <SysBase>,a6
+     2fc:	|  |  |  |  |  |  |  |  |                                             movea.l 89598 <SysBase>,a6
      302:	|  |  |  |  |  |  |  |  |                                             move.l #120000,d0
      308:	|  |  |  |  |  |  |  |  |                                             moveq #2,d1
      30a:	|  |  |  |  |  |  |  |  |                                             jsr -198(a6)
-     30e:	|  |  |  |  |  |  |  |  |                                             move.l d0,852ea <LineBuffer>
+     30e:	|  |  |  |  |  |  |  |  |                                             move.l d0,8957e <LineBuffer>
   Utils_FillLong( (ULONG *) LineBuffer, 0x0, 100*100, 12/4, 0);
      314:	|  |  |  |  |  |  |  |  |                                             pea 3 <_start+0x3>
      318:	|  |  |  |  |  |  |  |  |                                             pea 2710 <DrawRect+0x11c>
@@ -329,15 +329,15 @@ int PrepareDisplay() {
 void Utils_BlitterPrepare() {
   volatile struct Custom *custom = (struct Custom*)0xdff000;
   WaitBlit();
-     326:	|  |  |  |  |  |  |  |  |                                             movea.l 852fc <GfxBase>,a6
+     326:	|  |  |  |  |  |  |  |  |                                             movea.l 89590 <GfxBase>,a6
      32c:	|  |  |  |  |  |  |  |  |                                             jsr -228(a6)
   custom->bltafwm = 0xffff; //Static
-     330:	|  |  |  |  |  |  |  |  |                                             move.w #-1,dff044 <_end+0xd79d3c>
+     330:	|  |  |  |  |  |  |  |  |                                             move.w #-1,dff044 <_end+0xd75aa8>
   custom->bltalwm = 0xffff; //Static
-     338:	|  |  |  |  |  |  |  |  |                                             move.w #-1,dff046 <_end+0xd79d3e>
+     338:	|  |  |  |  |  |  |  |  |                                             move.w #-1,dff046 <_end+0xd75aaa>
   Utils_BlitterPrepare();
   PrepareLineBuffer( LineBuffer);
-     340:	|  |  |  |  |  |  |  |  |                                             move.l 852ea <LineBuffer>,d5
+     340:	|  |  |  |  |  |  |  |  |                                             move.l 8957e <LineBuffer>,d5
   for( WORD i=0;i <=5;i++) {
      346:	|  |  |  |  |  |  |  |  |                                             movea.l d5,a1
      348:	|  |  |  |  |  |  |  |  |                                             lea 12(sp),sp
@@ -356,23 +356,23 @@ void Utils_BlitterPrepare() {
       data = data ^ 0xffff;
      35c:	|  |  |  |  |  |  |  |  |                                   |         not.w d2
   UWORD tst=*(volatile UWORD*)&custom->dmaconr; //for compatiblity a1000
-     35e:	|  |  |  |  |  |  |  |  |                                   |         move.w dff002 <_end+0xd79cfa>,d0
+     35e:	|  |  |  |  |  |  |  |  |                                   |         move.w dff002 <_end+0xd75a66>,d0
 	while (*(volatile UWORD*)&custom->dmaconr&(1<<14)) {} //blitter busy wait
-     364:	|  |  |  |  |  |  |  |  |                                   |     /-> move.w dff002 <_end+0xd79cfa>,d0
+     364:	|  |  |  |  |  |  |  |  |                                   |     /-> move.w dff002 <_end+0xd75a66>,d0
      36a:	|  |  |  |  |  |  |  |  |                                   |     |   btst #14,d0
      36e:	|  |  |  |  |  |  |  |  |                                   |     \-- bne.s 364 <main+0x2fe>
   custom->bltcon0 = 0x01f0;
-     370:	|  |  |  |  |  |  |  |  |                                   |         move.w #496,dff040 <_end+0xd79d38>
+     370:	|  |  |  |  |  |  |  |  |                                   |         move.w #496,dff040 <_end+0xd75aa4>
   custom->bltcon1 = 0x0;
-     378:	|  |  |  |  |  |  |  |  |                                   |         move.w #0,dff042 <_end+0xd79d3a>
+     378:	|  |  |  |  |  |  |  |  |                                   |         move.w #0,dff042 <_end+0xd75aa6>
   custom->bltadat = data;
-     380:	|  |  |  |  |  |  |  |  |                                   |         move.w d2,dff074 <_end+0xd79d6c>
+     380:	|  |  |  |  |  |  |  |  |                                   |         move.w d2,dff074 <_end+0xd75ad8>
   custom->bltdpt = Target;  
-     386:	|  |  |  |  |  |  |  |  |                                   |         move.l a0,dff054 <_end+0xd79d4c>
+     386:	|  |  |  |  |  |  |  |  |                                   |         move.l a0,dff054 <_end+0xd75ab8>
   custom->bltdmod = mod;
-     38c:	|  |  |  |  |  |  |  |  |                                   |         move.w #10,dff066 <_end+0xd79d5e>
+     38c:	|  |  |  |  |  |  |  |  |                                   |         move.w #10,dff066 <_end+0xd75aca>
   custom->bltsize = lines*64+linelength;
-     394:	|  |  |  |  |  |  |  |  |                                   |         move.w #6401,dff058 <_end+0xd79d50>
+     394:	|  |  |  |  |  |  |  |  |                                   |         move.w #6401,dff058 <_end+0xd75abc>
     for( WORD i2=1;i2<=16; i2++) {        
      39c:	|  |  |  |  |  |  |  |  |                                   |         addq.l #1,d1
      39e:	|  |  |  |  |  |  |  |  |                                   |         lea 1200(a0),a0
@@ -401,47 +401,47 @@ void Utils_BlitterPrepare() {
      3ce:	|  |  |  |  |  |  |  |  |                                   |         move.l d5,d2
      3d0:	|  |  |  |  |  |  |  |  |                                   |         addi.l #18432,d2
   UWORD tst=*(volatile UWORD*)&custom->dmaconr; //for compatiblity a1000
-     3d6:	|  |  |  |  |  |  |  |  |                                   |  /----> move.w dff002 <_end+0xd79cfa>,d0
+     3d6:	|  |  |  |  |  |  |  |  |                                   |  /----> move.w dff002 <_end+0xd75a66>,d0
 	while (*(volatile UWORD*)&custom->dmaconr&(1<<14)) {} //blitter busy wait
-     3dc:	|  |  |  |  |  |  |  |  |                                   |  |  /-> move.w dff002 <_end+0xd79cfa>,d0
+     3dc:	|  |  |  |  |  |  |  |  |                                   |  |  /-> move.w dff002 <_end+0xd75a66>,d0
      3e2:	|  |  |  |  |  |  |  |  |                                   |  |  |   btst #14,d0
      3e6:	|  |  |  |  |  |  |  |  |                                   |  |  \-- bne.s 3dc <main+0x376>
   custom->bltcon0 = 0x01f0;
-     3e8:	|  |  |  |  |  |  |  |  |                                   |  |      move.w #496,dff040 <_end+0xd79d38>
+     3e8:	|  |  |  |  |  |  |  |  |                                   |  |      move.w #496,dff040 <_end+0xd75aa4>
   custom->bltcon1 = 0x0;
-     3f0:	|  |  |  |  |  |  |  |  |                                   |  |      move.w #0,dff042 <_end+0xd79d3a>
+     3f0:	|  |  |  |  |  |  |  |  |                                   |  |      move.w #0,dff042 <_end+0xd75aa6>
   custom->bltadat = data;
-     3f8:	|  |  |  |  |  |  |  |  |                                   |  |      move.w #-1,dff074 <_end+0xd79d6c>
+     3f8:	|  |  |  |  |  |  |  |  |                                   |  |      move.w #-1,dff074 <_end+0xd75ad8>
   custom->bltdpt = Target;  
-     400:	|  |  |  |  |  |  |  |  |                                   |  |      move.l d1,dff054 <_end+0xd79d4c>
+     400:	|  |  |  |  |  |  |  |  |                                   |  |      move.l d1,dff054 <_end+0xd75ab8>
   custom->bltdmod = mod;
-     406:	|  |  |  |  |  |  |  |  |                                   |  |      move.w a0,dff066 <_end+0xd79d5e>
+     406:	|  |  |  |  |  |  |  |  |                                   |  |      move.w a0,dff066 <_end+0xd75aca>
   custom->bltsize = lines*64+linelength;
-     40c:	|  |  |  |  |  |  |  |  |                                   |  |      move.w a5,dff058 <_end+0xd79d50>
+     40c:	|  |  |  |  |  |  |  |  |                                   |  |      move.w a5,dff058 <_end+0xd75abc>
       while( height > 512) {
      412:	|  |  |  |  |  |  |  |  |                                   |  |      addi.l #6144,d1
      418:	|  |  |  |  |  |  |  |  |                                   |  |      cmp.l d2,d1
      41a:	|  |  |  |  |  |  |  |  |                                   |  \----- bne.s 3d6 <main+0x370>
   UWORD tst=*(volatile UWORD*)&custom->dmaconr; //for compatiblity a1000
-     41c:	|  |  |  |  |  |  |  |  |                                   |         move.w dff002 <_end+0xd79cfa>,d0
+     41c:	|  |  |  |  |  |  |  |  |                                   |         move.w dff002 <_end+0xd75a66>,d0
 	while (*(volatile UWORD*)&custom->dmaconr&(1<<14)) {} //blitter busy wait
-     422:	|  |  |  |  |  |  |  |  |                                   |     /-> move.w dff002 <_end+0xd79cfa>,d0
+     422:	|  |  |  |  |  |  |  |  |                                   |     /-> move.w dff002 <_end+0xd75a66>,d0
      428:	|  |  |  |  |  |  |  |  |                                   |     |   btst #14,d0
      42c:	|  |  |  |  |  |  |  |  |                                   |     \-- bne.s 422 <main+0x3bc>
   custom->bltcon0 = 0x01f0;
-     42e:	|  |  |  |  |  |  |  |  |                                   |         move.w #496,dff040 <_end+0xd79d38>
+     42e:	|  |  |  |  |  |  |  |  |                                   |         move.w #496,dff040 <_end+0xd75aa4>
   custom->bltcon1 = 0x0;
-     436:	|  |  |  |  |  |  |  |  |                                   |         move.w #0,dff042 <_end+0xd79d3a>
+     436:	|  |  |  |  |  |  |  |  |                                   |         move.w #0,dff042 <_end+0xd75aa6>
   custom->bltadat = data;
-     43e:	|  |  |  |  |  |  |  |  |                                   |         move.w #-1,dff074 <_end+0xd79d6c>
+     43e:	|  |  |  |  |  |  |  |  |                                   |         move.w #-1,dff074 <_end+0xd75ad8>
   custom->bltdpt = Target;  
-     446:	|  |  |  |  |  |  |  |  |                                   |         move.l d1,dff054 <_end+0xd79d4c>
+     446:	|  |  |  |  |  |  |  |  |                                   |         move.l d1,dff054 <_end+0xd75ab8>
   custom->bltdmod = mod;
-     44c:	|  |  |  |  |  |  |  |  |                                   |         move.w a0,dff066 <_end+0xd79d5e>
+     44c:	|  |  |  |  |  |  |  |  |                                   |         move.w a0,dff066 <_end+0xd75aca>
   custom->bltsize = lines*64+linelength;
      452:	|  |  |  |  |  |  |  |  |                                   |         move.w d4,d0
      454:	|  |  |  |  |  |  |  |  |                                   |         addi.w #4096,d0
-     458:	|  |  |  |  |  |  |  |  |                                   |         move.w d0,dff058 <_end+0xd79d50>
+     458:	|  |  |  |  |  |  |  |  |                                   |         move.w d0,dff058 <_end+0xd75abc>
   for( WORD i=0;i <=5;i++) {
      45e:	|  |  |  |  |  |  |  |  |                                   |         addi.w #-4095,d0
      462:	|  |  |  |  |  |  |  |  |                                   |         cmpi.w #5,d4
@@ -457,12 +457,12 @@ void Utils_BlitterPrepare() {
      47a:	|  |  |  |  |  |  |  |  |                                   \-----|-- bra.w 358 <main+0x2f2>
 
   PrepareBuffer = AllocMem( 64*(BPLHEIGHT+2)*2, MEMF_CHIP);  
-     47e:	|  |  |  |  |  |  |  |  |                                         \-> movea.l 85304 <SysBase>,a6
+     47e:	|  |  |  |  |  |  |  |  |                                         \-> movea.l 89598 <SysBase>,a6
      484:	|  |  |  |  |  |  |  |  |                                             move.l #33024,d0
      48a:	|  |  |  |  |  |  |  |  |                                             moveq #2,d1
      48c:	|  |  |  |  |  |  |  |  |                                             jsr -198(a6)
      490:	|  |  |  |  |  |  |  |  |                                             move.l d0,d2
-     492:	|  |  |  |  |  |  |  |  |                                             move.l d0,852e6 <PrepareBuffer>
+     492:	|  |  |  |  |  |  |  |  |                                             move.l d0,8957a <PrepareBuffer>
   Utils_FillLong( (ULONG *) PrepareBuffer, 0x0, (BPLHEIGHT+2)*2, 64/4, 0);
      498:	|  |  |  |  |  |  |  |  |                                             pea 10 <_start+0x10>
      49c:	|  |  |  |  |  |  |  |  |                                             pea 204 <main+0x19e>
@@ -477,11 +477,11 @@ void Utils_BlitterPrepare() {
      4ba:	|  |  |  |  |  |  |  |  |                                             jsr (a5)
 
   Bitmap1 = AllocMem( 64*(BPLHEIGHT+2)*BPLDEPTH, MEMF_CHIP);
-     4bc:	|  |  |  |  |  |  |  |  |                                             movea.l 85304 <SysBase>,a6
+     4bc:	|  |  |  |  |  |  |  |  |                                             movea.l 89598 <SysBase>,a6
      4c2:	|  |  |  |  |  |  |  |  |                                             move.l #49536,d0
      4c8:	|  |  |  |  |  |  |  |  |                                             moveq #2,d1
      4ca:	|  |  |  |  |  |  |  |  |                                             jsr -198(a6)
-     4ce:	|  |  |  |  |  |  |  |  |                                             move.l d0,852e2 <Bitmap1>
+     4ce:	|  |  |  |  |  |  |  |  |                                             move.l d0,89576 <Bitmap1>
   if(Bitmap1 == 0) {
      4d4:	|  |  |  |  |  |  |  |  |                                             lea 28(sp),sp
      4d8:	|  |  |  |  |  |  |  |  |        /----------------------------------- beq.w b0a <main+0xaa4>
@@ -495,25 +495,25 @@ void Utils_BlitterPrepare() {
      4ea:	|  |  |  |  |  |  |  |  |        |                                    move.l d0,-(sp)
      4ec:	|  |  |  |  |  |  |  |  |        |                                    jsr (a5)
   Utils_FillLong( (ULONG *) Bitmap1, 0x0, (BPLHEIGHT+2)*BPLDEPTH, 64/4, 0);
-     4ee:	|  |  |  |  |  |  |  |  |        |                                    move.l 852e2 <Bitmap1>,d2
+     4ee:	|  |  |  |  |  |  |  |  |        |                                    move.l 89576 <Bitmap1>,d2
      4f4:	|  |  |  |  |  |  |  |  |        |                                    pea 10 <_start+0x10>
      4f8:	|  |  |  |  |  |  |  |  |        |                                    pea 306 <main+0x2a0>
      4fc:	|  |  |  |  |  |  |  |  |        |                                    move.l d2,-(sp)
      4fe:	|  |  |  |  |  |  |  |  |        |                                    jsr (a3)
 
   ScreenBuffer1.BitPlane = Bitmap1;
-     500:	|  |  |  |  |  |  |  |  |        |                                    move.l d2,85296 <ScreenBuffer1>
+     500:	|  |  |  |  |  |  |  |  |        |                                    move.l d2,8952a <ScreenBuffer1>
   ScreenBuffer1.MyDirtyArea[0].Address = 0;
-     506:	|  |  |  |  |  |  |  |  |        |                                    clr.l 8529a <ScreenBuffer1+0x4>
+     506:	|  |  |  |  |  |  |  |  |        |                                    clr.l 8952e <ScreenBuffer1+0x4>
   ScreenBuffer1.MyDirtyArea[1].Address = 0;
-     50c:	|  |  |  |  |  |  |  |  |        |                                    clr.l 852a6 <ScreenBuffer1+0x10>
+     50c:	|  |  |  |  |  |  |  |  |        |                                    clr.l 8953a <ScreenBuffer1+0x10>
 
   Bitmap2 = AllocMem( 64*(BPLHEIGHT+2)*BPLDEPTH, MEMF_CHIP);
-     512:	|  |  |  |  |  |  |  |  |        |                                    movea.l 85304 <SysBase>,a6
+     512:	|  |  |  |  |  |  |  |  |        |                                    movea.l 89598 <SysBase>,a6
      518:	|  |  |  |  |  |  |  |  |        |                                    move.l #49536,d0
      51e:	|  |  |  |  |  |  |  |  |        |                                    moveq #2,d1
      520:	|  |  |  |  |  |  |  |  |        |                                    jsr -198(a6)
-     524:	|  |  |  |  |  |  |  |  |        |                                    move.l d0,852de <Bitmap2>
+     524:	|  |  |  |  |  |  |  |  |        |                                    move.l d0,89572 <Bitmap2>
   if(Bitmap2 == 0) {
      52a:	|  |  |  |  |  |  |  |  |        |                                    lea 28(sp),sp
      52e:	|  |  |  |  |  |  |  |  |  /-----|----------------------------------- beq.w a80 <main+0xa1a>
@@ -527,25 +527,25 @@ void Utils_BlitterPrepare() {
      540:	|  |  |  |  |  |  |  |  |  |  |  |                                    move.l d0,-(sp)
      542:	|  |  |  |  |  |  |  |  |  |  |  |                                    jsr (a5)
   Utils_FillLong( (ULONG *) Bitmap2, 0x0, (BPLHEIGHT+2)*BPLDEPTH, 64/4, 0);
-     544:	|  |  |  |  |  |  |  |  |  |  |  |                                    move.l 852de <Bitmap2>,d2
+     544:	|  |  |  |  |  |  |  |  |  |  |  |                                    move.l 89572 <Bitmap2>,d2
      54a:	|  |  |  |  |  |  |  |  |  |  |  |                                    pea 10 <_start+0x10>
      54e:	|  |  |  |  |  |  |  |  |  |  |  |                                    pea 306 <main+0x2a0>
      552:	|  |  |  |  |  |  |  |  |  |  |  |                                    move.l d2,-(sp)
      554:	|  |  |  |  |  |  |  |  |  |  |  |                                    jsr (a3)
 
   ScreenBuffer2.BitPlane = Bitmap2;
-     556:	|  |  |  |  |  |  |  |  |  |  |  |                                    move.l d2,8525e <ScreenBuffer2>
+     556:	|  |  |  |  |  |  |  |  |  |  |  |                                    move.l d2,894f2 <ScreenBuffer2>
   ScreenBuffer2.MyDirtyArea[0].Address = 0;
-     55c:	|  |  |  |  |  |  |  |  |  |  |  |                                    clr.l 85262 <ScreenBuffer2+0x4>
+     55c:	|  |  |  |  |  |  |  |  |  |  |  |                                    clr.l 894f6 <ScreenBuffer2+0x4>
   ScreenBuffer2.MyDirtyArea[1].Address = 0;
-     562:	|  |  |  |  |  |  |  |  |  |  |  |                                    clr.l 8526e <ScreenBuffer2+0x10>
+     562:	|  |  |  |  |  |  |  |  |  |  |  |                                    clr.l 89502 <ScreenBuffer2+0x10>
 
   Bitmap3 = AllocMem( 64*(BPLHEIGHT+2)*BPLDEPTH, MEMF_CHIP);
-     568:	|  |  |  |  |  |  |  |  |  |  |  |                                    movea.l 85304 <SysBase>,a6
+     568:	|  |  |  |  |  |  |  |  |  |  |  |                                    movea.l 89598 <SysBase>,a6
      56e:	|  |  |  |  |  |  |  |  |  |  |  |                                    move.l #49536,d0
      574:	|  |  |  |  |  |  |  |  |  |  |  |                                    moveq #2,d1
      576:	|  |  |  |  |  |  |  |  |  |  |  |                                    jsr -198(a6)
-     57a:	|  |  |  |  |  |  |  |  |  |  |  |                                    move.l d0,852da <Bitmap3>
+     57a:	|  |  |  |  |  |  |  |  |  |  |  |                                    move.l d0,8956e <Bitmap3>
   if(Bitmap3 == 0) {
      580:	|  |  |  |  |  |  |  |  |  |  |  |                                    lea 28(sp),sp
      584:	|  |  |  |  |  |  |  |  |  |  |  |  /-------------------------------- beq.w 968 <main+0x902>
@@ -559,19 +559,19 @@ void Utils_BlitterPrepare() {
      596:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                              move.l d0,-(sp)
      598:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                              jsr (a5)
   Utils_FillLong( (ULONG *) Bitmap3, 0x0, (BPLHEIGHT+2)*BPLDEPTH, 64/4, 0);
-     59a:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                              move.l 852da <Bitmap3>,d2
+     59a:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                              move.l 8956e <Bitmap3>,d2
      5a0:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                              pea 10 <_start+0x10>
      5a4:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                              pea 306 <main+0x2a0>
      5a8:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                              move.l d2,-(sp)
      5aa:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                              jsr (a3)
 
   ScreenBuffer3.BitPlane = Bitmap3;
-     5ac:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                              lea 85226 <ScreenBuffer3>,a3
+     5ac:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                              lea 894ba <ScreenBuffer3>,a3
      5b2:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                              move.l d2,(a3)
   ScreenBuffer3.MyDirtyArea[0].Address = 0;
-     5b4:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                              clr.l 8522a <ScreenBuffer3+0x4>
+     5b4:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                              clr.l 894be <ScreenBuffer3+0x4>
   ScreenBuffer3.MyDirtyArea[1].Address = 0;
-     5ba:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                              clr.l 85236 <ScreenBuffer3+0x10>
+     5ba:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                              clr.l 894ca <ScreenBuffer3+0x10>
 
   ViewCopper = Clbuild( );
      5c0:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                              lea 2186 <Clbuild>,a5
@@ -580,28 +580,28 @@ void Utils_BlitterPrepare() {
   DrawCopper = Clbuild( );
      5ca:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                              jsr (a5)
      5cc:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                              move.l d0,d3
-     5ce:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                              move.l d0,852d6 <DrawCopper>
+     5ce:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                              move.l d0,8956a <DrawCopper>
 
   ScreenBufferList[0] = &ScreenBuffer1;
-     5d4:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                              move.l #545430,85202 <ScreenBufferList>
+     5d4:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                              move.l #562474,89496 <ScreenBufferList>
   ScreenBufferList[1] = &ScreenBuffer2;   
-     5de:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                              move.l #545374,85206 <ScreenBufferList+0x4>
+     5de:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                              move.l #562418,8949a <ScreenBufferList+0x4>
   ScreenBufferList[2] = &ScreenBuffer3;  
-     5e8:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                              move.l a3,8520a <ScreenBufferList+0x8>
+     5e8:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                              move.l a3,8949e <ScreenBufferList+0x8>
 
   ScreenBufferList[3] = &ScreenBuffer3;
-     5ee:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                              move.l a3,8520e <ScreenBufferList+0xc>
+     5ee:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                              move.l a3,894a2 <ScreenBufferList+0xc>
   ScreenBufferList[4] = &ScreenBuffer1;
-     5f4:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                              move.l #545430,85212 <ScreenBufferList+0x10>
+     5f4:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                              move.l #562474,894a6 <ScreenBufferList+0x10>
   ScreenBufferList[5] = &ScreenBuffer2;
-     5fe:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                              move.l #545374,85216 <ScreenBufferList+0x14>
+     5fe:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                              move.l #562418,894aa <ScreenBufferList+0x14>
 
   ScreenBufferList[6] = &ScreenBuffer2;
-     608:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                              move.l #545374,8521a <ScreenBufferList+0x18>
+     608:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                              move.l #562418,894ae <ScreenBufferList+0x18>
   ScreenBufferList[7] = &ScreenBuffer3;
-     612:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                              move.l a3,8521e <ScreenBufferList+0x1c>
+     612:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                              move.l a3,894b2 <ScreenBufferList+0x1c>
   ScreenBufferList[8] = &ScreenBuffer1;
-     618:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                              move.l #545430,85222 <ScreenBufferList+0x20>
+     618:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                              move.l #562474,894b6 <ScreenBufferList+0x20>
 
   SetBplPointers(); 
      622:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                              lea 24e6 <SetBplPointers>,a3
@@ -612,24 +612,24 @@ void SwapCl()
   volatile struct Custom *custom = (struct Custom*)0xdff000;
   UBYTE *tmp = DrawCopper;
   DrawCopper = ViewCopper;
-     62a:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                              move.l d2,852d6 <DrawCopper>
+     62a:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                              move.l d2,8956a <DrawCopper>
   ViewCopper = tmp;
   custom->cop1lc = (ULONG) ViewCopper;
-     630:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                              move.l d3,dff080 <_end+0xd79d78>
+     630:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                              move.l d3,dff080 <_end+0xd75ae4>
 	PrepareDisplay();	
 	custom->intena=0xc020;//Enable vblank
-     636:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                              movea.l 85300 <custom>,a0
+     636:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                              movea.l 89594 <custom>,a0
      63c:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                              move.w #-16352,154(a0)
 
 	//WarmUp
 	SetBplPointers();
      642:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                              jsr (a3)
   DrawCopper = ViewCopper;
-     644:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                              move.l d3,852d6 <DrawCopper>
+     644:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                              move.l d3,8956a <DrawCopper>
   ViewCopper = tmp;
-     64a:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                              move.l d2,852d2 <ViewCopper>
+     64a:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                              move.l d2,89566 <ViewCopper>
   custom->cop1lc = (ULONG) ViewCopper;
-     650:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                              move.l d2,dff080 <_end+0xd79d78>
+     650:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                              move.l d2,dff080 <_end+0xd75ae4>
 	//LoadVectors();
 	SwapCl();
 	WaitVbl();	
@@ -638,7 +638,7 @@ void SwapCl()
 	while( CubeFinished == 0) {		
      658:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                              lea 28(sp),sp
      65c:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                              lea 50ae <DrawScreen>,a5
-     662:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                              tst.w 852f2 <CubeFinished>
+     662:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                              tst.w 89586 <CubeFinished>
      668:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  /-------------------------- bne.s 6e2 <main+0x67c>
 		DrawScreen();
      66a:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  /----------------------> jsr (a5)
@@ -650,86 +650,86 @@ static void debug_cmd(unsigned int arg1, unsigned int arg2, unsigned int arg3, u
 	long(*UaeLib)(unsigned int arg0, unsigned int arg1, unsigned int arg2, unsigned int arg3, unsigned int arg4);
 	UaeLib = (long(*)(unsigned int, unsigned int, unsigned int, unsigned int, unsigned int))0xf0ff60;
 	if(*((UWORD *)UaeLib) == 0x4eb9 || *((UWORD *)UaeLib) == 0xa00e) {
-     66e:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                        move.w f0ff60 <_end+0xe8ac58>,d0
+     66e:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                        move.w f0ff60 <_end+0xe869c4>,d0
      674:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                        cmpi.w #20153,d0
      678:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |        /-------------- beq.w 828 <main+0x7c2>
      67c:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |        |               cmpi.w #-24562,d0
      680:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |        +-------------- beq.w 828 <main+0x7c2>
 		debug_start_idle();
 		while(FrameCounter<2);
-     684:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  /-----|-------------> move.w 852f4 <FrameCounter>,d0
+     684:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  /-----|-------------> move.w 89588 <FrameCounter>,d0
      68a:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |     |               cmpi.w #1,d0
      68e:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  +-----|-------------- bls.s 684 <main+0x61e>
 		if(FrameCounter >= 3) {
-     690:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  /--|-------------> move.w 852f4 <FrameCounter>,d0
+     690:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  /--|-------------> move.w 89588 <FrameCounter>,d0
      696:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |               cmpi.w #2,d0
      69a:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |        /----- bhi.w 7c4 <main+0x75e>
     		KPrintF("Framerate below 25FPS\n");
 		}
 		FrameCounter = 0;
-     69e:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |        |      move.w #0,852f4 <FrameCounter>
+     69e:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |        |      move.w #0,89588 <FrameCounter>
 		WaitVbl();
      6a6:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |        |      jsr (a2)
-     6a8:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |        |      move.w f0ff60 <_end+0xe8ac58>,d0
+     6a8:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |        |      move.w f0ff60 <_end+0xe869c4>,d0
      6ae:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |        |      cmpi.w #20153,d0
      6b2:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  /-----|----- beq.w 7e6 <main+0x780>
      6b6:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  /--|----> cmpi.w #-24562,d0
      6ba:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  +--|--|----- beq.w 7e6 <main+0x780>
   UBYTE *tmp = DrawCopper;
-     6be:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      move.l 852d6 <DrawCopper>,d0
+     6be:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      move.l 8956a <DrawCopper>,d0
   DrawCopper = ViewCopper;
-     6c4:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      move.l 852d2 <ViewCopper>,852d6 <DrawCopper>
+     6c4:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      move.l 89566 <ViewCopper>,8956a <DrawCopper>
   ViewCopper = tmp;
-     6ce:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      move.l d0,852d2 <ViewCopper>
+     6ce:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      move.l d0,89566 <ViewCopper>
   custom->cop1lc = (ULONG) ViewCopper;
-     6d4:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      move.l d0,dff080 <_end+0xd79d78>
+     6d4:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      move.l d0,dff080 <_end+0xd75ae4>
 	while( CubeFinished == 0) {		
-     6da:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      tst.w 852f2 <CubeFinished>
+     6da:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      tst.w 89586 <CubeFinished>
      6e0:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  +--|--|--|--|--|--|----- beq.s 66a <main+0x604>
   FreeMem(WorkingMem, 25000);
-     6e2:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  >--|--|--|--|--|--|--|----> movea.l 85304 <SysBase>,a6
-     6e8:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      movea.l 852ee <WorkingMem>,a1
+     6e2:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  >--|--|--|--|--|--|--|----> movea.l 89598 <SysBase>,a6
+     6e8:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      movea.l 89582 <WorkingMem>,a1
      6ee:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      move.l #25000,d0
      6f4:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      jsr -210(a6)
   FreeMem(LineBuffer, 12*100*100);
-     6f8:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      movea.l 85304 <SysBase>,a6
-     6fe:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      movea.l 852ea <LineBuffer>,a1
+     6f8:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      movea.l 89598 <SysBase>,a6
+     6fe:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      movea.l 8957e <LineBuffer>,a1
      704:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      move.l #120000,d0
      70a:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      jsr -210(a6)
   FreeMem(PrepareBuffer, 64*(BPLHEIGHT+2)*2);
-     70e:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      movea.l 85304 <SysBase>,a6
-     714:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      movea.l 852e6 <PrepareBuffer>,a1
+     70e:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      movea.l 89598 <SysBase>,a6
+     714:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      movea.l 8957a <PrepareBuffer>,a1
      71a:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      move.l #33024,d0
      720:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      jsr -210(a6)
   FreeMem(Bitmap1, 64*(BPLHEIGHT+2)*BPLDEPTH);
-     724:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      movea.l 85304 <SysBase>,a6
-     72a:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      movea.l 852e2 <Bitmap1>,a1
+     724:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      movea.l 89598 <SysBase>,a6
+     72a:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      movea.l 89576 <Bitmap1>,a1
      730:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      move.l #49536,d0
      736:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      jsr -210(a6)
   FreeMem(Bitmap2, 64*(BPLHEIGHT+2)*BPLDEPTH);
-     73a:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      movea.l 85304 <SysBase>,a6
-     740:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      movea.l 852de <Bitmap2>,a1
+     73a:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      movea.l 89598 <SysBase>,a6
+     740:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      movea.l 89572 <Bitmap2>,a1
      746:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      move.l #49536,d0
      74c:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      jsr -210(a6)
   FreeMem(Bitmap3, 64*(BPLHEIGHT+2)*BPLDEPTH);
-     750:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      movea.l 85304 <SysBase>,a6
-     756:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      movea.l 852da <Bitmap3>,a1
+     750:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      movea.l 89598 <SysBase>,a6
+     756:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      movea.l 8956e <Bitmap3>,a1
      75c:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      move.l #49536,d0
      762:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      jsr -210(a6)
   FreeMem(DrawCopper, ZMCPSIZE);
-     766:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      movea.l 85304 <SysBase>,a6
-     76c:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      movea.l 852d6 <DrawCopper>,a1
+     766:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      movea.l 89598 <SysBase>,a6
+     76c:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      movea.l 8956a <DrawCopper>,a1
      772:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      move.l #1360,d0
      778:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      jsr -210(a6)
   FreeMem(ViewCopper, ZMCPSIZE);
-     77c:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      movea.l 85304 <SysBase>,a6
-     782:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      movea.l 852d2 <ViewCopper>,a1
+     77c:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      movea.l 89598 <SysBase>,a6
+     782:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      movea.l 89566 <ViewCopper>,a1
      788:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      move.l #1360,d0
      78e:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      jsr -210(a6)
   RemIntServer( INTB_VERTB, Vbint);
-     792:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      movea.l 85304 <SysBase>,a6
+     792:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      movea.l 89598 <SysBase>,a6
      798:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      moveq #5,d0
-     79a:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      movea.l 852ce <Vbint>,a1
+     79a:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      movea.l 89562 <Vbint>,a1
      7a0:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      jsr -174(a6)
 		debug_stop_idle();
 		SwapCl();
@@ -739,7 +739,7 @@ static void debug_cmd(unsigned int arg1, unsigned int arg2, unsigned int arg3, u
 	WaitVbl();
      7a4:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      jsr (a2)
 	custom->dmacon = 0x83ff;
-     7a6:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      movea.l 85300 <custom>,a0
+     7a6:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      movea.l 89594 <custom>,a0
      7ac:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      move.w #-31745,150(a0)
 	custom->intena=0xe020;//Enable vblank
      7b2:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      move.w #-8160,154(a0)
@@ -758,10 +758,10 @@ static void debug_cmd(unsigned int arg1, unsigned int arg2, unsigned int arg3, u
      7ca:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |         jsr (a4)
      7cc:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |         addq.l #4,sp
 		FrameCounter = 0;
-     7ce:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |         move.w #0,852f4 <FrameCounter>
+     7ce:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |         move.w #0,89588 <FrameCounter>
 		WaitVbl();
      7d6:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |         jsr (a2)
-     7d8:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |         move.w f0ff60 <_end+0xe8ac58>,d0
+     7d8:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |         move.w f0ff60 <_end+0xe869c4>,d0
      7de:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |         cmpi.w #20153,d0
      7e2:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  \-------- bne.w 6b6 <main+0x650>
 		UaeLib(88, arg1, arg2, arg3, arg4);
@@ -770,20 +770,20 @@ static void debug_cmd(unsigned int arg1, unsigned int arg2, unsigned int arg3, u
      7ea:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |               clr.l -(sp)
      7ec:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |               pea 5 <_start+0x5>
      7f0:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |               pea 58 <_start+0x58>
-     7f4:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |               jsr f0ff60 <_end+0xe8ac58>
+     7f4:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |               jsr f0ff60 <_end+0xe869c4>
 	}
 }
      7fa:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |               lea 20(sp),sp
   UBYTE *tmp = DrawCopper;
-     7fe:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |               move.l 852d6 <DrawCopper>,d0
+     7fe:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |               move.l 8956a <DrawCopper>,d0
   DrawCopper = ViewCopper;
-     804:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |               move.l 852d2 <ViewCopper>,852d6 <DrawCopper>
+     804:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |               move.l 89566 <ViewCopper>,8956a <DrawCopper>
   ViewCopper = tmp;
-     80e:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |               move.l d0,852d2 <ViewCopper>
+     80e:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |               move.l d0,89566 <ViewCopper>
   custom->cop1lc = (ULONG) ViewCopper;
-     814:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |               move.l d0,dff080 <_end+0xd79d78>
+     814:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |               move.l d0,dff080 <_end+0xd75ae4>
 	while( CubeFinished == 0) {		
-     81a:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |               tst.w 852f2 <CubeFinished>
+     81a:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |               tst.w 89586 <CubeFinished>
      820:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  +--|--|--|-------------- beq.w 66a <main+0x604>
      824:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  +--|--|--|--|-------------- bra.w 6e2 <main+0x67c>
 		UaeLib(88, arg1, arg2, arg3, arg4);
@@ -792,11 +792,11 @@ static void debug_cmd(unsigned int arg1, unsigned int arg2, unsigned int arg3, u
      82c:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                  pea 1 <_start+0x1>
      830:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                  pea 5 <_start+0x5>
      834:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                  pea 58 <_start+0x58>
-     838:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                  jsr f0ff60 <_end+0xe8ac58>
+     838:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                  jsr f0ff60 <_end+0xe869c4>
 }
      83e:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                  lea 20(sp),sp
 		while(FrameCounter<2);
-     842:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                  move.w 852f4 <FrameCounter>,d0
+     842:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                  move.w 89588 <FrameCounter>,d0
      848:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                  cmpi.w #1,d0
      84c:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  \--|----------------- bls.w 684 <main+0x61e>
      850:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |     \----------------- bra.w 690 <main+0x62a>
@@ -805,24 +805,24 @@ static void debug_cmd(unsigned int arg1, unsigned int arg2, unsigned int arg3, u
      85a:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                        jsr (a4)
      85c:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                        addq.l #4,sp
 	Forbid();
-     85e:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                        movea.l 85304 <SysBase>,a6
+     85e:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                        movea.l 89598 <SysBase>,a6
      864:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                        jsr -132(a6)
 	SystemADKCON=custom->adkconr;
-     868:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                        movea.l 85300 <custom>,a0
+     868:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                        movea.l 89594 <custom>,a0
      86e:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                        move.w 16(a0),d0
 	SystemInts=custom->intenar;
      872:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                        move.w 28(a0),d0
 	SystemDMA=custom->dmaconr;
      876:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                        move.w 2(a0),d0
 	LoadView(0);
-     87a:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                        movea.l 852fc <GfxBase>,a6
+     87a:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                        movea.l 89590 <GfxBase>,a6
      880:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                        suba.l a1,a1
      882:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                        jsr -222(a6)
 	WaitTOF();
-     886:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                        movea.l 852fc <GfxBase>,a6
+     886:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                        movea.l 89590 <GfxBase>,a6
      88c:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                        jsr -270(a6)
 	WaitTOF();
-     890:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                        movea.l 852fc <GfxBase>,a6
+     890:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                        movea.l 89590 <GfxBase>,a6
      896:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                        jsr -270(a6)
 	WaitVbl();
      89a:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                        lea c06 <WaitVbl>,a2
@@ -830,13 +830,13 @@ static void debug_cmd(unsigned int arg1, unsigned int arg2, unsigned int arg3, u
 	WaitVbl();
      8a2:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                        jsr (a2)
 	OwnBlitter();
-     8a4:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                        movea.l 852fc <GfxBase>,a6
+     8a4:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                        movea.l 89590 <GfxBase>,a6
      8aa:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                        jsr -456(a6)
 	WaitBlit();	
-     8ae:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                        movea.l 852fc <GfxBase>,a6
+     8ae:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                        movea.l 89590 <GfxBase>,a6
      8b4:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                        jsr -228(a6)
 	custom->intena=0x7fff;//disable all interrupts
-     8b8:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                        movea.l 85300 <custom>,a0
+     8b8:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                        movea.l 89594 <custom>,a0
      8be:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                        move.w #32767,154(a0)
 	custom->intreq=0x7fff;//Clear any interrupts that were pending
      8c4:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                        move.w #32767,156(a0)
@@ -854,15 +854,15 @@ static void debug_cmd(unsigned int arg1, unsigned int arg2, unsigned int arg3, u
      8e4:	|  |  |  |  |  |  |  |     |  |  |  |  |  |  |                        lea 2582 <KPrintF>,a4
      8ea:	|  |  |  |  |  |  |  |     |  |  |  |  |  |  |                        jsr (a4)
 	Write(Output(), (APTR)"Hello console!\n", 15);
-     8ec:	|  |  |  |  |  |  |  |     |  |  |  |  |  |  |                        movea.l 852f8 <DOSBase>,a6
+     8ec:	|  |  |  |  |  |  |  |     |  |  |  |  |  |  |                        movea.l 8958c <DOSBase>,a6
      8f2:	|  |  |  |  |  |  |  |     |  |  |  |  |  |  |                        jsr -60(a6)
-     8f6:	|  |  |  |  |  |  |  |     |  |  |  |  |  |  |                        movea.l 852f8 <DOSBase>,a6
+     8f6:	|  |  |  |  |  |  |  |     |  |  |  |  |  |  |                        movea.l 8958c <DOSBase>,a6
      8fc:	|  |  |  |  |  |  |  |     |  |  |  |  |  |  |                        move.l d0,d1
      8fe:	|  |  |  |  |  |  |  |     |  |  |  |  |  |  |                        move.l #250384,d2
      904:	|  |  |  |  |  |  |  |     |  |  |  |  |  |  |                        moveq #15,d3
      906:	|  |  |  |  |  |  |  |     |  |  |  |  |  |  |                        jsr -48(a6)
 	Delay(50);
-     90a:	|  |  |  |  |  |  |  |     |  |  |  |  |  |  |                        movea.l 852f8 <DOSBase>,a6
+     90a:	|  |  |  |  |  |  |  |     |  |  |  |  |  |  |                        movea.l 8958c <DOSBase>,a6
      910:	|  |  |  |  |  |  |  |     |  |  |  |  |  |  |                        moveq #50,d1
      912:	|  |  |  |  |  |  |  |     |  |  |  |  |  |  |                        jsr -198(a6)
 		register volatile const void* _a0 ASM("a0") = module;
@@ -883,50 +883,50 @@ static void debug_cmd(unsigned int arg1, unsigned int arg2, unsigned int arg3, u
      934:	|  |  |  |  |  |  |  \-----|--|--|--|--|--|--|----------------------- beq.w 10c <main+0xa6>
      938:	|  |  |  |  |  |  \--------|--|--|--|--|--|--|----------------------- bra.w 854 <main+0x7ee>
 		Exit(0);
-     93c:	|  |  |  |  |  \-----------|--|--|--|--|--|--|----------------------> movea.l 852f8 <DOSBase>,a6
+     93c:	|  |  |  |  |  \-----------|--|--|--|--|--|--|----------------------> movea.l 8958c <DOSBase>,a6
      942:	|  |  |  |  |              |  |  |  |  |  |  |                        moveq #0,d1
      944:	|  |  |  |  |              |  |  |  |  |  |  |                        jsr -144(a6)
 	DOSBase = (struct DosLibrary*)OpenLibrary((CONST_STRPTR)"dos.library", 0);
-     948:	|  |  |  |  |              |  |  |  |  |  |  |                        movea.l 85304 <SysBase>,a6
+     948:	|  |  |  |  |              |  |  |  |  |  |  |                        movea.l 89598 <SysBase>,a6
      94e:	|  |  |  |  |              |  |  |  |  |  |  |                        lea 3d1e8 <incbin_MercuryLetterData2Lz4_end+0x12a>,a1
      954:	|  |  |  |  |              |  |  |  |  |  |  |                        moveq #0,d0
      956:	|  |  |  |  |              |  |  |  |  |  |  |                        jsr -552(a6)
-     95a:	|  |  |  |  |              |  |  |  |  |  |  |                        move.l d0,852f8 <DOSBase>
+     95a:	|  |  |  |  |              |  |  |  |  |  |  |                        move.l d0,8958c <DOSBase>
 	if (!DOSBase)
      960:	|  |  |  |  \--------------|--|--|--|--|--|--|----------------------- bne.w b2 <main+0x4c>
      964:	|  |  |  \-----------------|--|--|--|--|--|--|----------------------- bra.w 8d6 <main+0x870>
     Write(Output(), "Cannot allocate Memory for Bitmap3.\n",38);
-     968:	|  |  |                    |  |  |  >--|--|--|----------------------> movea.l 852f8 <DOSBase>,a6
+     968:	|  |  |                    |  |  |  >--|--|--|----------------------> movea.l 8958c <DOSBase>,a6
      96e:	|  |  |                    |  |  |  |  |  |  |                        jsr -60(a6)
-     972:	|  |  |                    |  |  |  |  |  |  |                        movea.l 852f8 <DOSBase>,a6
+     972:	|  |  |                    |  |  |  |  |  |  |                        movea.l 8958c <DOSBase>,a6
      978:	|  |  |                    |  |  |  |  |  |  |                        move.l d0,d1
      97a:	|  |  |                    |  |  |  |  |  |  |                        move.l #250527,d2
      980:	|  |  |                    |  |  |  |  |  |  |                        moveq #38,d3
      982:	|  |  |                    |  |  |  |  |  |  |                        jsr -48(a6)
     Exit(1);
-     986:	|  |  |                    |  |  |  |  |  |  |                        movea.l 852f8 <DOSBase>,a6
+     986:	|  |  |                    |  |  |  |  |  |  |                        movea.l 8958c <DOSBase>,a6
      98c:	|  |  |                    |  |  |  |  |  |  |                        moveq #1,d1
      98e:	|  |  |                    |  |  |  |  |  |  |                        jsr -144(a6)
   debug_register_bitmap( Bitmap3, "bitmap3.bpl", 512, 256, 3, 0); 
-     992:	|  |  |                    |  |  |  |  |  |  |                        move.l 852da <Bitmap3>,d0
+     992:	|  |  |                    |  |  |  |  |  |  |                        move.l 8956e <Bitmap3>,d0
      998:	|  |  |                    |  |  |  |  |  |  |                        pea 3 <_start+0x3>
      99c:	|  |  |                    |  |  |  |  |  |  |                        pea 100 <main+0x9a>
      9a0:	|  |  |                    |  |  |  |  |  |  |                        pea 3d2c4 <incbin_MercuryLetterData2Lz4_end+0x206>
      9a6:	|  |  |                    |  |  |  |  |  |  |                        move.l d0,-(sp)
      9a8:	|  |  |                    |  |  |  |  |  |  |                        jsr (a5)
   Utils_FillLong( (ULONG *) Bitmap3, 0x0, (BPLHEIGHT+2)*BPLDEPTH, 64/4, 0);
-     9aa:	|  |  |                    |  |  |  |  |  |  |                        move.l 852da <Bitmap3>,d2
+     9aa:	|  |  |                    |  |  |  |  |  |  |                        move.l 8956e <Bitmap3>,d2
      9b0:	|  |  |                    |  |  |  |  |  |  |                        pea 10 <_start+0x10>
      9b4:	|  |  |                    |  |  |  |  |  |  |                        pea 306 <main+0x2a0>
      9b8:	|  |  |                    |  |  |  |  |  |  |                        move.l d2,-(sp)
      9ba:	|  |  |                    |  |  |  |  |  |  |                        jsr (a3)
   ScreenBuffer3.BitPlane = Bitmap3;
-     9bc:	|  |  |                    |  |  |  |  |  |  |                        lea 85226 <ScreenBuffer3>,a3
+     9bc:	|  |  |                    |  |  |  |  |  |  |                        lea 894ba <ScreenBuffer3>,a3
      9c2:	|  |  |                    |  |  |  |  |  |  |                        move.l d2,(a3)
   ScreenBuffer3.MyDirtyArea[0].Address = 0;
-     9c4:	|  |  |                    |  |  |  |  |  |  |                        clr.l 8522a <ScreenBuffer3+0x4>
+     9c4:	|  |  |                    |  |  |  |  |  |  |                        clr.l 894be <ScreenBuffer3+0x4>
   ScreenBuffer3.MyDirtyArea[1].Address = 0;
-     9ca:	|  |  |                    |  |  |  |  |  |  |                        clr.l 85236 <ScreenBuffer3+0x10>
+     9ca:	|  |  |                    |  |  |  |  |  |  |                        clr.l 894ca <ScreenBuffer3+0x10>
   ViewCopper = Clbuild( );
      9d0:	|  |  |                    |  |  |  |  |  |  |                        lea 2186 <Clbuild>,a5
      9d6:	|  |  |                    |  |  |  |  |  |  |                        jsr (a5)
@@ -934,129 +934,129 @@ static void debug_cmd(unsigned int arg1, unsigned int arg2, unsigned int arg3, u
   DrawCopper = Clbuild( );
      9da:	|  |  |                    |  |  |  |  |  |  |                        jsr (a5)
      9dc:	|  |  |                    |  |  |  |  |  |  |                        move.l d0,d3
-     9de:	|  |  |                    |  |  |  |  |  |  |                        move.l d0,852d6 <DrawCopper>
+     9de:	|  |  |                    |  |  |  |  |  |  |                        move.l d0,8956a <DrawCopper>
   ScreenBufferList[0] = &ScreenBuffer1;
-     9e4:	|  |  |                    |  |  |  |  |  |  |                        move.l #545430,85202 <ScreenBufferList>
+     9e4:	|  |  |                    |  |  |  |  |  |  |                        move.l #562474,89496 <ScreenBufferList>
   ScreenBufferList[1] = &ScreenBuffer2;   
-     9ee:	|  |  |                    |  |  |  |  |  |  |                        move.l #545374,85206 <ScreenBufferList+0x4>
+     9ee:	|  |  |                    |  |  |  |  |  |  |                        move.l #562418,8949a <ScreenBufferList+0x4>
   ScreenBufferList[2] = &ScreenBuffer3;  
-     9f8:	|  |  |                    |  |  |  |  |  |  |                        move.l a3,8520a <ScreenBufferList+0x8>
+     9f8:	|  |  |                    |  |  |  |  |  |  |                        move.l a3,8949e <ScreenBufferList+0x8>
   ScreenBufferList[3] = &ScreenBuffer3;
-     9fe:	|  |  |                    |  |  |  |  |  |  |                        move.l a3,8520e <ScreenBufferList+0xc>
+     9fe:	|  |  |                    |  |  |  |  |  |  |                        move.l a3,894a2 <ScreenBufferList+0xc>
   ScreenBufferList[4] = &ScreenBuffer1;
-     a04:	|  |  |                    |  |  |  |  |  |  |                        move.l #545430,85212 <ScreenBufferList+0x10>
+     a04:	|  |  |                    |  |  |  |  |  |  |                        move.l #562474,894a6 <ScreenBufferList+0x10>
   ScreenBufferList[5] = &ScreenBuffer2;
-     a0e:	|  |  |                    |  |  |  |  |  |  |                        move.l #545374,85216 <ScreenBufferList+0x14>
+     a0e:	|  |  |                    |  |  |  |  |  |  |                        move.l #562418,894aa <ScreenBufferList+0x14>
   ScreenBufferList[6] = &ScreenBuffer2;
-     a18:	|  |  |                    |  |  |  |  |  |  |                        move.l #545374,8521a <ScreenBufferList+0x18>
+     a18:	|  |  |                    |  |  |  |  |  |  |                        move.l #562418,894ae <ScreenBufferList+0x18>
   ScreenBufferList[7] = &ScreenBuffer3;
-     a22:	|  |  |                    |  |  |  |  |  |  |                        move.l a3,8521e <ScreenBufferList+0x1c>
+     a22:	|  |  |                    |  |  |  |  |  |  |                        move.l a3,894b2 <ScreenBufferList+0x1c>
   ScreenBufferList[8] = &ScreenBuffer1;
-     a28:	|  |  |                    |  |  |  |  |  |  |                        move.l #545430,85222 <ScreenBufferList+0x20>
+     a28:	|  |  |                    |  |  |  |  |  |  |                        move.l #562474,894b6 <ScreenBufferList+0x20>
   SetBplPointers(); 
      a32:	|  |  |                    |  |  |  |  |  |  |                        lea 24e6 <SetBplPointers>,a3
      a38:	|  |  |                    |  |  |  |  |  |  |                        jsr (a3)
   DrawCopper = ViewCopper;
-     a3a:	|  |  |                    |  |  |  |  |  |  |                        move.l d2,852d6 <DrawCopper>
+     a3a:	|  |  |                    |  |  |  |  |  |  |                        move.l d2,8956a <DrawCopper>
   custom->cop1lc = (ULONG) ViewCopper;
-     a40:	|  |  |                    |  |  |  |  |  |  |                        move.l d3,dff080 <_end+0xd79d78>
+     a40:	|  |  |                    |  |  |  |  |  |  |                        move.l d3,dff080 <_end+0xd75ae4>
 	custom->intena=0xc020;//Enable vblank
-     a46:	|  |  |                    |  |  |  |  |  |  |                        movea.l 85300 <custom>,a0
+     a46:	|  |  |                    |  |  |  |  |  |  |                        movea.l 89594 <custom>,a0
      a4c:	|  |  |                    |  |  |  |  |  |  |                        move.w #-16352,154(a0)
 	SetBplPointers();
      a52:	|  |  |                    |  |  |  |  |  |  |                        jsr (a3)
   DrawCopper = ViewCopper;
-     a54:	|  |  |                    |  |  |  |  |  |  |                        move.l d3,852d6 <DrawCopper>
+     a54:	|  |  |                    |  |  |  |  |  |  |                        move.l d3,8956a <DrawCopper>
   ViewCopper = tmp;
-     a5a:	|  |  |                    |  |  |  |  |  |  |                        move.l d2,852d2 <ViewCopper>
+     a5a:	|  |  |                    |  |  |  |  |  |  |                        move.l d2,89566 <ViewCopper>
   custom->cop1lc = (ULONG) ViewCopper;
-     a60:	|  |  |                    |  |  |  |  |  |  |                        move.l d2,dff080 <_end+0xd79d78>
+     a60:	|  |  |                    |  |  |  |  |  |  |                        move.l d2,dff080 <_end+0xd75ae4>
 	WaitVbl();	
      a66:	|  |  |                    |  |  |  |  |  |  |                        jsr (a2)
 	while( CubeFinished == 0) {		
      a68:	|  |  |                    |  |  |  |  |  |  |                        lea 28(sp),sp
      a6c:	|  |  |                    |  |  |  |  |  |  |                        lea 50ae <DrawScreen>,a5
-     a72:	|  |  |                    |  |  |  |  |  |  |                        tst.w 852f2 <CubeFinished>
+     a72:	|  |  |                    |  |  |  |  |  |  |                        tst.w 89586 <CubeFinished>
      a78:	|  |  |                    |  |  |  |  |  |  \----------------------- beq.w 66a <main+0x604>
      a7c:	|  |  |                    |  |  |  |  |  \-------------------------- bra.w 6e2 <main+0x67c>
     Write(Output(), "Cannot allocate Memory for Bitmap2.\n",38);
-     a80:	|  |  |                    >--|--|--|--|----------------------------> movea.l 852f8 <DOSBase>,a6
+     a80:	|  |  |                    >--|--|--|--|----------------------------> movea.l 8958c <DOSBase>,a6
      a86:	|  |  |                    |  |  |  |  |                              jsr -60(a6)
-     a8a:	|  |  |                    |  |  |  |  |                              movea.l 852f8 <DOSBase>,a6
+     a8a:	|  |  |                    |  |  |  |  |                              movea.l 8958c <DOSBase>,a6
      a90:	|  |  |                    |  |  |  |  |                              move.l d0,d1
      a92:	|  |  |                    |  |  |  |  |                              move.l #250478,d2
      a98:	|  |  |                    |  |  |  |  |                              moveq #38,d3
      a9a:	|  |  |                    |  |  |  |  |                              jsr -48(a6)
     Exit(1);
-     a9e:	|  |  |                    |  |  |  |  |                              movea.l 852f8 <DOSBase>,a6
+     a9e:	|  |  |                    |  |  |  |  |                              movea.l 8958c <DOSBase>,a6
      aa4:	|  |  |                    |  |  |  |  |                              moveq #1,d1
      aa6:	|  |  |                    |  |  |  |  |                              jsr -144(a6)
   debug_register_bitmap( Bitmap2, "bitmap2.bpl", 512, 256, 3, 0); 
-     aaa:	|  |  |                    |  |  |  |  |                              move.l 852de <Bitmap2>,d0
+     aaa:	|  |  |                    |  |  |  |  |                              move.l 89572 <Bitmap2>,d0
      ab0:	|  |  |                    |  |  |  |  |                              pea 3 <_start+0x3>
      ab4:	|  |  |                    |  |  |  |  |                              pea 100 <main+0x9a>
      ab8:	|  |  |                    |  |  |  |  |                              pea 3d293 <incbin_MercuryLetterData2Lz4_end+0x1d5>
      abe:	|  |  |                    |  |  |  |  |                              move.l d0,-(sp)
      ac0:	|  |  |                    |  |  |  |  |                              jsr (a5)
   Utils_FillLong( (ULONG *) Bitmap2, 0x0, (BPLHEIGHT+2)*BPLDEPTH, 64/4, 0);
-     ac2:	|  |  |                    |  |  |  |  |                              move.l 852de <Bitmap2>,d2
+     ac2:	|  |  |                    |  |  |  |  |                              move.l 89572 <Bitmap2>,d2
      ac8:	|  |  |                    |  |  |  |  |                              pea 10 <_start+0x10>
      acc:	|  |  |                    |  |  |  |  |                              pea 306 <main+0x2a0>
      ad0:	|  |  |                    |  |  |  |  |                              move.l d2,-(sp)
      ad2:	|  |  |                    |  |  |  |  |                              jsr (a3)
   ScreenBuffer2.BitPlane = Bitmap2;
-     ad4:	|  |  |                    |  |  |  |  |                              move.l d2,8525e <ScreenBuffer2>
+     ad4:	|  |  |                    |  |  |  |  |                              move.l d2,894f2 <ScreenBuffer2>
   ScreenBuffer2.MyDirtyArea[0].Address = 0;
-     ada:	|  |  |                    |  |  |  |  |                              clr.l 85262 <ScreenBuffer2+0x4>
+     ada:	|  |  |                    |  |  |  |  |                              clr.l 894f6 <ScreenBuffer2+0x4>
   ScreenBuffer2.MyDirtyArea[1].Address = 0;
-     ae0:	|  |  |                    |  |  |  |  |                              clr.l 8526e <ScreenBuffer2+0x10>
+     ae0:	|  |  |                    |  |  |  |  |                              clr.l 89502 <ScreenBuffer2+0x10>
   Bitmap3 = AllocMem( 64*(BPLHEIGHT+2)*BPLDEPTH, MEMF_CHIP);
-     ae6:	|  |  |                    |  |  |  |  |                              movea.l 85304 <SysBase>,a6
+     ae6:	|  |  |                    |  |  |  |  |                              movea.l 89598 <SysBase>,a6
      aec:	|  |  |                    |  |  |  |  |                              move.l #49536,d0
      af2:	|  |  |                    |  |  |  |  |                              moveq #2,d1
      af4:	|  |  |                    |  |  |  |  |                              jsr -198(a6)
-     af8:	|  |  |                    |  |  |  |  |                              move.l d0,852da <Bitmap3>
+     af8:	|  |  |                    |  |  |  |  |                              move.l d0,8956e <Bitmap3>
   if(Bitmap3 == 0) {
      afe:	|  |  |                    |  |  |  |  |                              lea 28(sp),sp
      b02:	|  |  |                    |  |  |  |  \----------------------------- bne.w 588 <main+0x522>
      b06:	|  |  |                    |  |  |  \-------------------------------- bra.w 968 <main+0x902>
     Write(Output(), "Cannot allocate Memory for Bitmap1.\n",38);
-     b0a:	|  |  |                    |  |  \----------------------------------> movea.l 852f8 <DOSBase>,a6
+     b0a:	|  |  |                    |  |  \----------------------------------> movea.l 8958c <DOSBase>,a6
      b10:	|  |  |                    |  |                                       jsr -60(a6)
-     b14:	|  |  |                    |  |                                       movea.l 852f8 <DOSBase>,a6
+     b14:	|  |  |                    |  |                                       movea.l 8958c <DOSBase>,a6
      b1a:	|  |  |                    |  |                                       move.l d0,d1
      b1c:	|  |  |                    |  |                                       move.l #250429,d2
      b22:	|  |  |                    |  |                                       moveq #38,d3
      b24:	|  |  |                    |  |                                       jsr -48(a6)
     Exit(1);
-     b28:	|  |  |                    |  |                                       movea.l 852f8 <DOSBase>,a6
+     b28:	|  |  |                    |  |                                       movea.l 8958c <DOSBase>,a6
      b2e:	|  |  |                    |  |                                       moveq #1,d1
      b30:	|  |  |                    |  |                                       jsr -144(a6)
   debug_register_bitmap( Bitmap1, "bitmap1.bpl", 512, 256, 3, 0);  
-     b34:	|  |  |                    |  |                                       move.l 852e2 <Bitmap1>,d0
+     b34:	|  |  |                    |  |                                       move.l 89576 <Bitmap1>,d0
      b3a:	|  |  |                    |  |                                       pea 3 <_start+0x3>
      b3e:	|  |  |                    |  |                                       pea 100 <main+0x9a>
      b42:	|  |  |                    |  |                                       pea 3d262 <incbin_MercuryLetterData2Lz4_end+0x1a4>
      b48:	|  |  |                    |  |                                       move.l d0,-(sp)
      b4a:	|  |  |                    |  |                                       jsr (a5)
   Utils_FillLong( (ULONG *) Bitmap1, 0x0, (BPLHEIGHT+2)*BPLDEPTH, 64/4, 0);
-     b4c:	|  |  |                    |  |                                       move.l 852e2 <Bitmap1>,d2
+     b4c:	|  |  |                    |  |                                       move.l 89576 <Bitmap1>,d2
      b52:	|  |  |                    |  |                                       pea 10 <_start+0x10>
      b56:	|  |  |                    |  |                                       pea 306 <main+0x2a0>
      b5a:	|  |  |                    |  |                                       move.l d2,-(sp)
      b5c:	|  |  |                    |  |                                       jsr (a3)
   ScreenBuffer1.BitPlane = Bitmap1;
-     b5e:	|  |  |                    |  |                                       move.l d2,85296 <ScreenBuffer1>
+     b5e:	|  |  |                    |  |                                       move.l d2,8952a <ScreenBuffer1>
   ScreenBuffer1.MyDirtyArea[0].Address = 0;
-     b64:	|  |  |                    |  |                                       clr.l 8529a <ScreenBuffer1+0x4>
+     b64:	|  |  |                    |  |                                       clr.l 8952e <ScreenBuffer1+0x4>
   ScreenBuffer1.MyDirtyArea[1].Address = 0;
-     b6a:	|  |  |                    |  |                                       clr.l 852a6 <ScreenBuffer1+0x10>
+     b6a:	|  |  |                    |  |                                       clr.l 8953a <ScreenBuffer1+0x10>
   Bitmap2 = AllocMem( 64*(BPLHEIGHT+2)*BPLDEPTH, MEMF_CHIP);
-     b70:	|  |  |                    |  |                                       movea.l 85304 <SysBase>,a6
+     b70:	|  |  |                    |  |                                       movea.l 89598 <SysBase>,a6
      b76:	|  |  |                    |  |                                       move.l #49536,d0
      b7c:	|  |  |                    |  |                                       moveq #2,d1
      b7e:	|  |  |                    |  |                                       jsr -198(a6)
-     b82:	|  |  |                    |  |                                       move.l d0,852de <Bitmap2>
+     b82:	|  |  |                    |  |                                       move.l d0,89572 <Bitmap2>
   if(Bitmap2 == 0) {
      b88:	|  |  |                    |  |                                       lea 28(sp),sp
      b8c:	|  |  |                    |  \-------------------------------------- bne.w 532 <main+0x4cc>
@@ -1064,22 +1064,22 @@ static void debug_cmd(unsigned int arg1, unsigned int arg2, unsigned int arg3, u
 	APTR vbr = 0;
      b94:	\--|--|-------------------------------------------------------------> moveq #0,d0
 	VBR=GetVBR();
-     b96:	   |  |                                                               move.l d0,851ea <VBR>
+     b96:	   |  |                                                               move.l d0,8947e <VBR>
 	return *(volatile APTR*)(((UBYTE*)VBR)+0x6c);
-     b9c:	   |  |                                                               movea.l 851ea <VBR>,a0
+     b9c:	   |  |                                                               movea.l 8947e <VBR>,a0
      ba2:	   |  |                                                               move.l 108(a0),d0
 	WaitVbl();
      ba6:	   |  |                                                               jsr (a2)
 	Sw_PrepareDisplay();
      ba8:	   |  |                                                               jsr 4cea <Sw_PrepareDisplay.isra.0>
 	custom->dmacon = 0x83f0;	
-     bae:	   |  |                                                               movea.l 85300 <custom>,a0
+     bae:	   |  |                                                               movea.l 89594 <custom>,a0
      bb4:	   |  |                                                               move.w #-31760,150(a0)
 	custom->intena=0xe020;//Enable vblank
      bba:	   |  |                                                               move.w #-8160,154(a0)
 	while(SwScrollerFinished == 0) {
      bc0:	   |  |                                                               lea cc6 <Sw_Run>,a3
-     bc6:	   |  |                                                               tst.w 852f6 <SwScrollerFinished>
+     bc6:	   |  |                                                               tst.w 8958a <SwScrollerFinished>
      bcc:	   |  \-------------------------------------------------------------- beq.w 202 <main+0x19c>
      bd0:	   \----------------------------------------------------------------- bra.w 20c <main+0x1a6>
 
@@ -1111,7 +1111,7 @@ void Utils_Lz4DepackAsm(UBYTE *src, UBYTE *dst, UWORD size) {
 void WaitVbl() {
      c06:	    subq.l #8,sp
 		volatile ULONG vpos=*(volatile ULONG*)0xDFF004;
-     c08:	/-> move.l dff004 <_end+0xd79cfc>,d0
+     c08:	/-> move.l dff004 <_end+0xd75a68>,d0
      c0e:	|   move.l d0,(sp)
 		vpos&=0x1ff00;
      c10:	|   move.l (sp),d0
@@ -1122,7 +1122,7 @@ void WaitVbl() {
      c1c:	|   cmpi.l #79616,d0
      c22:	\-- beq.s c08 <WaitVbl+0x2>
 		volatile ULONG vpos=*(volatile ULONG*)0xDFF004;
-     c24:	/-> move.l dff004 <_end+0xd79cfc>,d0
+     c24:	/-> move.l dff004 <_end+0xd75a68>,d0
      c2a:	|   move.l d0,4(sp)
 		vpos&=0x1ff00;
      c2e:	|   move.l 4(sp),d0
@@ -1155,15 +1155,15 @@ void WaitVbl() {
 
 00000c6e <VblankHandler>:
   custom->intreq = 1 << INTB_VERTB;
-     c6e:	move.w #32,dff09c <_end+0xd79d94>
+     c6e:	move.w #32,dff09c <_end+0xd75b00>
   custom->intreq = 1 << INTB_VERTB;
-     c76:	move.w #32,dff09c <_end+0xd79d94>
+     c76:	move.w #32,dff09c <_end+0xd75b00>
   p61Music();
      c7e:	jsr c4c <p61Music>(pc)
   FrameCounter++;
-     c82:	move.w 852f4 <FrameCounter>,d0
+     c82:	move.w 89588 <FrameCounter>,d0
      c88:	addq.w #1,d0
-     c8a:	move.w d0,852f4 <FrameCounter>
+     c8a:	move.w d0,89588 <FrameCounter>
 }
      c90:	rts
 
@@ -1206,18 +1206,18 @@ void Sw_Run() {
      cd8:	   |      addq.l #1,d0
      cda:	   |      move.l d0,6548e <Sw_framecount>
   while ( Sw_BlitFrame == 0)
-     ce0:	/--|----> move.w 851e8 <Sw_BlitFrame>,d0
+     ce0:	/--|----> move.w 8947c <Sw_BlitFrame>,d0
      ce6:	+--|----- beq.s ce0 <Sw_Run+0x1a>
   *bp = 0;
      ce8:	|  |      clr.l 200 <main+0x19a>
   Sw_BlitFrame = 0;
-     cec:	|  |      move.w #0,851e8 <Sw_BlitFrame>
+     cec:	|  |      move.w #0,8947c <Sw_BlitFrame>
   WaitBlit();
-     cf4:	|  |      lea 852fc <GfxBase>,a2
+     cf4:	|  |      lea 89590 <GfxBase>,a2
      cfa:	|  |      movea.l (a2),a6
      cfc:	|  |      jsr -228(a6)
   custom->bltamod = 0;
-     d00:	|  |      movea.l 85300 <custom>,a0
+     d00:	|  |      movea.l 89594 <custom>,a0
      d06:	|  |      move.w #0,100(a0)
   custom->bltbmod = 0;
      d0c:	|  |      move.w #0,98(a0)
@@ -1239,10 +1239,10 @@ void Sw_Run() {
      d3c:	|  |      add.l d0,d0
      d3e:	|  |      add.l d1,d0
      d40:	|  |      lsl.l #4,d0
-     d42:	|  |      add.l 851f2 <Sw_FontBuffer>,d0
+     d42:	|  |      add.l 89486 <Sw_FontBuffer>,d0
      d48:	|  |      move.l d0,80(a0)
   custom->bltdpt = Sw_DrawBuffer+40*255;
-     d4c:	|  |      move.l 851e4 <Sw_DrawBuffer>,d0
+     d4c:	|  |      move.l 89478 <Sw_DrawBuffer>,d0
      d52:	|  |      addi.l #20400,d0
      d58:	|  |      move.l d0,84(a0)
   custom->bltsize = 64+40;
@@ -1251,17 +1251,17 @@ void Sw_Run() {
      d62:	|  |      movea.l (a2),a6
      d64:	|  |      jsr -228(a6)
   custom->bltamod = 0;
-     d68:	|  |      movea.l 85300 <custom>,a0
+     d68:	|  |      movea.l 89594 <custom>,a0
      d6e:	|  |      move.w #0,100(a0)
   custom->bltdmod = 0;
      d74:	|  |      move.w #0,102(a0)
   custom->bltapt = Sw_ViewBufferP1;
-     d7a:	|  |      move.l 851e0 <Sw_ViewBufferP1>,80(a0)
+     d7a:	|  |      move.l 89474 <Sw_ViewBufferP1>,80(a0)
   custom->bltdpt = Sw_DrawBuffer;  
-     d82:	|  |      move.l 851e4 <Sw_DrawBuffer>,84(a0)
+     d82:	|  |      move.l 89478 <Sw_DrawBuffer>,84(a0)
   custom->bltsize = 64*Sw_CopyLines[Sw_framecountscreen]+40;  
      d8a:	|  |      lea 43360 <Sw_CopyLines>,a3
-     d90:	|  |      move.l 851dc <Sw_framecountscreen>,d0
+     d90:	|  |      move.l 89470 <Sw_framecountscreen>,d0
      d96:	|  |      add.l d0,d0
      d98:	|  |      move.w (0,a3,d0.l),d0
      d9c:	|  |      lsl.w #6,d0
@@ -1271,7 +1271,7 @@ void Sw_Run() {
      da6:	|  |      movea.l (a2),a6
      da8:	|  |      jsr -228(a6)
   custom->bltcon0 = 0x0d30; // No Shift, Channels A+B+D, Minterm: Set if Channel A = 1 and Channel B = 0 
-     dac:	|  |      movea.l 85300 <custom>,a0
+     dac:	|  |      movea.l 89594 <custom>,a0
      db2:	|  |      move.w #3376,64(a0)
   custom->bltafwm = 0xffff;
      db8:	|  |      move.w #-1,68(a0)
@@ -1280,24 +1280,24 @@ void Sw_Run() {
   custom->bltdmod = 40; // Skip Left Part of Screen
      dc4:	|  |      move.w #40,102(a0)
   custom->bltapt = Sw_ViewBufferP1+Sw_CopyLines[Sw_framecountscreen]*40+60;
-     dca:	|  |      move.l 851dc <Sw_framecountscreen>,d0
+     dca:	|  |      move.l 89470 <Sw_framecountscreen>,d0
      dd0:	|  |      add.l d0,d0
      dd2:	|  |      move.w (0,a3,d0.l),d1
      dd6:	|  |      move.w d1,d0
      dd8:	|  |      mulu.w #80,d0
      ddc:	|  |      movea.l d0,a1
      dde:	|  |      lea 120(a1),a4
-     de2:	|  |      move.l 851e0 <Sw_ViewBufferP1>,d0
+     de2:	|  |      move.l 89474 <Sw_ViewBufferP1>,d0
      de8:	|  |      add.l a4,d0
      dea:	|  |      move.l d0,80(a0)
   custom->bltdpt = Sw_DrawBuffer+Sw_CopyLines[Sw_framecountscreen]*40+20;
      dee:	|  |      lea 40(a1),a1
-     df2:	|  |      adda.l 851e4 <Sw_DrawBuffer>,a1
+     df2:	|  |      adda.l 89478 <Sw_DrawBuffer>,a1
      df8:	|  |      move.l a1,84(a0)
   custom->bltbpt = Sw_XMaskRight+Sw_CopyLines[Sw_framecountscreen]*40;
      dfc:	|  |      move.w d1,d0
      dfe:	|  |      mulu.w #40,d0
-     e02:	|  |      addi.l #482918,d0
+     e02:	|  |      addi.l #499962,d0
      e08:	|  |      move.l d0,76(a0)
   custom->bltsize = (255-Sw_CopyLines[Sw_framecountscreen])*64+20;
      e0c:	|  |      move.w #255,d0
@@ -1309,7 +1309,7 @@ void Sw_Run() {
      e1c:	|  |      movea.l (a2),a6
      e1e:	|  |      jsr -228(a6)
   custom->bltcon0 = 0xffea; // Shift A Channel 15 but actual -1 (Sourceline), Channels A+B+C+D, Minterm: Set if (Channel A = 1 and Channel B = 1) or Channel C = 1 
-     e22:	|  |      movea.l 85300 <custom>,a0
+     e22:	|  |      movea.l 89594 <custom>,a0
      e28:	|  |      move.w #-22,64(a0)
   custom->bltcon1 = 0xf000; // Shift B Channel 15 but actual -1 (Sourceline)
      e2e:	|  |      move.w #-4096,66(a0)
@@ -1324,24 +1324,24 @@ void Sw_Run() {
   custom->bltdmod = 38; // Skip Left Part of Screen
      e4c:	|  |      move.w #38,102(a0)
   custom->bltapt = Sw_ViewBufferP1+Sw_CopyLines[Sw_framecountscreen]*40+60;
-     e52:	|  |      move.l 851dc <Sw_framecountscreen>,d0
+     e52:	|  |      move.l 89470 <Sw_framecountscreen>,d0
      e58:	|  |      add.l d0,d0
      e5a:	|  |      move.w (0,a3,d0.l),d1
      e5e:	|  |      move.w d1,d0
      e60:	|  |      mulu.w #80,d0
      e64:	|  |      movea.l d0,a1
      e66:	|  |      lea 120(a1),a4
-     e6a:	|  |      move.l 851e0 <Sw_ViewBufferP1>,d0
+     e6a:	|  |      move.l 89474 <Sw_ViewBufferP1>,d0
      e70:	|  |      add.l a4,d0
      e72:	|  |      move.l d0,80(a0)
   custom->bltbpt = Sw_XMaskRight+Sw_CopyLines[Sw_framecountscreen]*40;
      e76:	|  |      move.w d1,d0
      e78:	|  |      mulu.w #40,d0
-     e7c:	|  |      addi.l #482918,d0
+     e7c:	|  |      addi.l #499962,d0
      e82:	|  |      move.l d0,76(a0)
   custom->bltcpt = Sw_DrawBuffer+Sw_CopyLines[Sw_framecountscreen]*40-1+20;
      e86:	|  |      lea 38(a1),a1
-     e8a:	|  |      move.l 851e4 <Sw_DrawBuffer>,d0
+     e8a:	|  |      move.l 89478 <Sw_DrawBuffer>,d0
      e90:	|  |      add.l a1,d0
      e92:	|  |      move.l d0,72(a0)
   custom->bltdpt = Sw_DrawBuffer+Sw_CopyLines[Sw_framecountscreen]*40-1+20;    
@@ -1356,7 +1356,7 @@ void Sw_Run() {
      eaa:	|  |      movea.l (a2),a6
      eac:	|  |      jsr -228(a6)
   custom->bltafwm = 0xffff;
-     eb0:	|  |      movea.l 85300 <custom>,a1
+     eb0:	|  |      movea.l 89594 <custom>,a1
      eb6:	|  |      move.w #-1,68(a1)
   custom->bltalwm = 0xffff;
      ebc:	|  |      move.w #-1,70(a1)
@@ -1371,7 +1371,7 @@ void Sw_Run() {
   custom->bltdmod = 40; // Skip Right Part of Screen
      eda:	|  |      move.w #40,102(a1)
   custom->bltapt = Sw_ViewBufferP1+Sw_CopyLines[Sw_framecountscreen]*40+40;
-     ee0:	|  |      move.l 851dc <Sw_framecountscreen>,d0
+     ee0:	|  |      move.l 89470 <Sw_framecountscreen>,d0
      ee6:	|  |      add.l d0,d0
      ee8:	|  |      move.w (0,a3,d0.l),d1
      eec:	|  |      moveq #0,d2
@@ -1383,18 +1383,18 @@ void Sw_Run() {
      ef8:	|  |      add.l d0,d0
      efa:	|  |      add.l a0,d0
      efc:	|  |      lsl.l #4,d0
-     efe:	|  |      movea.l 851e0 <Sw_ViewBufferP1>,a0
+     efe:	|  |      movea.l 89474 <Sw_ViewBufferP1>,a0
      f04:	|  |      adda.l d0,a0
      f06:	|  |      move.l a0,80(a1)
   custom->bltdpt = Sw_DrawBuffer+Sw_CopyLines[Sw_framecountscreen]*40;
      f0a:	|  |      movea.w #-80,a0
      f0e:	|  |      adda.l d0,a0
-     f10:	|  |      move.l 851e4 <Sw_DrawBuffer>,d0
+     f10:	|  |      move.l 89478 <Sw_DrawBuffer>,d0
      f16:	|  |      add.l a0,d0
      f18:	|  |      move.l d0,84(a1)
   custom->bltbpt = Sw_XMaskLeft+Sw_CopyLines[Sw_framecountscreen]*40;
      f1c:	|  |      mulu.w #40,d1
-     f20:	|  |      addi.l #472676,d1
+     f20:	|  |      addi.l #489720,d1
      f26:	|  |      move.l d1,76(a1)
   custom->bltsize = (255-Sw_CopyLines[Sw_framecountscreen])*64+20;
      f2a:	|  |      moveq #0,d0
@@ -1407,7 +1407,7 @@ void Sw_Run() {
      f3a:	|  |      movea.l (a2),a6
      f3c:	|  |      jsr -228(a6)
   custom->bltcon0 = 0x1fea; // Shift A Channel 1 (Sourceline), Channels A+B+C+D, Minterm: Set if (Channel A = 1 and Channel B = 1) or Channel C = 1 
-     f40:	|  |      movea.l 85300 <custom>,a1
+     f40:	|  |      movea.l 89594 <custom>,a1
      f46:	|  |      move.w #8170,64(a1)
   custom->bltcon1 = 0x1000; // Shift B Channel 1
      f4c:	|  |      move.w #4096,66(a1)
@@ -1420,7 +1420,7 @@ void Sw_Run() {
   custom->bltdmod = 40; // Skip Right Part of Screen
      f64:	|  |      move.w #40,102(a1)
   custom->bltapt = Sw_ViewBufferP1+Sw_CopyLines[Sw_framecountscreen]*40+40;
-     f6a:	|  |      move.l 851dc <Sw_framecountscreen>,d0
+     f6a:	|  |      move.l 89470 <Sw_framecountscreen>,d0
      f70:	|  |      add.l d0,d0
      f72:	|  |      move.w (0,a3,d0.l),d1
      f76:	|  |      move.w d1,d2
@@ -1431,17 +1431,17 @@ void Sw_Run() {
      f80:	|  |      add.l d0,d0
      f82:	|  |      add.l a0,d0
      f84:	|  |      lsl.l #4,d0
-     f86:	|  |      movea.l 851e0 <Sw_ViewBufferP1>,a0
+     f86:	|  |      movea.l 89474 <Sw_ViewBufferP1>,a0
      f8c:	|  |      adda.l d0,a0
      f8e:	|  |      move.l a0,80(a1)
   custom->bltbpt = Sw_XMaskLeft+Sw_CopyLines[Sw_framecountscreen]*40;
      f92:	|  |      mulu.w #40,d1
-     f96:	|  |      addi.l #472676,d1
+     f96:	|  |      addi.l #489720,d1
      f9c:	|  |      move.l d1,76(a1)
   custom->bltcpt = Sw_DrawBuffer+Sw_CopyLines[Sw_framecountscreen]*40;
      fa0:	|  |      movea.w #-80,a0
      fa4:	|  |      adda.l d0,a0
-     fa6:	|  |      move.l 851e4 <Sw_DrawBuffer>,d0
+     fa6:	|  |      move.l 89478 <Sw_DrawBuffer>,d0
      fac:	|  |      add.l a0,d0
      fae:	|  |      move.l d0,72(a1)
   custom->bltdpt = Sw_DrawBuffer+Sw_CopyLines[Sw_framecountscreen]*40;    
@@ -1457,35 +1457,35 @@ void Sw_Run() {
      fc6:	|  |      movea.l (a2),a6
      fc8:	|  |      jsr -228(a6)
   custom->color[0] = 0x00;
-     fcc:	|  |      movea.l 85300 <custom>,a0
+     fcc:	|  |      movea.l 89594 <custom>,a0
      fd2:	|  |      move.w #0,384(a0)
   if(++Sw_framecountscreen == 17) Sw_framecountscreen = 0;
-     fd8:	|  |      move.l 851dc <Sw_framecountscreen>,d0
+     fd8:	|  |      move.l 89470 <Sw_framecountscreen>,d0
      fde:	|  |      addq.l #1,d0
      fe0:	|  |      moveq #17,d1
      fe2:	|  |      cmp.l d0,d1
      fe4:	|  |  /-- beq.s ff2 <Sw_Run+0x32c>
-     fe6:	|  |  |   move.l d0,851dc <Sw_framecountscreen>
+     fe6:	|  |  |   move.l d0,89470 <Sw_framecountscreen>
 }
      fec:	|  |  |   movem.l (sp)+,d2-d4/a2-a4/a6
      ff0:	|  |  |   rts
      ff2:	|  |  \-> moveq #0,d0
   if(++Sw_framecountscreen == 17) Sw_framecountscreen = 0;
-     ff4:	|  |      move.l d0,851dc <Sw_framecountscreen>
+     ff4:	|  |      move.l d0,89470 <Sw_framecountscreen>
 }
      ffa:	|  |      movem.l (sp)+,d2-d4/a2-a4/a6
      ffe:	|  |      rts
     Sw_framecount = 0;
     1000:	|  \----> clr.l 6548e <Sw_framecount>
     Utils_FillLong( (ULONG *) Sw_FontBuffer, 0, 20, 50, 0);
-    1006:	|         move.l 851f2 <Sw_FontBuffer>,d3
+    1006:	|         move.l 89486 <Sw_FontBuffer>,d3
       *target++ = pattern;
     100c:	|         pea fa0 <Sw_Run+0x2da>
     1010:	|         clr.l -(sp)
     1012:	|         move.l d3,-(sp)
     1014:	|         jsr 59f6 <memset>(pc)
     Utils_WriteLine( Sw_font, (ULONG) Sw_FontBuffer, Sw_text+Sw_textoffset);
-    1018:	|         movea.l 851d8 <Sw_textoffset>,a3
+    1018:	|         movea.l 8946c <Sw_textoffset>,a3
     101e:	|         adda.l #413580,a3
     51,35,35,31,34,20,35,42};
 
@@ -1509,26 +1509,26 @@ void Utils_WriteLine( UWORD *font, ULONG targetbuffer, char *text) {
     custom->bltsize = 4+64*50;
     103a:	|         move.w #3204,d4
     WaitBlit();
-    103e:	|     /-> movea.l 852fc <GfxBase>,a6
+    103e:	|     /-> movea.l 89590 <GfxBase>,a6
     1044:	|     |   jsr -228(a6)
     custom->bltamod = 0;
-    1048:	|     |   move.w #0,dff064 <_end+0xd79d5c>
+    1048:	|     |   move.w #0,dff064 <_end+0xd75ac8>
     custom->bltbmod = 72;
-    1050:	|     |   move.w #72,dff062 <_end+0xd79d5a>
+    1050:	|     |   move.w #72,dff062 <_end+0xd75ac6>
     custom->bltdmod = 72;
-    1058:	|     |   move.w #72,dff066 <_end+0xd79d5e>
+    1058:	|     |   move.w #72,dff066 <_end+0xd75aca>
     custom->bltafwm = 0xffff;
-    1060:	|     |   move.w #-1,dff044 <_end+0xd79d3c>
+    1060:	|     |   move.w #-1,dff044 <_end+0xd75aa8>
     custom->bltalwm = 0xffff;
-    1068:	|     |   move.w #-1,dff046 <_end+0xd79d3e>
+    1068:	|     |   move.w #-1,dff046 <_end+0xd75aaa>
     custom->bltcon1 = 0;  
-    1070:	|     |   move.w #0,dff042 <_end+0xd79d3a>
+    1070:	|     |   move.w #0,dff042 <_end+0xd75aa6>
     custom->bltcon0 = 0xdfc + (restx << 12);
     1078:	|     |   move.w d2,d0
     107a:	|     |   moveq #12,d1
     107c:	|     |   lsl.w d1,d0
     107e:	|     |   addi.w #3580,d0
-    1082:	|     |   move.w d0,dff040 <_end+0xd79d38>
+    1082:	|     |   move.w d0,dff040 <_end+0xd75aa4>
     custom->bltapt = font+4*50*index;
     1088:	|     |   move.l a2,d0
     108a:	|     |   add.l a2,d0
@@ -1536,19 +1536,19 @@ void Utils_WriteLine( UWORD *font, ULONG targetbuffer, char *text) {
     108e:	|     |   lsl.l #3,d0
     1090:	|     |   add.l a2,d0
     1092:	|     |   lsl.l #4,d0
-    1094:	|     |   addi.l #434674,d0
-    109a:	|     |   move.l d0,dff050 <_end+0xd79d48>
+    1094:	|     |   addi.l #451718,d0
+    109a:	|     |   move.l d0,dff050 <_end+0xd75ab4>
     ULONG targetlocation = targetbuffer + 0 + (x >> 4)*2;
     10a0:	|     |   move.l d2,d0
     10a2:	|     |   asr.l #4,d0
     10a4:	|     |   add.l d0,d0
     10a6:	|     |   add.l d3,d0
     custom->bltbpt = targetlocation;
-    10a8:	|     |   move.l d0,dff04c <_end+0xd79d44>
+    10a8:	|     |   move.l d0,dff04c <_end+0xd75ab0>
     custom->bltdpt = targetlocation;
-    10ae:	|     |   move.l d0,dff054 <_end+0xd79d4c>
+    10ae:	|     |   move.l d0,dff054 <_end+0xd75ab8>
     custom->bltsize = 4+64*50;
-    10b4:	|     |   move.w d4,dff058 <_end+0xd79d50>
+    10b4:	|     |   move.w d4,dff058 <_end+0xd75abc>
         x += LetterSize[*text++ - 0x20];
     10ba:	|     |   move.b (a3)+,d0
     10bc:	|     |   ext.w d0
@@ -1567,15 +1567,15 @@ void Utils_WriteLine( UWORD *font, ULONG targetbuffer, char *text) {
     10e2:	|     \-- ble.w 103e <Sw_Run+0x378>
     Sw_textoffset += 40;
     10e6:	|         moveq #40,d0
-    10e8:	|         add.l 851d8 <Sw_textoffset>,d0
-    10ee:	|         move.l d0,851d8 <Sw_textoffset>
+    10e8:	|         add.l 8946c <Sw_textoffset>,d0
+    10ee:	|         move.l d0,8946c <Sw_textoffset>
     if( Sw_textoffset >= 32*40) {
     10f4:	|         cmpi.l #1279,d0
     10fa:	|     /-- ble.s 110a <Sw_Run+0x444>
       Sw_textoffset = 0;
-    10fc:	|     |   clr.l 851d8 <Sw_textoffset>
+    10fc:	|     |   clr.l 8946c <Sw_textoffset>
       SwScrollerFinished = 1;
-    1102:	|     |   move.w #1,852f6 <SwScrollerFinished>
+    1102:	|     |   move.w #1,8958a <SwScrollerFinished>
   Sw_framecount++;
     110a:	|     \-> move.l 6548e <Sw_framecount>,d0
     1110:	|         addq.l #1,d0
@@ -1587,7 +1587,7 @@ void Utils_WriteLine( UWORD *font, ULONG targetbuffer, char *text) {
 UWORD * Sw_ClBuild() {
     111c:	    movem.l d2-d3/a2/a6,-(sp)
   ULONG *retval = AllocMem(  ZMCPSIZE, MEMF_CHIP);
-    1120:	    movea.l 85304 <SysBase>,a6
+    1120:	    movea.l 89598 <SysBase>,a6
     1126:	    move.l #1360,d0
     112c:	    moveq #2,d1
     112e:	    jsr -198(a6)
@@ -1661,15 +1661,15 @@ UWORD * Sw_ClBuild() {
     1296:	|   movem.l (sp)+,d2-d3/a2/a6
     129a:	|   rts
     Write( Output(), "Allocation of Ram for Copper failed.\n", 40);
-    129c:	\-> movea.l 852f8 <DOSBase>,a6
+    129c:	\-> movea.l 8958c <DOSBase>,a6
     12a2:	    jsr -60(a6)
-    12a6:	    movea.l 852f8 <DOSBase>,a6
+    12a6:	    movea.l 8958c <DOSBase>,a6
     12ac:	    move.l d0,d1
     12ae:	    move.l #250047,d2
     12b4:	    moveq #40,d3
     12b6:	    jsr -48(a6)
     Exit(1);
-    12ba:	    movea.l 852f8 <DOSBase>,a6
+    12ba:	    movea.l 8958c <DOSBase>,a6
     12c0:	    moveq #1,d1
     12c2:	    jsr -144(a6)
     *cl++ = *clpartinstruction++;
@@ -1746,18 +1746,18 @@ UWORD * Sw_ClBuild() {
 
   Sw_DrawBuffer = (UWORD *)Sw_ScreenBufferList[Sw_ScreenBufferOffset];
     1428:	moveq #0,d0
-    142a:	move.w 851d4 <Sw_ScreenBufferOffset>,d0
-    1430:	lea 85198 <Sw_ScreenBufferList>,a0
+    142a:	move.w 89468 <Sw_ScreenBufferOffset>,d0
+    1430:	lea 8942c <Sw_ScreenBufferList>,a0
     1436:	move.l d0,d1
     1438:	add.l d0,d1
     143a:	add.l d1,d1
-    143c:	move.l (0,a0,d1.l),851e4 <Sw_DrawBuffer>
+    143c:	move.l (0,a0,d1.l),89478 <Sw_DrawBuffer>
   Sw_ViewBufferP1 = (UWORD *)Sw_ScreenBufferList[Sw_ScreenBufferOffset+1];
     1444:	addq.l #1,d0
     1446:	add.l d0,d0
     1448:	add.l d0,d0
     144a:	move.l (0,a0,d0.l),d0
-    144e:	move.l d0,851e0 <Sw_ViewBufferP1>
+    144e:	move.l d0,89474 <Sw_ViewBufferP1>
   Sw_ViewBufferP2 = (UWORD *)Sw_ScreenBufferList[Sw_ScreenBufferOffset+1]+40;
     1454:	moveq #80,d1
     1456:	add.l d0,d1
@@ -1767,7 +1767,7 @@ UWORD * Sw_ClBuild() {
   lowword = (ULONG)Sw_FontBuffer & 0xffff;*/
 
   UWORD *copword = (UWORD *) Sw_DrawCopper;
-    1458:	movea.l 85194 <Sw_DrawCopper>,a0
+    1458:	movea.l 89428 <Sw_DrawCopper>,a0
   UWORD lowword = (ULONG)Sw_ViewBufferP1 & 0xffff;  
     145e:	move.w d0,118(a0)
   UWORD highword = (ULONG)Sw_ViewBufferP1 >> 16;
@@ -1798,7 +1798,7 @@ UWORD ColPos = 0;
 void Sw_SetColors() {
   ULONG *cl;
   UWORD *copword = Sw_DrawCopper;
-    1478:	          movea.l 85194 <Sw_DrawCopper>,a0
+    1478:	          movea.l 89428 <Sw_DrawCopper>,a0
   cl = (ULONG *) &copword[COPCOLOR];
   for(int i=0;i<4;i++) {
     *cl++ = Sw_ClColor[FrameCountBufferDraw*4+i];
@@ -1835,7 +1835,7 @@ void Sw_SetColors() {
     14ec:	          lea 152(a0),a0
   }
   if( ColPos == 12) {
-    14f0:	          cmpi.w #12,85192 <ColPos>
+    14f0:	          cmpi.w #12,89426 <ColPos>
     14f8:	   /----- beq.s 152e <Sw_SetColors+0xb6>
     ColPos = 0;
   }
@@ -1843,7 +1843,7 @@ void Sw_SetColors() {
   ULONG *clpartinstruction;
 
   clpartinstruction = Sw_ClColorDim + Sw_ClColorDimPos;
-    14fa:	/--|----> move.w 85190 <Sw_ClColorDimPos>,d0
+    14fa:	/--|----> move.w 89424 <Sw_ClColorDimPos>,d0
     1500:	|  |      moveq #0,d1
     1502:	|  |      move.w d0,d1
     1504:	|  |      addi.l #34014,d1
@@ -1855,7 +1855,7 @@ void Sw_SetColors() {
     1512:	|  |  /-- bls.s 1516 <Sw_SetColors+0x9e>
     1514:	|  |  |   clr.w d0
     Sw_ClColorDimPos = 0;
-    1516:	|  |  \-> move.w d0,85190 <Sw_ClColorDimPos>
+    1516:	|  |  \-> move.w d0,89424 <Sw_ClColorDimPos>
   }  
 
   for(int i=0; i<Sw_ClColorDimLength;i++) 
@@ -1871,12 +1871,12 @@ void Sw_SetColors() {
     1528:	|  |      lea 12(sp),sp
     152c:	|  |      rts
     ColPos = 0;
-    152e:	|  \----> clr.w 85192 <ColPos>
+    152e:	|  \----> clr.w 89426 <ColPos>
     1534:	\-------- bra.s 14fa <Sw_SetColors+0x82>
 
 00001536 <Sw_VblankHandler>:
   custom->intreq = 0x0020;
-    1536:	          movea.l 85300 <custom>,a0
+    1536:	          movea.l 89594 <custom>,a0
     153c:	          move.w #32,156(a0)
   if(Sw_MusicDelay > 0) {
     1542:	          move.w 64eda <Sw_MusicDelay>,d0
@@ -1885,7 +1885,7 @@ void Sw_SetColors() {
     154a:	|         subq.w #1,d0
     154c:	|         move.w d0,64eda <Sw_MusicDelay>
   if( Sw_InitComplete == 1) {
-    1552:	|  /----> cmpi.w #1,851d6 <Sw_InitComplete>
+    1552:	|  /----> cmpi.w #1,8946a <Sw_InitComplete>
     155a:	|  |  /-- beq.s 155e <Sw_VblankHandler+0x28>
 }
     155c:	|  |  |   rts
@@ -1907,18 +1907,18 @@ void Sw_SetColors() {
       FrameCountBufferDraw = 0;
     1586:	      \-> move.w #0,64ed8 <FrameCountBufferDraw>
       Sw_BlitFrame = 1;
-    158e:	          move.w #1,851e8 <Sw_BlitFrame>
+    158e:	          move.w #1,8947c <Sw_BlitFrame>
       if(Sw_ScreenBufferOffset == 0) { 
-    1596:	          tst.w 851d4 <Sw_ScreenBufferOffset>
+    1596:	          tst.w 89468 <Sw_ScreenBufferOffset>
     159c:	      /-- bne.s 15ae <Sw_VblankHandler+0x78>
         Sw_ScreenBufferOffset = 2; 
-    159e:	      |   move.w #2,851d4 <Sw_ScreenBufferOffset>
+    159e:	      |   move.w #2,89468 <Sw_ScreenBufferOffset>
     Sw_SetBplPointers();
     15a6:	      |   jsr 1428 <Sw_SetBplPointers>(pc)
     Sw_SetColors();   
     15aa:	      |   bra.w 1478 <Sw_SetColors>
         Sw_ScreenBufferOffset = 0; 
-    15ae:	      \-> clr.w 851d4 <Sw_ScreenBufferOffset>
+    15ae:	      \-> clr.w 89468 <Sw_ScreenBufferOffset>
     Sw_SetBplPointers();
     15b4:	          jsr 1428 <Sw_SetBplPointers>(pc)
     Sw_SetColors();   
@@ -1940,7 +1940,7 @@ UWORD End_ScreenBufferOffset = 0;
 void End_VblankHandler() {
 
   custom->intreq = 0x0020;
-    15be:	movea.l 85300 <custom>,a0
+    15be:	movea.l 89594 <custom>,a0
     15c4:	move.w #32,156(a0)
   p61Music();
     15ca:	bra.w c4c <p61Music>
@@ -1951,10 +1951,10 @@ void End_VblankHandler() {
     15d2:	                                                             movem.l d2-d5/a2,-(sp)
     15d6:	                                                             move.l 44(sp),d1
   UWORD *tmp = (UWORD *) DrawCopper + 84;
-    15da:	                                                             movea.l 852d6 <DrawCopper>,a1
+    15da:	                                                             movea.l 8956a <DrawCopper>,a1
     15e0:	                                                             lea 168(a1),a2
   if(DrawBuffer->maxytotal < 0) {
-    15e4:	                                                             movea.l 85184 <DrawBuffer>,a0
+    15e4:	                                                             movea.l 89418 <DrawBuffer>,a0
     15ea:	                                                             move.w 52(a0),d0
     15ee:	                                                /----------- bmi.w 178e <SetCl+0x1c0>
   } else if(DrawBuffer->minytotal < 0) {
@@ -3071,7 +3071,7 @@ UBYTE * Clbuild() {
     2186:	    movem.l d2-d3/a2/a6,-(sp)
   
   UBYTE *retval = AllocMem(  ZMCPSIZE, MEMF_CHIP);
-    218a:	    movea.l 85304 <SysBase>,a6
+    218a:	    movea.l 89598 <SysBase>,a6
     2190:	    move.l #1360,d0
     2196:	    moveq #2,d1
     2198:	    jsr -198(a6)
@@ -3165,15 +3165,15 @@ UBYTE * Clbuild() {
     232a:	|   movem.l (sp)+,d2-d3/a2/a6
     232e:	|   rts
     Write( Output(), "Allocation of Ram for Copper failed.\n", 40);
-    2330:	\-> movea.l 852f8 <DOSBase>,a6
+    2330:	\-> movea.l 8958c <DOSBase>,a6
     2336:	    jsr -60(a6)
-    233a:	    movea.l 852f8 <DOSBase>,a6
+    233a:	    movea.l 8958c <DOSBase>,a6
     2340:	    move.l d0,d1
     2342:	    move.l #250047,d2
     2348:	    moveq #40,d3
     234a:	    jsr -48(a6)
     Exit(1);
-    234e:	    movea.l 852f8 <DOSBase>,a6
+    234e:	    movea.l 8958c <DOSBase>,a6
     2354:	    moveq #1,d1
     2356:	    jsr -144(a6)
     *cl++ = *clpartinstruction++;
@@ -3248,21 +3248,21 @@ void SetBplPointers() {
     24e6:	    move.l a2,-(sp)
 
   DrawBuffer = ScreenBufferList[ScreenBufferOffset];
-    24e8:	    movea.w 84e70 <ScreenBufferOffset>,a0
+    24e8:	    movea.w 89104 <ScreenBufferOffset>,a0
     24ee:	    moveq #0,d0
     24f0:	    move.w a0,d0
-    24f2:	    lea 85202 <ScreenBufferList>,a2
+    24f2:	    lea 89496 <ScreenBufferList>,a2
     24f8:	    move.l d0,d1
     24fa:	    add.l d0,d1
     24fc:	    add.l d1,d1
-    24fe:	    move.l (0,a2,d1.l),85184 <DrawBuffer>
+    24fe:	    move.l (0,a2,d1.l),89418 <DrawBuffer>
   ViewBuffer = ScreenBufferList[ScreenBufferOffset+1];  
     2506:	    move.l d0,d1
     2508:	    addq.l #1,d1
     250a:	    add.l d1,d1
     250c:	    add.l d1,d1
     250e:	    movea.l (0,a2,d1.l),a1
-    2512:	    move.l a1,85174 <ViewBuffer>
+    2512:	    move.l a1,89408 <ViewBuffer>
   ClearBuffer = ScreenBufferList[ScreenBufferOffset+2];  
     2518:	    addq.l #2,d0
     251a:	    add.l d0,d0
@@ -3277,9 +3277,9 @@ void SetBplPointers() {
     252a:	/-- bls.s 252e <SetBplPointers+0x48>
     252c:	|   clr.w d0
   ClearBuffer = ScreenBufferList[ScreenBufferOffset+2];  
-    252e:	\-> move.l d1,85178 <ClearBuffer>
+    252e:	\-> move.l d1,8940c <ClearBuffer>
   ScreenBufferOffset += 3;
-    2534:	    move.w d0,84e70 <ScreenBufferOffset>
+    2534:	    move.w d0,89104 <ScreenBufferOffset>
       ScreenBufferOffset = 0;   
   }
 
@@ -3292,7 +3292,7 @@ void SetBplPointers() {
   UWORD lowword = ptr & 0xffff;  
 
   UWORD *copword = (UWORD *) DrawCopper;
-    2544:	    movea.l 852d6 <DrawCopper>,a0
+    2544:	    movea.l 8956a <DrawCopper>,a0
   UWORD lowword = ptr & 0xffff;  
     254a:	    move.w d0,118(a0)
   UWORD highword = ptr >> 16;
@@ -3336,13 +3336,13 @@ void KPrintF(const char* fmt, ...) {
     2582:	    lea -128(sp),sp
     2586:	    movem.l a2-a3/a6,-(sp)
 	if(*((UWORD *)UaeDbgLog) == 0x4eb9 || *((UWORD *)UaeDbgLog) == 0xa00e) {
-    258a:	    move.w f0ff60 <_end+0xe8ac58>,d0
+    258a:	    move.w f0ff60 <_end+0xe869c4>,d0
     2590:	    cmpi.w #20153,d0
     2594:	/-- beq.s 25c0 <KPrintF+0x3e>
     2596:	|   cmpi.w #-24562,d0
     259a:	+-- beq.s 25c0 <KPrintF+0x3e>
 		RawDoFmt((CONST_STRPTR)fmt, vl, KPutCharX, 0);
-    259c:	|   movea.l 85304 <SysBase>,a6
+    259c:	|   movea.l 89598 <SysBase>,a6
     25a2:	|   movea.l 144(sp),a0
     25a6:	|   lea 148(sp),a1
     25aa:	|   lea 5b7e <KPutCharX>,a2
@@ -3353,7 +3353,7 @@ void KPrintF(const char* fmt, ...) {
     25ba:	|   lea 128(sp),sp
     25be:	|   rts
 		RawDoFmt((CONST_STRPTR)fmt, vl, PutChar, temp);
-    25c0:	\-> movea.l 85304 <SysBase>,a6
+    25c0:	\-> movea.l 89598 <SysBase>,a6
     25c6:	    movea.l 144(sp),a0
     25ca:	    lea 148(sp),a1
     25ce:	    lea 5b8c <PutChar>,a2
@@ -3362,7 +3362,7 @@ void KPrintF(const char* fmt, ...) {
 		UaeDbgLog(86, temp);
     25dc:	    move.l a3,-(sp)
     25de:	    pea 56 <_start+0x56>
-    25e2:	    jsr f0ff60 <_end+0xe8ac58>
+    25e2:	    jsr f0ff60 <_end+0xe869c4>
 	if(*((UWORD *)UaeDbgLog) == 0x4eb9 || *((UWORD *)UaeDbgLog) == 0xa00e) {
     25e8:	    addq.l #8,sp
 }
@@ -3431,34 +3431,34 @@ void KPrintF(const char* fmt, ...) {
     266c:	                                                                                                            |  |  |  |  |  |  |                              asr.w #4,d0
     266e:	                                                                                                            |  |  |  |  |  |  |                              movea.w d0,a0
     2670:	                                                                                                            |  |  |  |  |  |  |                              adda.l a0,a0
-    2672:	                                                                                                            |  |  |  |  |  |  |                              movea.l 852e6 <PrepareBuffer>,a1
+    2672:	                                                                                                            |  |  |  |  |  |  |                              movea.l 8957a <PrepareBuffer>,a1
     2678:	                                                                                                            |  |  |  |  |  |  |                              adda.l a0,a1
   UWORD tst=*(volatile UWORD*)&custom->dmaconr; //for compatiblity a1000
-    267a:	                                                                                                            |  |  |  |  |  |  |                              movea.w dff002 <_end+0xd79cfa>,a0
+    267a:	                                                                                                            |  |  |  |  |  |  |                              movea.w dff002 <_end+0xd75a66>,a0
 	while (*(volatile UWORD*)&custom->dmaconr&(1<<14)) {} //blitter busy wait
-    2680:	                                                                                                            |  |  |  |  |  |  |                          /-> move.w dff002 <_end+0xd79cfa>,d0
+    2680:	                                                                                                            |  |  |  |  |  |  |                          /-> move.w dff002 <_end+0xd75a66>,d0
     2686:	                                                                                                            |  |  |  |  |  |  |                          |   btst #14,d0
     268a:	                                                                                                            |  |  |  |  |  |  |                          \-- bne.s 2680 <DrawRect+0x8c>
   custom->bltcon0 = 0x01f0;
-    268c:	                                                                                                            |  |  |  |  |  |  |                              move.w #496,dff040 <_end+0xd79d38>
+    268c:	                                                                                                            |  |  |  |  |  |  |                              move.w #496,dff040 <_end+0xd75aa4>
   custom->bltcon1 = 0x0;
-    2694:	                                                                                                            |  |  |  |  |  |  |                              move.w #0,dff042 <_end+0xd79d3a>
+    2694:	                                                                                                            |  |  |  |  |  |  |                              move.w #0,dff042 <_end+0xd75aa6>
   custom->bltadat = data;
-    269c:	                                                                                                            |  |  |  |  |  |  |                              move.w #0,dff074 <_end+0xd79d6c>
+    269c:	                                                                                                            |  |  |  |  |  |  |                              move.w #0,dff074 <_end+0xd75ad8>
   custom->bltdpt = Target;  
-    26a4:	                                                                                                            |  |  |  |  |  |  |                              move.l a1,dff054 <_end+0xd79d4c>
+    26a4:	                                                                                                            |  |  |  |  |  |  |                              move.l a1,dff054 <_end+0xd75ab8>
   custom->bltdmod = mod;
-    26aa:	                                                                                                            |  |  |  |  |  |  |                              move.w d7,dff066 <_end+0xd79d5e>
+    26aa:	                                                                                                            |  |  |  |  |  |  |                              move.w d7,dff066 <_end+0xd75aca>
   custom->bltsize = lines*64+linelength;
     26b0:	                                                                                                            |  |  |  |  |  |  |                              lsl.w #6,d1
     26b2:	                                                                                                            |  |  |  |  |  |  |                              add.w a3,d1
-    26b4:	                                                                                                            |  |  |  |  |  |  |                              move.w d1,dff058 <_end+0xd79d50>
+    26b4:	                                                                                                            |  |  |  |  |  |  |                              move.w d1,dff058 <_end+0xd75abc>
     custom->bltcon1 = 0x0000;      
-    26ba:	                                                                                                            |  |  |  |  |  |  |                              move.w #0,dff042 <_end+0xd79d3a>
+    26ba:	                                                                                                            |  |  |  |  |  |  |                              move.w #0,dff042 <_end+0xd75aa6>
     custom->bltcdat = 0x0;
-    26c2:	                                                                                                            |  |  |  |  |  |  |                              move.w #0,dff070 <_end+0xd79d68>
+    26c2:	                                                                                                            |  |  |  |  |  |  |                              move.w #0,dff070 <_end+0xd75ad4>
     BltCon0LineDraw = 0x0500;
-    26ca:	                                                                                                            |  |  |  |  |  |  |                              move.w #1280,84e72 <BltCon0LineDraw>
+    26ca:	                                                                                                            |  |  |  |  |  |  |                              move.w #1280,89106 <BltCon0LineDraw>
   WORD x1 = square->Vertices[index1].X;
     26d2:	                                                                                                            |  |  |  |  |  |  |                              movea.w (a2),a6
   WORD x2 = square->Vertices[index2].X;
@@ -3475,7 +3475,7 @@ void KPrintF(const char* fmt, ...) {
     26ec:	                                       |                                                                    |  |  |  |  |  |  |                              tst.w d0
     26ee:	                                    /--|--------------------------------------------------------------------|--|--|--|--|--|--|----------------------------- bne.w 2f54 <DrawRect+0x960>
     BltCon0LineDraw = 0x0700;
-    26f2:	                  /-----------------|--|--------------------------------------------------------------------|--|--|--|--|--|--|----------------------------> move.w #1792,84e72 <BltCon0LineDraw>
+    26f2:	                  /-----------------|--|--------------------------------------------------------------------|--|--|--|--|--|--|----------------------------> move.w #1792,89106 <BltCon0LineDraw>
   WORD x2 = square->Vertices[index2].X;
     26fa:	                  |                 |  |                                                                    |  |  |  |  |  |  |                              movea.w 8(a2),a4
   WORD height = y1 - y2;
@@ -3513,14 +3513,14 @@ void KPrintF(const char* fmt, ...) {
     2740:	                  |                 |  |                    |                             |  |  |  |  |     |  |  |  |  |  |  |        |                     tst.w d0
     2742:	                  |                 |  |                    |                             |  |  |  |  |     |  |  |  |  |  |  |  /-----|-------------------- bne.w 28da <DrawRect+0x2e6>
   ULONG bltdpt = (ULONG) PrepareBuffer + targetbufferoffset;
-    2746:	                  |                 |  |                    |                             |  |  |  |  |     |  |  |  |  |  |  |  |  /--|-------------------> move.l 852e6 <PrepareBuffer>,d0
+    2746:	                  |                 |  |                    |                             |  |  |  |  |     |  |  |  |  |  |  |  |  /--|-------------------> move.l 8957a <PrepareBuffer>,d0
     Utils_CopyPolygon(copymin,ypos,height,xlength,PrepareBuffer, DrawBuffer->BitPlane+startbufferoffset, 0xcf, square->Color);
     274c:	                  |                 |  |                    |                             |  |  |  |  |     |  |  |  |  |  |  |  |  |  |                     move.w 30(a2),d3
   UWORD tmp = (startx/16)*2;
     2750:	                  |                 |  |                    |                             |  |  |  |  |     |  |  |  |  |  |  |  |  |  |                     lsr.w #4,d2
     2752:	                  |                 |  |                    |                             |  |  |  |  |     |  |  |  |  |  |  |  |  |  |                     add.w d2,d2
     2754:	                  |                 |  |                    |                             |  |  |  |  |     |  |  |  |  |  |  |  |  |  |                     andi.l #65535,d4
-    275a:	                  |                 |  |                    |                             |  |  |  |  |     |  |  |  |  |  |  |  |  |  |                     movea.l 85184 <DrawBuffer>,a0
+    275a:	                  |                 |  |                    |                             |  |  |  |  |     |  |  |  |  |  |  |  |  |  |                     movea.l 89418 <DrawBuffer>,a0
     2760:	                  |                 |  |                    |                             |  |  |  |  |     |  |  |  |  |  |  |  |  |  |                     add.l (a0),d4
   ULONG bltdpt = (ULONG) targetbuffer + tmp;
     2762:	                  |                 |  |                    |                             |  |  |  |  |     |  |  |  |  |  |  |  |  |  |                     moveq #0,d1
@@ -3528,19 +3528,19 @@ void KPrintF(const char* fmt, ...) {
     2766:	                  |                 |  |                    |                             |  |  |  |  |     |  |  |  |  |  |  |  |  |  |                     movea.l d4,a0
     2768:	                  |                 |  |                    |                             |  |  |  |  |     |  |  |  |  |  |  |  |  |  |                     adda.l d1,a0
   UWORD tst=*(volatile UWORD*)&custom->dmaconr; //for compatiblity a1000
-    276a:	                  |                 |  |                    |                             |  |  |  |  |     |  |  |  |  |  |  |  |  |  |                     move.w dff002 <_end+0xd79cfa>,d1
+    276a:	                  |                 |  |                    |                             |  |  |  |  |     |  |  |  |  |  |  |  |  |  |                     move.w dff002 <_end+0xd75a66>,d1
 	while (*(volatile UWORD*)&custom->dmaconr&(1<<14)) {} //blitter busy wait
-    2770:	                  |                 |  |                    |                             |  |  |  |  |  /--|--|--|--|--|--|--|--|--|--|-------------------> move.w dff002 <_end+0xd79cfa>,d1
+    2770:	                  |                 |  |                    |                             |  |  |  |  |  /--|--|--|--|--|--|--|--|--|--|-------------------> move.w dff002 <_end+0xd75a66>,d1
     2776:	                  |                 |  |                    |                             |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                     move.w d1,d4
     2778:	                  |                 |  |                    |                             |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                     andi.w #16384,d4
     277c:	                  |                 |  |                    |                             |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                     btst #14,d1
     2780:	                  |                 |  |                    |                             |  |  |  |  |  +--|--|--|--|--|--|--|--|--|--|-------------------- bne.s 2770 <DrawRect+0x17c>
   custom->bltamod = 64 - length*2;
-    2782:	                  |                 |  |                    |                             |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                     move.w d7,dff064 <_end+0xd79d5c>
+    2782:	                  |                 |  |                    |                             |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                     move.w d7,dff064 <_end+0xd75ac8>
   custom->bltbmod = 64 - length*2;
-    2788:	                  |                 |  |                    |                             |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                     move.w d7,dff062 <_end+0xd79d5a>
+    2788:	                  |                 |  |                    |                             |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                     move.w d7,dff062 <_end+0xd75ac6>
   custom->bltdmod = 64 - length*2;  
-    278e:	                  |                 |  |                    |                             |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                     move.w d7,dff066 <_end+0xd79d5e>
+    278e:	                  |                 |  |                    |                             |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                     move.w d7,dff066 <_end+0xd75aca>
   if(color > 3) //Bitplane 3 is handled separately and reserved  for Letters                               
     2794:	                  |                 |  |                    |                             |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                     cmpi.w #3,d3
     2798:	                  |                 |  |                    |                             |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |           /-------- bhi.w 2854 <DrawRect+0x260>
@@ -3576,21 +3576,21 @@ void KPrintF(const char* fmt, ...) {
     27d6:	                  |  |  |           |  |                    |                             |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |        |  |     |   cmpi.w #1,d7
     27da:	                  |  |  |           |  |                    |                             |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  /-----|--|-----|-- beq.w 2884 <DrawRect+0x290>
     custom->bltcon0 = 0x0d00 | minterms;
-    27de:	                  |  |  |           |  |                    |                             |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  /--|--|-----|-> move.w d0,dff040 <_end+0xd79d38>
+    27de:	                  |  |  |           |  |                    |                             |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  /--|--|-----|-> move.w d0,dff040 <_end+0xd75aa4>
     custom->bltapt = (UBYTE *)bltapt;
-    27e4:	                  |  |  |           |  |                    |                             |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |     |   move.l d2,dff050 <_end+0xd79d48>
+    27e4:	                  |  |  |           |  |                    |                             |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |     |   move.l d2,dff050 <_end+0xd75ab4>
     custom->bltbpt = (UBYTE *)bltdpt;
-    27ea:	                  |  |  |           |  |                    |                             |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |     |   move.l a0,dff04c <_end+0xd79d44>
+    27ea:	                  |  |  |           |  |                    |                             |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |     |   move.l a0,dff04c <_end+0xd75ab0>
     custom->bltdpt = (UBYTE *)bltdpt;
-    27f0:	                  |  |  |           |  |                    |                             |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |     |   move.l a0,dff054 <_end+0xd79d4c>
+    27f0:	                  |  |  |           |  |                    |                             |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |     |   move.l a0,dff054 <_end+0xd75ab8>
     custom->bltsize = bltsize;
-    27f6:	                  |  |  |           |  |                    |                             |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |     |   move.w d5,dff058 <_end+0xd79d50>
+    27f6:	                  |  |  |           |  |                    |                             |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |     |   move.w d5,dff058 <_end+0xd75abc>
     bltdpt += 64*256;
     27fc:	                  |  |  |           |  |                    |                             |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |     |   lea 16384(a0),a0
     UWORD tst=*(volatile UWORD*)&custom->dmaconr; //for compatiblity a1000
-    2800:	                  |  |  |           |  |                    |                             |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |     |   move.w dff002 <_end+0xd79cfa>,d0
+    2800:	                  |  |  |           |  |                    |                             |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |     |   move.w dff002 <_end+0xd75a66>,d0
     while (*(volatile UWORD*)&custom->dmaconr&(1<<14)) {} //blitter busy wait
-    2806:	                  |  |  |           |  |                    |                             |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  /--|-> move.w dff002 <_end+0xd79cfa>,d0
+    2806:	                  |  |  |           |  |                    |                             |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  /--|-> move.w dff002 <_end+0xd75a66>,d0
     280c:	                  |  |  |           |  |                    |                             |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |   btst #14,d0
     2810:	                  |  |  |           |  |                    |                             |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  +--|-- bne.s 2806 <DrawRect+0x212>
   for(UWORD i = 0;i<planes;i++) 
@@ -3653,19 +3653,19 @@ void KPrintF(const char* fmt, ...) {
     2880:	                  |  |  +-----------|--|--------------------|-----------------------------|--|--|--|--|--|-----------------------|--|--|--|--|--|-----|----- bra.w 27cc <DrawRect+0x1d8>
     2884:	                  |  |  |           |  |                    |                             |  |  |  |  |  |                       |  |  |  >--|--|-----|----> move.w d6,d0
     custom->bltcon0 = 0x0d00 | minterms;
-    2886:	                  |  |  |           |  |                    |                             |  |  |  |  |  |                       |  |  |  |  |  |     |      move.w d0,dff040 <_end+0xd79d38>
+    2886:	                  |  |  |           |  |                    |                             |  |  |  |  |  |                       |  |  |  |  |  |     |      move.w d0,dff040 <_end+0xd75aa4>
     custom->bltapt = (UBYTE *)bltapt;
-    288c:	                  |  |  |           |  |                    |                             |  |  |  |  |  |                       |  |  |  |  |  |     |      move.l d2,dff050 <_end+0xd79d48>
+    288c:	                  |  |  |           |  |                    |                             |  |  |  |  |  |                       |  |  |  |  |  |     |      move.l d2,dff050 <_end+0xd75ab4>
     custom->bltbpt = (UBYTE *)bltdpt;
-    2892:	                  |  |  |           |  |                    |                             |  |  |  |  |  |                       |  |  |  |  |  |     |      move.l a0,dff04c <_end+0xd79d44>
+    2892:	                  |  |  |           |  |                    |                             |  |  |  |  |  |                       |  |  |  |  |  |     |      move.l a0,dff04c <_end+0xd75ab0>
     custom->bltdpt = (UBYTE *)bltdpt;
-    2898:	                  |  |  |           |  |                    |                             |  |  |  |  |  |                       |  |  |  |  |  |     |      move.l a0,dff054 <_end+0xd79d4c>
+    2898:	                  |  |  |           |  |                    |                             |  |  |  |  |  |                       |  |  |  |  |  |     |      move.l a0,dff054 <_end+0xd75ab8>
     custom->bltsize = bltsize;
-    289e:	                  |  |  |           |  |                    |                             |  |  |  |  |  |                       |  |  |  |  |  |     |      move.w d5,dff058 <_end+0xd79d50>
+    289e:	                  |  |  |           |  |                    |                             |  |  |  |  |  |                       |  |  |  |  |  |     |      move.w d5,dff058 <_end+0xd75abc>
     bltdpt += 64*256;
     28a4:	                  |  |  |           |  |                    |                             |  |  |  |  |  |                       |  |  |  |  |  |     |      lea 16384(a0),a0
     UWORD tst=*(volatile UWORD*)&custom->dmaconr; //for compatiblity a1000
-    28a8:	                  |  |  |           |  |                    |                             |  |  |  |  |  |                       |  |  |  |  |  |     |      move.w dff002 <_end+0xd79cfa>,d0
+    28a8:	                  |  |  |           |  |                    |                             |  |  |  |  |  |                       |  |  |  |  |  |     |      move.w dff002 <_end+0xd75a66>,d0
     28ae:	                  |  |  |           |  |                    |                             |  |  |  |  |  |                       |  |  |  |  |  |     \----- bra.w 2806 <DrawRect+0x212>
       bit = color & 1;
     28b2:	                  |  |  |           |  |                    |                             |  |  |  |  |  |                       |  |  |  |  |  \----------> move.w d3,d7
@@ -3808,50 +3808,50 @@ void KPrintF(const char* fmt, ...) {
     29e2:	|  |  |        |  |  |  |  |  |  |  |  |                    |                             |  |  |  |  |  |                       |  |  |  |  |  |  |  |      cmp.w a6,d0
     29e4:	|  |  |  /-----|--|--|--|--|--|--|--|--|--------------------|-----------------------------|--|--|--|--|--|-----------------------|--|--|--|--|--|--|--|----- bgt.w 2aac <DrawRect+0x4b8>
   UWORD tst=*(volatile UWORD*)&custom->dmaconr; //for compatiblity a1000
-    29e8:	|  |  |  |  /--|--|--|--|--|--|--|--|--|--------------------|-----------------------------|--|--|--|--|--|-----------------------|--|--|--|--|--|--|--|----> move.w dff002 <_end+0xd79cfa>,d0
+    29e8:	|  |  |  |  /--|--|--|--|--|--|--|--|--|--------------------|-----------------------------|--|--|--|--|--|-----------------------|--|--|--|--|--|--|--|----> move.w dff002 <_end+0xd75a66>,d0
     29ee:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                    |                             |  |  |  |  |  |                       |  |  |  |  |  |  |  |      move.w a6,d1
 	while (*(volatile UWORD*)&custom->dmaconr&(1<<14)) {} //blitter busy wait
-    29f0:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                    |                             |  |  |  |  |  |                       |  |  |  |  |  |  |  |  /-> move.w dff002 <_end+0xd79cfa>,d0
+    29f0:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                    |                             |  |  |  |  |  |                       |  |  |  |  |  |  |  |  /-> move.w dff002 <_end+0xd75a66>,d0
     29f6:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                    |                             |  |  |  |  |  |                       |  |  |  |  |  |  |  |  |   btst #14,d0
     29fa:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                    |                             |  |  |  |  |  |                       |  |  |  |  |  |  |  |  +-- bne.s 29f0 <DrawRect+0x3fc>
   custom->bltcon0 = BltCon0LineDraw | minterm;
     29fc:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                    |                             |  |  |  |  |  |                       |  |  |  |  |  |  |  |  |   movea.w d1,a6
-    29fe:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                    |                             |  |  |  |  |  |                       |  |  |  |  |  |  |  |  |   move.w 84e72 <BltCon0LineDraw>,d0
+    29fe:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                    |                             |  |  |  |  |  |                       |  |  |  |  |  |  |  |  |   move.w 89106 <BltCon0LineDraw>,d0
     2a04:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                    |                             |  |  |  |  |  |                       |  |  |  |  |  |  |  |  |   or.w 64(sp),d0
-    2a08:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                    |                             |  |  |  |  |  |                       |  |  |  |  |  |  |  |  |   move.w d0,dff040 <_end+0xd79d38>
+    2a08:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                    |                             |  |  |  |  |  |                       |  |  |  |  |  |  |  |  |   move.w d0,dff040 <_end+0xd75aa4>
   ULONG bltdpt = (ULONG) PrepareBuffer + targetbufferoffset;
-    2a0e:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                    |                             |  |  |  |  |  |                       |  |  |  |  |  |  |  |  |   move.l 852e6 <PrepareBuffer>,d0
+    2a0e:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                    |                             |  |  |  |  |  |                       |  |  |  |  |  |  |  |  |   move.l 8957a <PrepareBuffer>,d0
   ULONG bltbpt = (ULONG) LineBuffer + startbufferoffset;
-    2a14:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                    |                             |  |  |  |  |  |                       |  |  |  |  |  |  |  |  |   adda.l 852ea <LineBuffer>,a4
+    2a14:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                    |                             |  |  |  |  |  |                       |  |  |  |  |  |  |  |  |   adda.l 8957e <LineBuffer>,a4
   custom->bltbpt = (UBYTE *)bltbpt;
-    2a1a:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                    |                             |  |  |  |  |  |                       |  |  |  |  |  |  |  |  |   move.l a4,dff04c <_end+0xd79d44>
+    2a1a:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                    |                             |  |  |  |  |  |                       |  |  |  |  |  |  |  |  |   move.l a4,dff04c <_end+0xd75ab0>
   ULONG bltdpt = (ULONG) PrepareBuffer + targetbufferoffset;
     2a20:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                    |                             |  |  |  |  |  |                       |  |  |  |  |  |  |  |  |   moveq #0,d1
     2a22:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                    |                             |  |  |  |  |  |                       |  |  |  |  |  |  |  |  |   move.w a5,d1
     2a24:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                    |                             |  |  |  |  |  |                       |  |  |  |  |  |  |  |  |   movea.l d1,a5
     2a26:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                    |                             |  |  |  |  |  |                       |  |  |  |  |  |  |  |  |   adda.l d0,a5
   custom->bltcpt = (UBYTE *)bltdpt;
-    2a28:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                    |                             |  |  |  |  |  |                       |  |  |  |  |  |  |  |  |   move.l a5,dff048 <_end+0xd79d40>
+    2a28:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                    |                             |  |  |  |  |  |                       |  |  |  |  |  |  |  |  |   move.l a5,dff048 <_end+0xd75aac>
   custom->bltdpt = (UBYTE *)bltdpt;  
-    2a2e:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                    |                             |  |  |  |  |  |                       |  |  |  |  |  |  |  |  |   move.l a5,dff054 <_end+0xd79d4c>
+    2a2e:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                    |                             |  |  |  |  |  |                       |  |  |  |  |  |  |  |  |   move.l a5,dff054 <_end+0xd75ab8>
   custom->bltbmod = bltbmod;
-    2a34:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                    |                             |  |  |  |  |  |                       |  |  |  |  |  |  |  |  |   move.w a6,dff062 <_end+0xd79d5a>
+    2a34:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                    |                             |  |  |  |  |  |                       |  |  |  |  |  |  |  |  |   move.w a6,dff062 <_end+0xd75ac6>
   custom->bltcmod = bltdmod;
-    2a3a:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                    |                             |  |  |  |  |  |                       |  |  |  |  |  |  |  |  |   move.w a0,dff060 <_end+0xd79d58>
+    2a3a:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                    |                             |  |  |  |  |  |                       |  |  |  |  |  |  |  |  |   move.w a0,dff060 <_end+0xd75ac4>
   custom->bltdmod = bltdmod;
-    2a40:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                    |                             |  |  |  |  |  |                       |  |  |  |  |  |  |  |  |   move.w a0,dff066 <_end+0xd79d5e>
+    2a40:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                    |                             |  |  |  |  |  |                       |  |  |  |  |  |  |  |  |   move.w a0,dff066 <_end+0xd75aca>
   custom->bltsize = bltwidth + 64*height;
     2a46:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                    |                             |  |  |  |  |  |                       |  |  |  |  |  |  |  |  |   move.w a3,d1
     2a48:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                    |                             |  |  |  |  |  |                       |  |  |  |  |  |  |  |  |   lsl.w #6,d1
     2a4a:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                    |                             |  |  |  |  |  |                       |  |  |  |  |  |  |  |  |   add.w d1,d3
-    2a4c:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                    |                             |  |  |  |  |  |                       |  |  |  |  |  |  |  |  |   move.w d3,dff058 <_end+0xd79d50>
+    2a4c:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                    |                             |  |  |  |  |  |                       |  |  |  |  |  |  |  |  |   move.w d3,dff058 <_end+0xd75abc>
     Utils_CopyPolygon(copymin,ypos,height,xlength,PrepareBuffer, DrawBuffer->BitPlane+startbufferoffset, 0xcf, square->Color);
     2a52:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                    |                             |  |  |  |  |  |                       |  |  |  |  |  |  |  |  |   move.w 30(a2),d3
   UWORD tmp = (startx/16)*2;
     2a56:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                    |                             |  |  |  |  |  |                       |  |  |  |  |  |  |  |  |   lsr.w #4,d2
     2a58:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                    |                             |  |  |  |  |  |                       |  |  |  |  |  |  |  |  |   add.w d2,d2
     2a5a:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                    |                             |  |  |  |  |  |                       |  |  |  |  |  |  |  |  |   andi.l #65535,d4
-    2a60:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                    |                             |  |  |  |  |  |                       |  |  |  |  |  |  |  |  |   movea.l 85184 <DrawBuffer>,a0
+    2a60:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                    |                             |  |  |  |  |  |                       |  |  |  |  |  |  |  |  |   movea.l 89418 <DrawBuffer>,a0
     2a66:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                    |                             |  |  |  |  |  |                       |  |  |  |  |  |  |  |  |   add.l (a0),d4
   ULONG bltdpt = (ULONG) targetbuffer + tmp;
     2a68:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                    |                             |  |  |  |  |  |                       |  |  |  |  |  |  |  |  |   moveq #0,d1
@@ -3859,7 +3859,7 @@ void KPrintF(const char* fmt, ...) {
     2a6c:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                    |                             |  |  |  |  |  |                       |  |  |  |  |  |  |  |  |   movea.l d4,a0
     2a6e:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                    |                             |  |  |  |  |  |                       |  |  |  |  |  |  |  |  |   adda.l d1,a0
   UWORD tst=*(volatile UWORD*)&custom->dmaconr; //for compatiblity a1000
-    2a70:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                    |                             |  |  |  |  |  |                       |  |  |  |  |  |  |  |  |   move.w dff002 <_end+0xd79cfa>,d1
+    2a70:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                    |                             |  |  |  |  |  |                       |  |  |  |  |  |  |  |  |   move.w dff002 <_end+0xd75a66>,d1
     2a76:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                    |                             |  |  |  |  |  \-----------------------|--|--|--|--|--|--|--|--|-- bra.w 2770 <DrawRect+0x17c>
         starty += 96;
     2a7a:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                    |                             |  |  |  |  |                          |  |  |  |  |  >--|--|--|-> lea 96(a6),a6
@@ -3890,7 +3890,7 @@ void KPrintF(const char* fmt, ...) {
     2aba:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                    |                             |  |  |  |  |                          |  |  |  |  |           |   addq.l #4,sp
     2abc:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                    |                             |  |  |  |  |                          |  |  |  |  |           |   movea.l 50(sp),a0
   UWORD tst=*(volatile UWORD*)&custom->dmaconr; //for compatiblity a1000
-    2ac0:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                    |                             |  |  |  |  |                          |  |  |  |  |           |   move.w dff002 <_end+0xd79cfa>,d0
+    2ac0:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                    |                             |  |  |  |  |                          |  |  |  |  |           |   move.w dff002 <_end+0xd75a66>,d0
     2ac6:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                    |                             |  |  |  |  |                          |  |  |  |  |           |   move.w a6,d1
     2ac8:	|  |  |  |  |  |  |  |  |  |  |  |  |  |                    |                             |  |  |  |  |                          |  |  |  |  |           \-- bra.w 29f0 <DrawRect+0x3fc>
           bltstart = ((xposmin-1)/16)*2;
@@ -4052,43 +4052,43 @@ void KPrintF(const char* fmt, ...) {
     2c1a:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |        |  |           |  |  |           |  |  |                             |  |  |  |  |  |  |  |  |      tst.w d1
     2c1c:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  /-----|--|-----------|--|--|-----------|--|--|-----------------------------|--|--|--|--|--|--|--|--|----- blt.w 2cd0 <DrawRect+0x6dc>
   UWORD tst=*(volatile UWORD*)&custom->dmaconr; //for compatiblity a1000
-    2c20:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  /--|--|-----------|--|--|-----------|--|--|-----------------------------|--|--|--|--|--|--|--|--|----> move.w dff002 <_end+0xd79cfa>,d0
+    2c20:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  /--|--|-----------|--|--|-----------|--|--|-----------------------------|--|--|--|--|--|--|--|--|----> move.w dff002 <_end+0xd75a66>,d0
     2c26:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |           |  |  |           |  |  |                             |  |  |  |  |  |  |  |  |      move.w 58(sp),d1
 	while (*(volatile UWORD*)&custom->dmaconr&(1<<14)) {} //blitter busy wait
-    2c2a:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |           |  |  |           |  |  |                             |  |  |  |  |  |  |  |  |  /-> move.w dff002 <_end+0xd79cfa>,d0
+    2c2a:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |           |  |  |           |  |  |                             |  |  |  |  |  |  |  |  |  /-> move.w dff002 <_end+0xd75a66>,d0
     2c30:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |           |  |  |           |  |  |                             |  |  |  |  |  |  |  |  |  |   btst #14,d0
     2c34:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |           |  |  |           |  |  |                             |  |  |  |  |  |  |  |  |  +-- bne.s 2c2a <DrawRect+0x636>
   custom->bltcon0 = BltCon0LineDraw | minterm;
     2c36:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |           |  |  |           |  |  |                             |  |  |  |  |  |  |  |  |  |   move.w d1,58(sp)
-    2c3a:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |           |  |  |           |  |  |                             |  |  |  |  |  |  |  |  |  |   movea.w 84e72 <BltCon0LineDraw>,a0
+    2c3a:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |           |  |  |           |  |  |                             |  |  |  |  |  |  |  |  |  |   movea.w 89106 <BltCon0LineDraw>,a0
     2c40:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |           |  |  |           |  |  |                             |  |  |  |  |  |  |  |  |  |   move.w a0,d0
     2c42:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |           |  |  |           |  |  |                             |  |  |  |  |  |  |  |  |  |   move.w a1,d1
     2c44:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |           |  |  |           |  |  |                             |  |  |  |  |  |  |  |  |  |   or.w d1,d0
-    2c46:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |           |  |  |           |  |  |                             |  |  |  |  |  |  |  |  |  |   move.w d0,dff040 <_end+0xd79d38>
+    2c46:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |           |  |  |           |  |  |                             |  |  |  |  |  |  |  |  |  |   move.w d0,dff040 <_end+0xd75aa4>
   ULONG bltdpt = (ULONG) PrepareBuffer + targetbufferoffset;
     2c4c:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |           |  |  |           |  |  |                             |  |  |  |  |  |  |  |  |  |   moveq #0,d0
     2c4e:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |           |  |  |           |  |  |                             |  |  |  |  |  |  |  |  |  |   move.w a5,d0
-    2c50:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |           |  |  |           |  |  |                             |  |  |  |  |  |  |  |  |  |   movea.l 852e6 <PrepareBuffer>,a5
+    2c50:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |           |  |  |           |  |  |                             |  |  |  |  |  |  |  |  |  |   movea.l 8957a <PrepareBuffer>,a5
     2c56:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |           |  |  |           |  |  |                             |  |  |  |  |  |  |  |  |  |   adda.l d0,a5
   ULONG bltbpt = (ULONG) LineBuffer + startbufferoffset;
-    2c58:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |           |  |  |           |  |  |                             |  |  |  |  |  |  |  |  |  |   adda.l 852ea <LineBuffer>,a3
+    2c58:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |           |  |  |           |  |  |                             |  |  |  |  |  |  |  |  |  |   adda.l 8957e <LineBuffer>,a3
   custom->bltbpt = (UBYTE *)bltbpt;
-    2c5e:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |           |  |  |           |  |  |                             |  |  |  |  |  |  |  |  |  |   move.l a3,dff04c <_end+0xd79d44>
+    2c5e:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |           |  |  |           |  |  |                             |  |  |  |  |  |  |  |  |  |   move.l a3,dff04c <_end+0xd75ab0>
   custom->bltcpt = (UBYTE *)bltdpt;
-    2c64:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |           |  |  |           |  |  |                             |  |  |  |  |  |  |  |  |  |   move.l a5,dff048 <_end+0xd79d40>
+    2c64:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |           |  |  |           |  |  |                             |  |  |  |  |  |  |  |  |  |   move.l a5,dff048 <_end+0xd75aac>
   custom->bltdpt = (UBYTE *)bltdpt;  
-    2c6a:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |           |  |  |           |  |  |                             |  |  |  |  |  |  |  |  |  |   move.l a5,dff054 <_end+0xd79d4c>
+    2c6a:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |           |  |  |           |  |  |                             |  |  |  |  |  |  |  |  |  |   move.l a5,dff054 <_end+0xd75ab8>
   custom->bltbmod = bltbmod;
-    2c70:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |           |  |  |           |  |  |                             |  |  |  |  |  |  |  |  |  |   move.w 58(sp),dff062 <_end+0xd79d5a>
+    2c70:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |           |  |  |           |  |  |                             |  |  |  |  |  |  |  |  |  |   move.w 58(sp),dff062 <_end+0xd75ac6>
   custom->bltcmod = bltdmod;
-    2c78:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |           |  |  |           |  |  |                             |  |  |  |  |  |  |  |  |  |   move.w a6,dff060 <_end+0xd79d58>
+    2c78:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |           |  |  |           |  |  |                             |  |  |  |  |  |  |  |  |  |   move.w a6,dff060 <_end+0xd75ac4>
   custom->bltdmod = bltdmod;
-    2c7e:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |           |  |  |           |  |  |                             |  |  |  |  |  |  |  |  |  |   move.w a6,dff066 <_end+0xd79d5e>
+    2c7e:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |           |  |  |           |  |  |                             |  |  |  |  |  |  |  |  |  |   move.w a6,dff066 <_end+0xd75aca>
   custom->bltsize = bltwidth + 64*height;
     2c84:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |           |  |  |           |  |  |                             |  |  |  |  |  |  |  |  |  |   move.w a4,d0
     2c86:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |           |  |  |           |  |  |                             |  |  |  |  |  |  |  |  |  |   lsl.w #6,d0
     2c88:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |           |  |  |           |  |  |                             |  |  |  |  |  |  |  |  |  |   add.w d0,d3
-    2c8a:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |           |  |  |           |  |  |                             |  |  |  |  |  |  |  |  |  |   move.w d3,dff058 <_end+0xd79d50>
+    2c8a:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |           |  |  |           |  |  |                             |  |  |  |  |  |  |  |  |  |   move.w d3,dff058 <_end+0xd75abc>
   WORD x1 = square->Vertices[index1].X;
     2c90:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |           |  |  |           |  |  |                             |  |  |  |  \--|--|--|--|--|-> movea.w 12(a2),a3
   WORD xlength = square->XLength;
@@ -4126,7 +4126,7 @@ void KPrintF(const char* fmt, ...) {
     2cde:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |           |  |  |           |  |                                |  |  |  |     |           |   addq.l #4,sp
     2ce0:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |           |  |  |           |  |                                |  |  |  |     |           |   movea.l 54(sp),a1
   UWORD tst=*(volatile UWORD*)&custom->dmaconr; //for compatiblity a1000
-    2ce4:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |           |  |  |           |  |                                |  |  |  |     |           |   move.w dff002 <_end+0xd79cfa>,d0
+    2ce4:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |           |  |  |           |  |                                |  |  |  |     |           |   move.w dff002 <_end+0xd75a66>,d0
     2cea:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |           |  |  |           |  |                                |  |  |  |     |           |   move.w 58(sp),d1
     2cee:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |           |  |  |           |  |                                |  |  |  |     |           \-- bra.w 2c2a <DrawRect+0x636>
           bltstart = (startx / 16)*2;
@@ -4276,39 +4276,39 @@ void KPrintF(const char* fmt, ...) {
     2e32:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |        |                             |  |  |  |  |  |  |  |  |      tst.w d1
     2e34:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  /-----|-----------------------------|--|--|--|--|--|--|--|--|----- blt.w 2ede <DrawRect+0x8ea>
   UWORD tst=*(volatile UWORD*)&custom->dmaconr; //for compatiblity a1000
-    2e38:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  /--|-----------------------------|--|--|--|--|--|--|--|--|----> move.w dff002 <_end+0xd79cfa>,d0
+    2e38:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  /--|-----------------------------|--|--|--|--|--|--|--|--|----> move.w dff002 <_end+0xd75a66>,d0
 	while (*(volatile UWORD*)&custom->dmaconr&(1<<14)) {} //blitter busy wait
-    2e3e:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                             |  |  |  |  |  |  |  |  |  /-> move.w dff002 <_end+0xd79cfa>,d0
+    2e3e:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                             |  |  |  |  |  |  |  |  |  /-> move.w dff002 <_end+0xd75a66>,d0
     2e44:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                             |  |  |  |  |  |  |  |  |  |   btst #14,d0
     2e48:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                             |  |  |  |  |  |  |  |  |  +-- bne.s 2e3e <DrawRect+0x84a>
   custom->bltcon0 = BltCon0LineDraw | minterm;
-    2e4a:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                             |  |  |  |  |  |  |  |  |  |   move.w 84e72 <BltCon0LineDraw>,d0
+    2e4a:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                             |  |  |  |  |  |  |  |  |  |   move.w 89106 <BltCon0LineDraw>,d0
     2e50:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                             |  |  |  |  |  |  |  |  |  |   or.w 64(sp),d0
-    2e54:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                             |  |  |  |  |  |  |  |  |  |   move.w d0,dff040 <_end+0xd79d38>
+    2e54:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                             |  |  |  |  |  |  |  |  |  |   move.w d0,dff040 <_end+0xd75aa4>
   ULONG bltdpt = (ULONG) PrepareBuffer + targetbufferoffset;
     2e5a:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                             |  |  |  |  |  |  |  |  |  |   moveq #0,d0
     2e5c:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                             |  |  |  |  |  |  |  |  |  |   move.w a5,d0
-    2e5e:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                             |  |  |  |  |  |  |  |  |  |   movea.l 852e6 <PrepareBuffer>,a5
+    2e5e:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                             |  |  |  |  |  |  |  |  |  |   movea.l 8957a <PrepareBuffer>,a5
     2e64:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                             |  |  |  |  |  |  |  |  |  |   adda.l d0,a5
   ULONG bltbpt = (ULONG) LineBuffer + startbufferoffset;
-    2e66:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                             |  |  |  |  |  |  |  |  |  |   adda.l 852ea <LineBuffer>,a4
+    2e66:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                             |  |  |  |  |  |  |  |  |  |   adda.l 8957e <LineBuffer>,a4
   custom->bltbpt = (UBYTE *)bltbpt;
-    2e6c:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                             |  |  |  |  |  |  |  |  |  |   move.l a4,dff04c <_end+0xd79d44>
+    2e6c:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                             |  |  |  |  |  |  |  |  |  |   move.l a4,dff04c <_end+0xd75ab0>
   custom->bltcpt = (UBYTE *)bltdpt;
-    2e72:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                             |  |  |  |  |  |  |  |  |  |   move.l a5,dff048 <_end+0xd79d40>
+    2e72:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                             |  |  |  |  |  |  |  |  |  |   move.l a5,dff048 <_end+0xd75aac>
   custom->bltdpt = (UBYTE *)bltdpt;  
-    2e78:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                             |  |  |  |  |  |  |  |  |  |   move.l a5,dff054 <_end+0xd79d4c>
+    2e78:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                             |  |  |  |  |  |  |  |  |  |   move.l a5,dff054 <_end+0xd75ab8>
   custom->bltbmod = bltbmod;
-    2e7e:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                             |  |  |  |  |  |  |  |  |  |   move.w d1,dff062 <_end+0xd79d5a>
+    2e7e:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                             |  |  |  |  |  |  |  |  |  |   move.w d1,dff062 <_end+0xd75ac6>
   custom->bltcmod = bltdmod;
-    2e84:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                             |  |  |  |  |  |  |  |  |  |   move.w a0,dff060 <_end+0xd79d58>
+    2e84:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                             |  |  |  |  |  |  |  |  |  |   move.w a0,dff060 <_end+0xd75ac4>
   custom->bltdmod = bltdmod;
-    2e8a:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                             |  |  |  |  |  |  |  |  |  |   move.w a0,dff066 <_end+0xd79d5e>
+    2e8a:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                             |  |  |  |  |  |  |  |  |  |   move.w a0,dff066 <_end+0xd75aca>
   custom->bltsize = bltwidth + 64*height;
     2e90:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                             |  |  |  |  |  |  |  |  |  |   move.w a3,d0
     2e92:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                             |  |  |  |  |  |  |  |  |  |   lsl.w #6,d0
     2e94:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                             |  |  |  |  |  |  |  |  |  |   add.w d0,d3
-    2e96:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                             |  |  |  |  |  |  |  |  |  |   move.w d3,dff058 <_end+0xd79d50>
+    2e96:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                             |  |  |  |  |  |  |  |  |  |   move.w d3,dff058 <_end+0xd75abc>
   WORD x1 = square->Vertices[index1].X;
     2e9c:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |                             |  |  |  |  |  \--|--|--|--|-> movea.w 8(a2),a4
   WORD xlength = square->XLength;
@@ -4348,7 +4348,7 @@ void KPrintF(const char* fmt, ...) {
     2ef2:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |     |  |  |  |  |  |  |  |  |  |  |  |                             |  |  |  |  |              |   movea.l 50(sp),a0
     2ef6:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |     |  |  |  |  |  |  |  |  |  |  |  |                             |  |  |  |  |              |   move.l 54(sp),d1
   UWORD tst=*(volatile UWORD*)&custom->dmaconr; //for compatiblity a1000
-    2efa:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |     |  |  |  |  |  |  |  |  |  |  |  |                             |  |  |  |  |              |   move.w dff002 <_end+0xd79cfa>,d0
+    2efa:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |     |  |  |  |  |  |  |  |  |  |  |  |                             |  |  |  |  |              |   move.w dff002 <_end+0xd75a66>,d0
 	while (*(volatile UWORD*)&custom->dmaconr&(1<<14)) {} //blitter busy wait
     2f00:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |     |  |  |  |  |  |  |  |  |  |  |  |                             |  |  |  |  |              \-- bra.w 2e3e <DrawRect+0x84a>
           bltstart = ((xposmin-1)/16)*2;
@@ -4510,43 +4510,43 @@ void KPrintF(const char* fmt, ...) {
     3052:	|  |  |  |  |  |  |  |  |  |  |  |        |  |  |  |  |  |     |  |  |  |  |  |  |  |  |  |  |  |  |  |  |        |  |  |  |  |  |  |  |  |  |  |  |  |      tst.w d1
     3054:	|  |  |  |  |  |  |  |  |  |  |  |        |  |  |  |  |  |     |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  /-----|--|--|--|--|--|--|--|--|--|--|--|--|----- blt.w 3108 <DrawRect+0xb14>
   UWORD tst=*(volatile UWORD*)&custom->dmaconr; //for compatiblity a1000
-    3058:	|  |  |  |  |  |  |  |  |  |  |  |        |  |  |  |  |  |     |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  /--|--|--|--|--|--|--|--|--|--|--|--|--|----> move.w dff002 <_end+0xd79cfa>,d0
+    3058:	|  |  |  |  |  |  |  |  |  |  |  |        |  |  |  |  |  |     |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  /--|--|--|--|--|--|--|--|--|--|--|--|--|----> move.w dff002 <_end+0xd75a66>,d0
     305e:	|  |  |  |  |  |  |  |  |  |  |  |        |  |  |  |  |  |     |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      move.w 58(sp),d1
 	while (*(volatile UWORD*)&custom->dmaconr&(1<<14)) {} //blitter busy wait
-    3062:	|  |  |  |  |  |  |  |  |  |  |  |        |  |  |  |  |  |     |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  /-> move.w dff002 <_end+0xd79cfa>,d0
+    3062:	|  |  |  |  |  |  |  |  |  |  |  |        |  |  |  |  |  |     |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  /-> move.w dff002 <_end+0xd75a66>,d0
     3068:	|  |  |  |  |  |  |  |  |  |  |  |        |  |  |  |  |  |     |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |   btst #14,d0
     306c:	|  |  |  |  |  |  |  |  |  |  |  |        |  |  |  |  |  |     |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  +-- bne.s 3062 <DrawRect+0xa6e>
   custom->bltcon0 = BltCon0LineDraw | minterm;
     306e:	|  |  |  |  |  |  |  |  |  |  |  |        |  |  |  |  |  |     |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |   move.w d1,58(sp)
-    3072:	|  |  |  |  |  |  |  |  |  |  |  |        |  |  |  |  |  |     |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |   movea.w 84e72 <BltCon0LineDraw>,a0
+    3072:	|  |  |  |  |  |  |  |  |  |  |  |        |  |  |  |  |  |     |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |   movea.w 89106 <BltCon0LineDraw>,a0
     3078:	|  |  |  |  |  |  |  |  |  |  |  |        |  |  |  |  |  |     |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |   move.w a0,d0
     307a:	|  |  |  |  |  |  |  |  |  |  |  |        |  |  |  |  |  |     |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |   move.w a1,d1
     307c:	|  |  |  |  |  |  |  |  |  |  |  |        |  |  |  |  |  |     |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |   or.w d1,d0
-    307e:	|  |  |  |  |  |  |  |  |  |  |  |        |  |  |  |  |  |     |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |   move.w d0,dff040 <_end+0xd79d38>
+    307e:	|  |  |  |  |  |  |  |  |  |  |  |        |  |  |  |  |  |     |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |   move.w d0,dff040 <_end+0xd75aa4>
   ULONG bltdpt = (ULONG) PrepareBuffer + targetbufferoffset;
     3084:	|  |  |  |  |  |  |  |  |  |  |  |        |  |  |  |  |  |     |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |   moveq #0,d0
     3086:	|  |  |  |  |  |  |  |  |  |  |  |        |  |  |  |  |  |     |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |   move.w a5,d0
-    3088:	|  |  |  |  |  |  |  |  |  |  |  |        |  |  |  |  |  |     |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |   movea.l 852e6 <PrepareBuffer>,a5
+    3088:	|  |  |  |  |  |  |  |  |  |  |  |        |  |  |  |  |  |     |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |   movea.l 8957a <PrepareBuffer>,a5
     308e:	|  |  |  |  |  |  |  |  |  |  |  |        |  |  |  |  |  |     |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |   adda.l d0,a5
   ULONG bltbpt = (ULONG) LineBuffer + startbufferoffset;
-    3090:	|  |  |  |  |  |  |  |  |  |  |  |        |  |  |  |  |  |     |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |   adda.l 852ea <LineBuffer>,a3
+    3090:	|  |  |  |  |  |  |  |  |  |  |  |        |  |  |  |  |  |     |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |   adda.l 8957e <LineBuffer>,a3
   custom->bltbpt = (UBYTE *)bltbpt;
-    3096:	|  |  |  |  |  |  |  |  |  |  |  |        |  |  |  |  |  |     |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |   move.l a3,dff04c <_end+0xd79d44>
+    3096:	|  |  |  |  |  |  |  |  |  |  |  |        |  |  |  |  |  |     |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |   move.l a3,dff04c <_end+0xd75ab0>
   custom->bltcpt = (UBYTE *)bltdpt;
-    309c:	|  |  |  |  |  |  |  |  |  |  |  |        |  |  |  |  |  |     |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |   move.l a5,dff048 <_end+0xd79d40>
+    309c:	|  |  |  |  |  |  |  |  |  |  |  |        |  |  |  |  |  |     |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |   move.l a5,dff048 <_end+0xd75aac>
   custom->bltdpt = (UBYTE *)bltdpt;  
-    30a2:	|  |  |  |  |  |  |  |  |  |  |  |        |  |  |  |  |  |     |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |   move.l a5,dff054 <_end+0xd79d4c>
+    30a2:	|  |  |  |  |  |  |  |  |  |  |  |        |  |  |  |  |  |     |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |   move.l a5,dff054 <_end+0xd75ab8>
   custom->bltbmod = bltbmod;
-    30a8:	|  |  |  |  |  |  |  |  |  |  |  |        |  |  |  |  |  |     |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |   move.w 58(sp),dff062 <_end+0xd79d5a>
+    30a8:	|  |  |  |  |  |  |  |  |  |  |  |        |  |  |  |  |  |     |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |   move.w 58(sp),dff062 <_end+0xd75ac6>
   custom->bltcmod = bltdmod;
-    30b0:	|  |  |  |  |  |  |  |  |  |  |  |        |  |  |  |  |  |     |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |   move.w a6,dff060 <_end+0xd79d58>
+    30b0:	|  |  |  |  |  |  |  |  |  |  |  |        |  |  |  |  |  |     |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |   move.w a6,dff060 <_end+0xd75ac4>
   custom->bltdmod = bltdmod;
-    30b6:	|  |  |  |  |  |  |  |  |  |  |  |        |  |  |  |  |  |     |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |   move.w a6,dff066 <_end+0xd79d5e>
+    30b6:	|  |  |  |  |  |  |  |  |  |  |  |        |  |  |  |  |  |     |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |   move.w a6,dff066 <_end+0xd75aca>
   custom->bltsize = bltwidth + 64*height;
     30bc:	|  |  |  |  |  |  |  |  |  |  |  |        |  |  |  |  |  |     |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |   move.w a4,d0
     30be:	|  |  |  |  |  |  |  |  |  |  |  |        |  |  |  |  |  |     |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |   lsl.w #6,d0
     30c0:	|  |  |  |  |  |  |  |  |  |  |  |        |  |  |  |  |  |     |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |   add.w d0,d3
-    30c2:	|  |  |  |  |  |  |  |  |  |  |  |        |  |  |  |  |  |     |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |   move.w d3,dff058 <_end+0xd79d50>
+    30c2:	|  |  |  |  |  |  |  |  |  |  |  |        |  |  |  |  |  |     |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |   move.w d3,dff058 <_end+0xd75abc>
   WORD x1 = square->Vertices[index1].X;
     30c8:	|  |  |  |  |  |  |  |  |  |  |  |        |  |  |  |  |  |     |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  \--|--|--|--|--|-> movea.w 4(a2),a3
   WORD xlength = square->XLength;
@@ -4584,7 +4584,7 @@ void KPrintF(const char* fmt, ...) {
     3116:	|  |  |  |  |  |     |  |  |  |  |        |  |  |  |  |  |     |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |     |           |   addq.l #4,sp
     3118:	|  |  |  |  |  |     |  |  |  |  |        |  |  |  |  |  |     |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |     |           |   movea.l 54(sp),a1
   UWORD tst=*(volatile UWORD*)&custom->dmaconr; //for compatiblity a1000
-    311c:	|  |  |  |  |  |     |  |  |  |  |        |  |  |  |  |  |     |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |     |           |   move.w dff002 <_end+0xd79cfa>,d0
+    311c:	|  |  |  |  |  |     |  |  |  |  |        |  |  |  |  |  |     |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |     |           |   move.w dff002 <_end+0xd75a66>,d0
     3122:	|  |  |  |  |  |     |  |  |  |  |        |  |  |  |  |  |     |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |     |           |   move.w 58(sp),d1
     3126:	|  |  |  |  |  |     |  |  |  |  |        |  |  |  |  |  |     |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |     |           \-- bra.w 3062 <DrawRect+0xa6e>
           bltstart = (startx / 16)*2;
@@ -5080,10 +5080,10 @@ void KPrintF(const char* fmt, ...) {
     3528:	                                                                                                                      move.w 126(sp),108(sp)
     352e:	                                                                                                                      move.w 130(sp),106(sp)
   custom->bltcon1 = 0x0;
-    3534:	                                                                                                                      move.w #0,dff042 <_end+0xd79d3a>
+    3534:	                                                                                                                      move.w #0,dff042 <_end+0xd75aa6>
      ClearDirtyAreaPrepare( ClearBuffer->MyDirtyArea[i].BltMod);
-    353c:	                                                                                                                      move.l 85178 <ClearBuffer>,54(sp)
-    3544:	                                                                                                                      lea 84e74 <Cubes>,a3
+    353c:	                                                                                                                      move.l 8940c <ClearBuffer>,54(sp)
+    3544:	                                                                                                                      lea 89108 <Cubes>,a3
     354a:	                                                                                                                      moveq #0,d5
     354c:	/-------------------------------------------------------------------------------------------------------------------> move.l d5,d2
     354e:	|                                                                                                                     add.l d5,d2
@@ -5094,16 +5094,16 @@ void KPrintF(const char* fmt, ...) {
     355a:	|                                                                                                                     movea.l 54(sp),a0
     355e:	|                                                                                                                     move.w (14,a0,d2.l),d3
   WaitBlit();
-    3562:	|                                                                                                                     movea.l 852fc <GfxBase>,a6
+    3562:	|                                                                                                                     movea.l 89590 <GfxBase>,a6
     3568:	|                                                                                                                     jsr -228(a6)
   custom->bltcon0 = 0x01f0;
-    356c:	|                                                                                                                     move.w #496,dff040 <_end+0xd79d38>
+    356c:	|                                                                                                                     move.w #496,dff040 <_end+0xd75aa4>
   custom->bltcon1 = 0x0;
-    3574:	|                                                                                                                     move.w #0,dff042 <_end+0xd79d3a>
+    3574:	|                                                                                                                     move.w #0,dff042 <_end+0xd75aa6>
   custom->bltdmod = bltmod;
-    357c:	|                                                                                                                     move.w d3,dff066 <_end+0xd79d5e>
+    357c:	|                                                                                                                     move.w d3,dff066 <_end+0xd75aca>
     ULONG clearpos = ClearBuffer->MyDirtyArea[i].Address;
-    3582:	|                                                                                                                     move.l 85178 <ClearBuffer>,54(sp)
+    3582:	|                                                                                                                     move.l 8940c <ClearBuffer>,54(sp)
     358a:	|                                                                                                                     movea.l 54(sp),a4
     358e:	|                                                                                                                     movea.l (4,a4,d2.l),a6
     if( clearpos != 0 && DoNotClearDirty == 0) {      
@@ -5190,7 +5190,7 @@ void KPrintF(const char* fmt, ...) {
     if( clearpos != 0 && DoNotClearDirty == 0) {
     366a:	|                    |  |                                                                                             cmpa.w #0,a6
     366e:	|                    |  |  /----------------------------------------------------------------------------------------- beq.s 367a <DrawCube3d+0x15e>
-    3670:	|                    |  |  |                                                                                          tst.w 8517c <DoNotClearDirty>
+    3670:	|                    |  |  |                                                                                          tst.w 89410 <DoNotClearDirty>
     3676:	|                    |  |  |  /-------------------------------------------------------------------------------------- beq.w 3e4e <DrawCube3d+0x932>
     WORD xs3 = ((x3 * zMult[z3 - 1]) >> 15) + XC;       
     367a:	|                    |  |  >--|-------------------------------------------------------------------------------------> movea.w 90(sp),a5
@@ -5247,7 +5247,7 @@ void KPrintF(const char* fmt, ...) {
     if( clearpos != 0 && DoNotClearDirty == 0) {
     36f2:	|                    |  |  |  |                                                                                       cmpa.w #0,a6
     36f6:	|                    |  |  |  |  /----------------------------------------------------------------------------------- beq.s 3702 <DrawCube3d+0x1e6>
-    36f8:	|                    |  |  |  |  |                                                                                    tst.w 8517c <DoNotClearDirty>
+    36f8:	|                    |  |  |  |  |                                                                                    tst.w 89410 <DoNotClearDirty>
     36fe:	|                    |  |  |  |  |  /-------------------------------------------------------------------------------- beq.w 3e0e <DrawCube3d+0x8f2>
     clearpos = ClearBuffer->MyDirtyArea[i].AddressRev;    
     3702:	|                    |  |  |  |  >--|-------------------------------------------------------------------------------> move.l 102(sp),d0
@@ -5286,7 +5286,7 @@ void KPrintF(const char* fmt, ...) {
     if( clearpos != 0 && DoNotClearDirty == 0 && mirroring == 1) {
     3744:	|                    |  |  |  |  |  |                                                                                 cmpa.w #0,a5
     3748:	|  /-----------------|--|--|--|--|--|-------------------------------------------------------------------------------- beq.s 375c <DrawCube3d+0x240>
-    374a:	|  |                 |  |  |  |  |  |                                                                                 tst.w 8517c <DoNotClearDirty>
+    374a:	|  |                 |  |  |  |  |  |                                                                                 tst.w 89410 <DoNotClearDirty>
     3750:	|  +-----------------|--|--|--|--|--|-------------------------------------------------------------------------------- bne.s 375c <DrawCube3d+0x240>
     3752:	|  |                 |  |  |  |  |  |                                                                                 cmpi.w #1,108(sp)
     3758:	|  |  /--------------|--|--|--|--|--|-------------------------------------------------------------------------------- beq.w 433e <DrawCube3d+0xe22>
@@ -5403,7 +5403,7 @@ void KPrintF(const char* fmt, ...) {
     if( clearpos != 0 && DoNotClearDirty == 0 && mirroring == 1) {
     385e:	|  |  |              |  |  |  |  |  |                                                                                 cmpa.w #0,a5
     3862:	|  |  |  /-----------|--|--|--|--|--|-------------------------------------------------------------------------------- beq.s 3876 <DrawCube3d+0x35a>
-    3864:	|  |  |  |           |  |  |  |  |  |                                                                                 tst.w 8517c <DoNotClearDirty>
+    3864:	|  |  |  |           |  |  |  |  |  |                                                                                 tst.w 89410 <DoNotClearDirty>
     386a:	|  |  |  +-----------|--|--|--|--|--|-------------------------------------------------------------------------------- bne.s 3876 <DrawCube3d+0x35a>
     386c:	|  |  |  |           |  |  |  |  |  |                                                                                 cmpi.w #1,108(sp)
     3872:	|  |  |  |        /--|--|--|--|--|--|-------------------------------------------------------------------------------- beq.w 42e6 <DrawCube3d+0xdca>
@@ -5454,7 +5454,7 @@ void KPrintF(const char* fmt, ...) {
     if( clearpos != 0 && DoNotClearDirty == 0 && mirroring == 1) {
     38e2:	|  |  |  |        |  |  |  |  |  |  |                                                                                 cmpa.w #0,a5
     38e6:	|  |  |  |        |  |  |  |  |  |  |                                                                             /-- beq.s 38fa <DrawCube3d+0x3de>
-    38e8:	|  |  |  |        |  |  |  |  |  |  |                                                                             |   tst.w 8517c <DoNotClearDirty>
+    38e8:	|  |  |  |        |  |  |  |  |  |  |                                                                             |   tst.w 89410 <DoNotClearDirty>
     38ee:	|  |  |  |        |  |  |  |  |  |  |                                                                             +-- bne.s 38fa <DrawCube3d+0x3de>
     38f0:	|  |  |  |        |  |  |  |  |  |  |                                                                             |   cmpi.w #1,108(sp)
     38f6:	|  |  |  |     /--|--|--|--|--|--|--|-----------------------------------------------------------------------------|-- beq.w 437e <DrawCube3d+0xe62>
@@ -5525,7 +5525,7 @@ void KPrintF(const char* fmt, ...) {
     399c:	|  |  |  |     |  |  |  |  |  |  |  |                                                                                 lea 192(a3),a3
     39a0:	|  |  |  |     |  |  |  |  |  |  |  |                                                                                 cmp.w 106(sp),d5
     39a4:	+--|--|--|-----|--|--|--|--|--|--|--|-------------------------------------------------------------------------------- bcs.w 354c <DrawCube3d+0x30>
-    39a8:	|  |  |  |  /--|--|--|--|--|--|--|--|-------------------------------------------------------------------------------> lea 84f34 <Cubes+0xc0>,a6
+    39a8:	|  |  |  |  /--|--|--|--|--|--|--|--|-------------------------------------------------------------------------------> lea 891c8 <Cubes+0xc0>,a6
     39ae:	|  |  |  |  |  |  |  |  |  |  |  |  |                                                                                 clr.l 86(sp)
   for(UWORD i3=0;i3<cubecount;i3++) 
     39b2:	|  |  |  |  |  |  |  |  |  |  |  |  |                                                                                 clr.w 94(sp)
@@ -5560,7 +5560,7 @@ void KPrintF(const char* fmt, ...) {
     if(i3 == *CubeNrReversePtr) {
     39f8:	|  |  |  |  |  |  |  |  |  |  |  |  |           |                                   |                 /--------|----> movea.w 70(sp),a4
     39fc:	|  |  |  |  |  |  |  |  |  |  |  |  |           |                                   |                 |        |      movea.l 62(sp),a6
-    3a00:	|  |  |  |  |  |  |  |  |  |  |  |  |           |                                   |                 |        |      movea.l 85180 <CubeNrReversePtr>,a0
+    3a00:	|  |  |  |  |  |  |  |  |  |  |  |  |           |                                   |                 |        |      movea.l 89414 <CubeNrReversePtr>,a0
     3a06:	|  |  |  |  |  |  |  |  |  |  |  |  |           |                                   |                 |        |      move.w 94(sp),d5
     3a0a:	|  |  |  |  |  |  |  |  |  |  |  |  |           |                                   |                 |        |      cmp.w (a0),d5
     3a0c:	|  |  |  |  |  |  |  |  |  |  |  |  |           |                 /-----------------|-----------------|--------|----- beq.w 3d30 <DrawCube3d+0x814>
@@ -5581,7 +5581,7 @@ void KPrintF(const char* fmt, ...) {
     3a34:	|  |  |  |  |  |  |  |  |  |  |  |  |  |        |  |  |           |                 |                 |  |  |  |  |   move.w #256,98(sp)
     3a3a:	|  |  |  |  |  |  |  |  |  |  |  |  |  |        |  |  |           |                 |                 |  |  |  |  \-> move.w #128,d3
     3a3e:	|  |  |  |  |  |  |  |  |  |  |  |  |  |        |  |  |           |                 |                 |  |  |  |      movea.w d0,a3
-    3a40:	|  |  |  |  |  |  |  |  |  |  |  |  |  |        |  |  |           |                 |                 |  |  |  |      movea.l 85184 <DrawBuffer>,a2
+    3a40:	|  |  |  |  |  |  |  |  |  |  |  |  |  |        |  |  |           |                 |                 |  |  |  |      movea.l 89418 <DrawBuffer>,a2
       DrawBuffer->MyDirtyArea[i3].Address = 0;
     3a46:	|  |  |  |  |  |  |  |  |  |  |  |  |  |        |  |  |           |                 |     /-----------|--|--|--|----> movea.l 86(sp),a0
     3a4a:	|  |  |  |  |  |  |  |  |  |  |  |  |  |        |  |  |           |                 |     |           |  |  |  |      adda.l a0,a0
@@ -5667,7 +5667,7 @@ void KPrintF(const char* fmt, ...) {
     3b1e:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |     |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |     |  |  |  |  |      cmp.w 106(sp),d7
     3b22:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |     +--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|-----|--|--|--|--|----- bne.w 39c0 <DrawCube3d+0x4a4>
     Utils_CopyBlitReverse( maxytotal - minytotal + 1, bltsizereverse, DrawBuffer->BitPlane+minytotal*64, (UBYTE *) PrepareBuffer, DrawBuffer->BitPlane+20+minytotal*64, bltfmask);
-    3b26:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |     |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  /--|--|--|--|--|----> movea.l 85184 <DrawBuffer>,a2
+    3b26:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |     |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  /--|--|--|--|--|----> movea.l 89418 <DrawBuffer>,a2
   if( mirroring == 1) {
     3b2c:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |     |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |      cmpi.w #1,108(sp)
     3b32:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  /--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|----- beq.w 3f64 <DrawCube3d+0xa48>
@@ -5853,7 +5853,7 @@ void KPrintF(const char* fmt, ...) {
       DrawBuffer->MyDirtyArea[i3].AddressRev = (ULONG) DrawBuffer->BitPlane + 64*(minycube-1) + 40 - (minxcube/16)*2-bltwidth*2;
     3cce:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |     |  |  |  |  |  |  |        \-> movea.w d0,a3
       DrawBuffer->MyDirtyArea[i3].Address = (ULONG) DrawBuffer->BitPlane + 64*(minycube-1)+(minxcube/16)*2;
-    3cd0:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |     |  |  |  |  |  |  |            movea.l 85184 <DrawBuffer>,a2
+    3cd0:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |     |  |  |  |  |  |  |            movea.l 89418 <DrawBuffer>,a2
     DrawBuffer->MyDirtyArea[i3].BltSize = (maxheightcube+2)*64+bltwidth;
     3cd6:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |     |  |  |  |  |  |  |            move.w d1,d3
     3cd8:	|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |     |  |  |  |  |  |  |            lsl.w #6,d3
@@ -5977,17 +5977,17 @@ void KPrintF(const char* fmt, ...) {
     3e1c:	|  |  |  |  |  |  |  |  |  |  |  |     |  |  |                                                        |  |  |         movea.l 54(sp),a0
     3e20:	|  |  |  |  |  |  |  |  |  |  |  |     |  |  |                                                        |  |  |         move.w (0,a0,d0.l),d1
   UWORD tst=*(volatile UWORD*)&custom->dmaconr; //for compatiblity a1000
-    3e24:	|  |  |  |  |  |  |  |  |  |  |  |     |  |  |                                                        |  |  |         move.w dff002 <_end+0xd79cfa>,d0
+    3e24:	|  |  |  |  |  |  |  |  |  |  |  |     |  |  |                                                        |  |  |         move.w dff002 <_end+0xd75a66>,d0
   while (*(volatile UWORD*)&custom->dmaconr&(1<<14)) {} //blitter busy wait
-    3e2a:	|  |  |  |  |  |  |  |  |  |  |  |     |  |  |                                                        |  |  |     /-> move.w dff002 <_end+0xd79cfa>,d0
+    3e2a:	|  |  |  |  |  |  |  |  |  |  |  |     |  |  |                                                        |  |  |     /-> move.w dff002 <_end+0xd75a66>,d0
     3e30:	|  |  |  |  |  |  |  |  |  |  |  |     |  |  |                                                        |  |  |     |   btst #14,d0
     3e34:	|  |  |  |  |  |  |  |  |  |  |  |     |  |  |                                                        |  |  |     \-- bne.s 3e2a <DrawCube3d+0x90e>
     custom->bltdpt =(ULONG *)target;
-    3e36:	|  |  |  |  |  |  |  |  |  |  |  |     |  |  |                                                        |  |  |         move.l a6,dff054 <_end+0xd79d4c>
+    3e36:	|  |  |  |  |  |  |  |  |  |  |  |     |  |  |                                                        |  |  |         move.l a6,dff054 <_end+0xd75ab8>
     custom->bltadat = 0x0;
-    3e3c:	|  |  |  |  |  |  |  |  |  |  |  |     |  |  |                                                        |  |  |         move.w #0,dff074 <_end+0xd79d6c>
+    3e3c:	|  |  |  |  |  |  |  |  |  |  |  |     |  |  |                                                        |  |  |         move.w #0,dff074 <_end+0xd75ad8>
     custom->bltsize = bltsize;    
-    3e44:	|  |  |  |  |  |  |  |  |  |  |  |     |  |  |                                                        |  |  |         move.w d1,dff058 <_end+0xd79d50>
+    3e44:	|  |  |  |  |  |  |  |  |  |  |  |     |  |  |                                                        |  |  |         move.w d1,dff058 <_end+0xd75abc>
 }
     3e4a:	|  |  |  |  |  |  |  |  |  |  |  \-----|--|--|--------------------------------------------------------|--|--|-------- bra.w 3702 <DrawCube3d+0x1e6>
       ClearDirtyArea(clearpos, ClearBuffer->MyDirtyArea[i].BltSize); 
@@ -5999,25 +5999,25 @@ void KPrintF(const char* fmt, ...) {
     3e5c:	|  |  |  |  |  |  |  |  |  |           |  |  |                                                        |  |  |         movea.l 54(sp),a5
     3e60:	|  |  |  |  |  |  |  |  |  |           |  |  |                                                        |  |  |         move.w (0,a5,d7.l),80(sp)
   UWORD tst=*(volatile UWORD*)&custom->dmaconr; //for compatiblity a1000
-    3e66:	|  |  |  |  |  |  |  |  |  |           |  |  |                                                        |  |  |         move.w dff002 <_end+0xd79cfa>,d7
+    3e66:	|  |  |  |  |  |  |  |  |  |           |  |  |                                                        |  |  |         move.w dff002 <_end+0xd75a66>,d7
     3e6c:	|  |  |  |  |  |  |  |  |  |           |  |  |                                                        |  |  |         movea.w 80(sp),a5
     3e70:	|  |  |  |  |  |  |  |  |  |           |  |  |                                                        |  |  |         move.w 86(sp),d0
   while (*(volatile UWORD*)&custom->dmaconr&(1<<14)) {} //blitter busy wait
-    3e74:	|  |  |  |  |  |  |  |  |  |           |  |  |                                                        |  |  |     /-> move.w dff002 <_end+0xd79cfa>,d7
+    3e74:	|  |  |  |  |  |  |  |  |  |           |  |  |                                                        |  |  |     /-> move.w dff002 <_end+0xd75a66>,d7
     3e7a:	|  |  |  |  |  |  |  |  |  |           |  |  |                                                        |  |  |     |   btst #14,d7
     3e7e:	|  |  |  |  |  |  |  |  |  |           |  |  |                                                        |  |  |     \-- bne.s 3e74 <DrawCube3d+0x958>
     custom->bltdpt =(ULONG *)target;
     3e80:	|  |  |  |  |  |  |  |  |  |           |  |  |                                                        |  |  |         move.w d0,86(sp)
-    3e84:	|  |  |  |  |  |  |  |  |  |           |  |  |                                                        |  |  |         move.l a6,dff054 <_end+0xd79d4c>
+    3e84:	|  |  |  |  |  |  |  |  |  |           |  |  |                                                        |  |  |         move.l a6,dff054 <_end+0xd75ab8>
     custom->bltadat = 0x0;
-    3e8a:	|  |  |  |  |  |  |  |  |  |           |  |  |                                                        |  |  |         move.w #0,dff074 <_end+0xd79d6c>
+    3e8a:	|  |  |  |  |  |  |  |  |  |           |  |  |                                                        |  |  |         move.w #0,dff074 <_end+0xd75ad8>
     custom->bltsize = bltsize;    
-    3e92:	|  |  |  |  |  |  |  |  |  |           |  |  |                                                        |  |  |         move.w a5,dff058 <_end+0xd79d50>
+    3e92:	|  |  |  |  |  |  |  |  |  |           |  |  |                                                        |  |  |         move.w a5,dff058 <_end+0xd75abc>
       clearpos += 64*BPLHEIGHT;
     3e98:	|  |  |  |  |  |  |  |  |  |           |  |  |                                                        |  |  |         lea 16384(a6),a6
     3e9c:	|  |  |  |  |  |  |  |  |  \-----------|--|--|--------------------------------------------------------|--|--|-------- bra.w 367a <DrawCube3d+0x15e>
     if( clearpos != 0 && DoNotClearDirty == 0) {      
-    3ea0:	|  |  |  |  |  |  |  |  \--------------|--|--|--------------------------------------------------------|--|--|-------> tst.w 8517c <DoNotClearDirty>
+    3ea0:	|  |  |  |  |  |  |  |  \--------------|--|--|--------------------------------------------------------|--|--|-------> tst.w 89410 <DoNotClearDirty>
     3ea6:	|  |  |  |  |  |  |  |                 |  |  |                                                        |  |  |  /----- beq.s 3f20 <DrawCube3d+0xa04>
     3ea8:	|  |  |  |  |  |  |  |                 |  |  |                                                        |  |  |  |      move.l d5,d2
     3eaa:	|  |  |  |  |  |  |  |                 |  |  |                                                        |  |  |  |      addq.l #1,d2
@@ -6080,17 +6080,17 @@ void KPrintF(const char* fmt, ...) {
     3f30:	|  |  |  |  |  |  |  |                       |                                                                        add.l d0,d0
     3f32:	|  |  |  |  |  |  |  |                       |                                                                        move.w (0,a4,d0.l),d1
   UWORD tst=*(volatile UWORD*)&custom->dmaconr; //for compatiblity a1000
-    3f36:	|  |  |  |  |  |  |  |                       |                                                                        move.w dff002 <_end+0xd79cfa>,d0
+    3f36:	|  |  |  |  |  |  |  |                       |                                                                        move.w dff002 <_end+0xd75a66>,d0
   while (*(volatile UWORD*)&custom->dmaconr&(1<<14)) {} //blitter busy wait
-    3f3c:	|  |  |  |  |  |  |  |                       |                                                                    /-> move.w dff002 <_end+0xd79cfa>,d0
+    3f3c:	|  |  |  |  |  |  |  |                       |                                                                    /-> move.w dff002 <_end+0xd75a66>,d0
     3f42:	|  |  |  |  |  |  |  |                       |                                                                    |   btst #14,d0
     3f46:	|  |  |  |  |  |  |  |                       |                                                                    \-- bne.s 3f3c <DrawCube3d+0xa20>
     custom->bltdpt =(ULONG *)target;
-    3f48:	|  |  |  |  |  |  |  |                       |                                                                        move.l a6,dff054 <_end+0xd79d4c>
+    3f48:	|  |  |  |  |  |  |  |                       |                                                                        move.l a6,dff054 <_end+0xd75ab8>
     custom->bltadat = 0x0;
-    3f4e:	|  |  |  |  |  |  |  |                       |                                                                        move.w #0,dff074 <_end+0xd79d6c>
+    3f4e:	|  |  |  |  |  |  |  |                       |                                                                        move.w #0,dff074 <_end+0xd75ad8>
     custom->bltsize = bltsize;    
-    3f56:	|  |  |  |  |  |  |  |                       |                                                                        move.w d1,dff058 <_end+0xd79d50>
+    3f56:	|  |  |  |  |  |  |  |                       |                                                                        move.w d1,dff058 <_end+0xd75abc>
       clearpos += 64*BPLHEIGHT;
     3f5c:	|  |  |  |  |  |  |  |                       |                                                                        lea 16384(a6),a6
     3f60:	|  |  |  |  |  |  |  \-----------------------|----------------------------------------------------------------------- bra.w 35a2 <DrawCube3d+0x86>
@@ -6102,33 +6102,33 @@ void KPrintF(const char* fmt, ...) {
     3f70:	|  |  |  |  |  |  |                                                                                                   movea.l d0,a3
     3f72:	|  |  |  |  |  |  |                                                                                                   lea 20(a3),a0
     3f76:	|  |  |  |  |  |  |                                                                                                   move.l a0,58(sp)
-    3f7a:	|  |  |  |  |  |  |                                                                                                   movea.l 852e6 <PrepareBuffer>,a6
+    3f7a:	|  |  |  |  |  |  |                                                                                                   movea.l 8957a <PrepareBuffer>,a6
     3f80:	|  |  |  |  |  |  |                                                                                                   adda.l 54(sp),a3
     3f84:	|  |  |  |  |  |  |                                                                                                   move.w 98(sp),d5
     3f88:	|  |  |  |  |  |  |                                                                                                   addq.w #1,d5
     3f8a:	|  |  |  |  |  |  |                                                                                                   sub.w 102(sp),d5
   UWORD tst=*(volatile UWORD*)&custom->dmaconr; //for compatiblity a1000
-    3f8e:	|  |  |  |  |  |  |                                                                                                   move.w dff002 <_end+0xd79cfa>,d0
+    3f8e:	|  |  |  |  |  |  |                                                                                                   move.w dff002 <_end+0xd75a66>,d0
 	while (*(volatile UWORD*)&custom->dmaconr&(1<<14)) {} //blitter busy wait
-    3f94:	|  |  |  |  |  |  |                                                                                               /-> move.w dff002 <_end+0xd79cfa>,d0
+    3f94:	|  |  |  |  |  |  |                                                                                               /-> move.w dff002 <_end+0xd75a66>,d0
     3f9a:	|  |  |  |  |  |  |                                                                                               |   btst #14,d0
     3f9e:	|  |  |  |  |  |  |                                                                                               \-- bne.s 3f94 <DrawCube3d+0xa78>
   custom->bltafwm = 0xffff; //Show All
-    3fa0:	|  |  |  |  |  |  |                                                                                                   move.w #-1,dff044 <_end+0xd79d3c>
+    3fa0:	|  |  |  |  |  |  |                                                                                                   move.w #-1,dff044 <_end+0xd75aa8>
   custom->bltalwm = 0xffff; //Show All
-    3fa8:	|  |  |  |  |  |  |                                                                                                   move.w #-1,dff046 <_end+0xd79d3e>
+    3fa8:	|  |  |  |  |  |  |                                                                                                   move.w #-1,dff046 <_end+0xd75aaa>
   custom->bltcdat = 0x00ff; //Select Channel B for 1st Byte and channel A for 2nd Byte  
-    3fb0:	|  |  |  |  |  |  |                                                                                                   move.w #255,dff070 <_end+0xd79d68>
+    3fb0:	|  |  |  |  |  |  |                                                                                                   move.w #255,dff070 <_end+0xd75ad4>
   custom->bltamod = 60;
-    3fb8:	|  |  |  |  |  |  |                                                                                                   move.w #60,dff064 <_end+0xd79d5c>
+    3fb8:	|  |  |  |  |  |  |                                                                                                   move.w #60,dff064 <_end+0xd75ac8>
   custom->bltbmod = 60;
-    3fc0:	|  |  |  |  |  |  |                                                                                                   move.w #60,dff062 <_end+0xd79d5a>
+    3fc0:	|  |  |  |  |  |  |                                                                                                   move.w #60,dff062 <_end+0xd75ac6>
   custom->bltdmod = 60;    
-    3fc8:	|  |  |  |  |  |  |                                                                                                   move.w #60,dff066 <_end+0xd79d5e>
+    3fc8:	|  |  |  |  |  |  |                                                                                                   move.w #60,dff066 <_end+0xd75aca>
   custom->bltcon0 = 0x8dd8; //Channels A,B,D / Shift Channel A 8 bit to Right for ByteSwap    
-    3fd0:	|  |  |  |  |  |  |                                                                                                   move.w #-29224,dff040 <_end+0xd79d38>
+    3fd0:	|  |  |  |  |  |  |                                                                                                   move.w #-29224,dff040 <_end+0xd75aa4>
   custom->bltcon1 = 0x8002; //Ascending
-    3fd8:	|  |  |  |  |  |  |                                                                                                   move.w #-32766,dff042 <_end+0xd79d3a>
+    3fd8:	|  |  |  |  |  |  |                                                                                                   move.w #-32766,dff042 <_end+0xd75aa6>
     UBYTE *bltapos = startbuffer + bitplaneoffset + (height - 1) * 64 + 10 * 2;  
     3fe0:	|  |  |  |  |  |  |                                                                                                   moveq #0,d4
     3fe2:	|  |  |  |  |  |  |                                                                                                   move.w d5,d4
@@ -6165,13 +6165,13 @@ void KPrintF(const char* fmt, ...) {
     4026:	|  |  |  |  |  |  |                                                                                                   tst.w 110(sp)
     402a:	|  |  |  |  |  |  |                                                                                         /-------- beq.s 4060 <DrawCube3d+0xb44>
       custom->bltapt = bltapos;
-    402c:	|  |  |  |  |  |  |                                                                                         |  /----> move.l a1,dff050 <_end+0xd79d48>
+    402c:	|  |  |  |  |  |  |                                                                                         |  /----> move.l a1,dff050 <_end+0xd75ab4>
       custom->bltbpt = bltbpos;
-    4032:	|  |  |  |  |  |  |                                                                                         |  |      move.l a0,dff04c <_end+0xd79d44>
+    4032:	|  |  |  |  |  |  |                                                                                         |  |      move.l a0,dff04c <_end+0xd75ab0>
       custom->bltdpt = bltdpos;
-    4038:	|  |  |  |  |  |  |                                                                                         |  |      move.l d1,dff054 <_end+0xd79d4c>
+    4038:	|  |  |  |  |  |  |                                                                                         |  |      move.l d1,dff054 <_end+0xd75ab8>
       custom->bltsize = 2 + height * 64;
-    403e:	|  |  |  |  |  |  |                                                                                         |  |      move.w d3,dff058 <_end+0xd79d50>
+    403e:	|  |  |  |  |  |  |                                                                                         |  |      move.w d3,dff058 <_end+0xd75abc>
       bltapos -= 2;
     4044:	|  |  |  |  |  |  |                                                                                         |  |      subq.l #2,a1
       bltbpos -= 2;
@@ -6179,9 +6179,9 @@ void KPrintF(const char* fmt, ...) {
       bltdpos += 2; 
     4048:	|  |  |  |  |  |  |                                                                                         |  |      addq.l #2,d1
       UWORD tst=*(volatile UWORD*)&custom->dmaconr; //for compatiblity a1000
-    404a:	|  |  |  |  |  |  |                                                                                         |  |      move.w dff002 <_end+0xd79cfa>,d0
+    404a:	|  |  |  |  |  |  |                                                                                         |  |      move.w dff002 <_end+0xd75a66>,d0
 	    while (*(volatile UWORD*)&custom->dmaconr&(1<<14)) {} //blitter busy wait     
-    4050:	|  |  |  |  |  |  |                                                                                         |  |  /-> move.w dff002 <_end+0xd79cfa>,d0
+    4050:	|  |  |  |  |  |  |                                                                                         |  |  /-> move.w dff002 <_end+0xd75a66>,d0
     4056:	|  |  |  |  |  |  |                                                                                         |  |  |   btst #14,d0
     405a:	|  |  |  |  |  |  |                                                                                         |  |  \-- bne.s 4050 <DrawCube3d+0xb34>
     for(int i=0;i<length; i++) 
@@ -6206,21 +6206,21 @@ void KPrintF(const char* fmt, ...) {
     4082:	|  |  |  |  |  |  |                                                                                         |  \--|-- bne.s 402c <DrawCube3d+0xb10>
     4084:	|  |  |  |  |  |  |                                                                                         \-----|-- bra.s 4060 <DrawCube3d+0xb44>
   custom->bltcon0 = 0x4dd8; //Move Uneven Nibbles upawards / Channel A,B,D
-    4086:	|  |  |  |  |  |  |                                                                                               \-> move.w #19928,dff040 <_end+0xd79d38>
+    4086:	|  |  |  |  |  |  |                                                                                               \-> move.w #19928,dff040 <_end+0xd75aa4>
   custom->bltcon1 = 0xc002; //Move even Nibbles downwards (Moving 12 to the left kind of rotates them in the next Word)
-    408e:	|  |  |  |  |  |  |                                                                                                   move.w #-16382,dff042 <_end+0xd79d3a>
+    408e:	|  |  |  |  |  |  |                                                                                                   move.w #-16382,dff042 <_end+0xd75aa6>
   custom->bltcdat = 0x0f0f; //Mask to Select Channel A for Uneven Nibbles and Channel B for Even ones
-    4096:	|  |  |  |  |  |  |                                                                                                   move.w #3855,dff070 <_end+0xd79d68>
+    4096:	|  |  |  |  |  |  |                                                                                                   move.w #3855,dff070 <_end+0xd75ad4>
   UWORD mod=64 - length*2-2;
     409e:	|  |  |  |  |  |  |                                                                                                   moveq #31,d1
     40a0:	|  |  |  |  |  |  |                                                                                                   sub.l d7,d1
     40a2:	|  |  |  |  |  |  |                                                                                                   add.w d1,d1
   custom->bltamod = mod;
-    40a4:	|  |  |  |  |  |  |                                                                                                   move.w d1,dff064 <_end+0xd79d5c>
+    40a4:	|  |  |  |  |  |  |                                                                                                   move.w d1,dff064 <_end+0xd75ac8>
   custom->bltbmod = mod;
-    40aa:	|  |  |  |  |  |  |                                                                                                   move.w d1,dff062 <_end+0xd79d5a>
+    40aa:	|  |  |  |  |  |  |                                                                                                   move.w d1,dff062 <_end+0xd75ac6>
   custom->bltdmod = mod;
-    40b0:	|  |  |  |  |  |  |                                                                                                   move.w d1,dff066 <_end+0xd79d5e>
+    40b0:	|  |  |  |  |  |  |                                                                                                   move.w d1,dff066 <_end+0xd75aca>
     UBYTE *bltapos = preparebuffer + bitplaneoffset + (height - 1) * 64 + length * 2;  
     40b6:	|  |  |  |  |  |  |                                                                                                   move.l d7,d0
     40b8:	|  |  |  |  |  |  |                                                                                                   add.l d7,d0
@@ -6238,17 +6238,17 @@ void KPrintF(const char* fmt, ...) {
     40ce:	|  |  |  |  |  |  |                                                                                                   move.l a6,d3
     40d0:	|  |  |  |  |  |  |                                                                                                   add.l a3,d3
     custom->bltapt = bltapos;
-    40d2:	|  |  |  |  |  |  |                                                                                                   move.l d2,dff050 <_end+0xd79d48>
+    40d2:	|  |  |  |  |  |  |                                                                                                   move.l d2,dff050 <_end+0xd75ab4>
     custom->bltbpt = bltbpos;
-    40d8:	|  |  |  |  |  |  |                                                                                                   move.l d3,dff04c <_end+0xd79d44>
+    40d8:	|  |  |  |  |  |  |                                                                                                   move.l d3,dff04c <_end+0xd75ab0>
     custom->bltdpt = bltdpos;
-    40de:	|  |  |  |  |  |  |                                                                                                   move.l d2,dff054 <_end+0xd79d4c>
+    40de:	|  |  |  |  |  |  |                                                                                                   move.l d2,dff054 <_end+0xd75ab8>
     custom->bltsize = length+1 + height * 64;
-    40e4:	|  |  |  |  |  |  |                                                                                                   move.w a0,dff058 <_end+0xd79d50>
+    40e4:	|  |  |  |  |  |  |                                                                                                   move.w a0,dff058 <_end+0xd75abc>
     UWORD tst=*(volatile UWORD*)&custom->dmaconr; //for compatiblity a1000
-    40ea:	|  |  |  |  |  |  |                                                                                                   movea.w dff002 <_end+0xd79cfa>,a1
+    40ea:	|  |  |  |  |  |  |                                                                                                   movea.w dff002 <_end+0xd75a66>,a1
 	  while (*(volatile UWORD*)&custom->dmaconr&(1<<14)) {} //blitter busy wait     
-    40f0:	|  |  |  |  |  |  |                                                                                               /-> move.w dff002 <_end+0xd79cfa>,d4
+    40f0:	|  |  |  |  |  |  |                                                                                               /-> move.w dff002 <_end+0xd75a66>,d4
     40f6:	|  |  |  |  |  |  |                                                                                               |   btst #14,d4
     40fa:	|  |  |  |  |  |  |                                                                                               \-- bne.s 40f0 <DrawCube3d+0xbd4>
     UBYTE *bltapos = preparebuffer + bitplaneoffset + (height - 1) * 64 + length * 2;  
@@ -6261,129 +6261,129 @@ void KPrintF(const char* fmt, ...) {
     410e:	|  |  |  |  |  |  |                                                                                                   move.l a6,d4
     4110:	|  |  |  |  |  |  |                                                                                                   add.l d6,d4
     custom->bltapt = bltapos;
-    4112:	|  |  |  |  |  |  |                                                                                                   move.l a1,dff050 <_end+0xd79d48>
+    4112:	|  |  |  |  |  |  |                                                                                                   move.l a1,dff050 <_end+0xd75ab4>
     custom->bltbpt = bltbpos;
-    4118:	|  |  |  |  |  |  |                                                                                                   move.l d4,dff04c <_end+0xd79d44>
+    4118:	|  |  |  |  |  |  |                                                                                                   move.l d4,dff04c <_end+0xd75ab0>
     custom->bltdpt = bltdpos;
-    411e:	|  |  |  |  |  |  |                                                                                                   move.l a1,dff054 <_end+0xd79d4c>
+    411e:	|  |  |  |  |  |  |                                                                                                   move.l a1,dff054 <_end+0xd75ab8>
     custom->bltsize = length+1 + height * 64;
-    4124:	|  |  |  |  |  |  |                                                                                                   move.w a0,dff058 <_end+0xd79d50>
+    4124:	|  |  |  |  |  |  |                                                                                                   move.w a0,dff058 <_end+0xd75abc>
     UWORD tst=*(volatile UWORD*)&custom->dmaconr; //for compatiblity a1000
-    412a:	|  |  |  |  |  |  |                                                                                                   move.w dff002 <_end+0xd79cfa>,d0
+    412a:	|  |  |  |  |  |  |                                                                                                   move.w dff002 <_end+0xd75a66>,d0
 	  while (*(volatile UWORD*)&custom->dmaconr&(1<<14)) {} //blitter busy wait     
-    4130:	|  |  |  |  |  |  |                                                                                               /-> move.w dff002 <_end+0xd79cfa>,d0
+    4130:	|  |  |  |  |  |  |                                                                                               /-> move.w dff002 <_end+0xd75a66>,d0
     4136:	|  |  |  |  |  |  |                                                                                               |   btst #14,d0
     413a:	|  |  |  |  |  |  |                                                                                               \-- bne.s 4130 <DrawCube3d+0xc14>
   custom->bltcon0 = 0x2dd8;
-    413c:	|  |  |  |  |  |  |                                                                                                   move.w #11736,dff040 <_end+0xd79d38>
+    413c:	|  |  |  |  |  |  |                                                                                                   move.w #11736,dff040 <_end+0xd75aa4>
   custom->bltcon1 = 0xe002;
-    4144:	|  |  |  |  |  |  |                                                                                                   move.w #-8190,dff042 <_end+0xd79d3a>
+    4144:	|  |  |  |  |  |  |                                                                                                   move.w #-8190,dff042 <_end+0xd75aa6>
   custom->bltcdat = 0x3333;
-    414c:	|  |  |  |  |  |  |                                                                                                   move.w #13107,dff070 <_end+0xd79d68>
+    414c:	|  |  |  |  |  |  |                                                                                                   move.w #13107,dff070 <_end+0xd75ad4>
   custom->bltamod = mod;
-    4154:	|  |  |  |  |  |  |                                                                                                   move.w d1,dff064 <_end+0xd79d5c>
+    4154:	|  |  |  |  |  |  |                                                                                                   move.w d1,dff064 <_end+0xd75ac8>
   custom->bltbmod = mod;
-    415a:	|  |  |  |  |  |  |                                                                                                   move.w d1,dff062 <_end+0xd79d5a>
+    415a:	|  |  |  |  |  |  |                                                                                                   move.w d1,dff062 <_end+0xd75ac6>
   custom->bltdmod = mod;
-    4160:	|  |  |  |  |  |  |                                                                                                   move.w d1,dff066 <_end+0xd79d5e>
+    4160:	|  |  |  |  |  |  |                                                                                                   move.w d1,dff066 <_end+0xd75aca>
     custom->bltapt = bltapos;
-    4166:	|  |  |  |  |  |  |                                                                                                   move.l d2,dff050 <_end+0xd79d48>
+    4166:	|  |  |  |  |  |  |                                                                                                   move.l d2,dff050 <_end+0xd75ab4>
     custom->bltbpt = bltbpos;
-    416c:	|  |  |  |  |  |  |                                                                                                   move.l d3,dff04c <_end+0xd79d44>
+    416c:	|  |  |  |  |  |  |                                                                                                   move.l d3,dff04c <_end+0xd75ab0>
     custom->bltdpt = bltdpos;
-    4172:	|  |  |  |  |  |  |                                                                                                   move.l d2,dff054 <_end+0xd79d4c>
+    4172:	|  |  |  |  |  |  |                                                                                                   move.l d2,dff054 <_end+0xd75ab8>
     custom->bltsize = length+1 + height * 64;
-    4178:	|  |  |  |  |  |  |                                                                                                   move.w a0,dff058 <_end+0xd79d50>
+    4178:	|  |  |  |  |  |  |                                                                                                   move.w a0,dff058 <_end+0xd75abc>
     UWORD tst=*(volatile UWORD*)&custom->dmaconr; //for compatiblity a1000
-    417e:	|  |  |  |  |  |  |                                                                                                   move.w dff002 <_end+0xd79cfa>,d0
+    417e:	|  |  |  |  |  |  |                                                                                                   move.w dff002 <_end+0xd75a66>,d0
 	  while (*(volatile UWORD*)&custom->dmaconr&(1<<14)) {} //blitter busy wait     
-    4184:	|  |  |  |  |  |  |                                                                                               /-> move.w dff002 <_end+0xd79cfa>,d0
+    4184:	|  |  |  |  |  |  |                                                                                               /-> move.w dff002 <_end+0xd75a66>,d0
     418a:	|  |  |  |  |  |  |                                                                                               |   btst #14,d0
     418e:	|  |  |  |  |  |  |                                                                                               \-- bne.s 4184 <DrawCube3d+0xc68>
     custom->bltapt = bltapos;
-    4190:	|  |  |  |  |  |  |                                                                                                   move.l a1,dff050 <_end+0xd79d48>
+    4190:	|  |  |  |  |  |  |                                                                                                   move.l a1,dff050 <_end+0xd75ab4>
     custom->bltbpt = bltbpos;
-    4196:	|  |  |  |  |  |  |                                                                                                   move.l d4,dff04c <_end+0xd79d44>
+    4196:	|  |  |  |  |  |  |                                                                                                   move.l d4,dff04c <_end+0xd75ab0>
     custom->bltdpt = bltdpos;
-    419c:	|  |  |  |  |  |  |                                                                                                   move.l a1,dff054 <_end+0xd79d4c>
+    419c:	|  |  |  |  |  |  |                                                                                                   move.l a1,dff054 <_end+0xd75ab8>
     custom->bltsize = length+1 + height * 64;
-    41a2:	|  |  |  |  |  |  |                                                                                                   move.w a0,dff058 <_end+0xd79d50>
+    41a2:	|  |  |  |  |  |  |                                                                                                   move.w a0,dff058 <_end+0xd75abc>
     UWORD tst=*(volatile UWORD*)&custom->dmaconr; //for compatiblity a1000
-    41a8:	|  |  |  |  |  |  |                                                                                                   move.w dff002 <_end+0xd79cfa>,d0
+    41a8:	|  |  |  |  |  |  |                                                                                                   move.w dff002 <_end+0xd75a66>,d0
 	  while (*(volatile UWORD*)&custom->dmaconr&(1<<14)) {} //blitter busy wait     
-    41ae:	|  |  |  |  |  |  |                                                                                               /-> move.w dff002 <_end+0xd79cfa>,d0
+    41ae:	|  |  |  |  |  |  |                                                                                               /-> move.w dff002 <_end+0xd75a66>,d0
     41b4:	|  |  |  |  |  |  |                                                                                               |   btst #14,d0
     41b8:	|  |  |  |  |  |  |                                                                                               \-- bne.s 41ae <DrawCube3d+0xc92>
   custom->bltcon0 = 0x1dd8;
-    41ba:	|  |  |  |  |  |  |                                                                                                   move.w #7640,dff040 <_end+0xd79d38>
+    41ba:	|  |  |  |  |  |  |                                                                                                   move.w #7640,dff040 <_end+0xd75aa4>
   custom->bltcon1 = 0xf002;
-    41c2:	|  |  |  |  |  |  |                                                                                                   move.w #-4094,dff042 <_end+0xd79d3a>
+    41c2:	|  |  |  |  |  |  |                                                                                                   move.w #-4094,dff042 <_end+0xd75aa6>
   custom->bltcdat = 0x5555;
-    41ca:	|  |  |  |  |  |  |                                                                                                   move.w #21845,dff070 <_end+0xd79d68>
+    41ca:	|  |  |  |  |  |  |                                                                                                   move.w #21845,dff070 <_end+0xd75ad4>
   custom->bltamod = mod;
-    41d2:	|  |  |  |  |  |  |                                                                                                   move.w d1,dff064 <_end+0xd79d5c>
+    41d2:	|  |  |  |  |  |  |                                                                                                   move.w d1,dff064 <_end+0xd75ac8>
   custom->bltbmod = mod;
-    41d8:	|  |  |  |  |  |  |                                                                                                   move.w d1,dff062 <_end+0xd79d5a>
+    41d8:	|  |  |  |  |  |  |                                                                                                   move.w d1,dff062 <_end+0xd75ac6>
   custom->bltdmod = mod;
-    41de:	|  |  |  |  |  |  |                                                                                                   move.w d1,dff066 <_end+0xd79d5e>
+    41de:	|  |  |  |  |  |  |                                                                                                   move.w d1,dff066 <_end+0xd75aca>
     custom->bltapt = bltapos;
-    41e4:	|  |  |  |  |  |  |                                                                                                   move.l d2,dff050 <_end+0xd79d48>
+    41e4:	|  |  |  |  |  |  |                                                                                                   move.l d2,dff050 <_end+0xd75ab4>
     custom->bltbpt = bltbpos;
-    41ea:	|  |  |  |  |  |  |                                                                                                   move.l d3,dff04c <_end+0xd79d44>
+    41ea:	|  |  |  |  |  |  |                                                                                                   move.l d3,dff04c <_end+0xd75ab0>
     custom->bltdpt = bltdpos;
-    41f0:	|  |  |  |  |  |  |                                                                                                   move.l d2,dff054 <_end+0xd79d4c>
+    41f0:	|  |  |  |  |  |  |                                                                                                   move.l d2,dff054 <_end+0xd75ab8>
     custom->bltsize = length+1 + height * 64;
-    41f6:	|  |  |  |  |  |  |                                                                                                   move.w a0,dff058 <_end+0xd79d50>
+    41f6:	|  |  |  |  |  |  |                                                                                                   move.w a0,dff058 <_end+0xd75abc>
     UWORD tst=*(volatile UWORD*)&custom->dmaconr; //for compatiblity a1000
-    41fc:	|  |  |  |  |  |  |                                                                                                   move.w dff002 <_end+0xd79cfa>,d0
+    41fc:	|  |  |  |  |  |  |                                                                                                   move.w dff002 <_end+0xd75a66>,d0
 	  while (*(volatile UWORD*)&custom->dmaconr&(1<<14)) {} //blitter busy wait     
-    4202:	|  |  |  |  |  |  |                                                                                               /-> move.w dff002 <_end+0xd79cfa>,d0
+    4202:	|  |  |  |  |  |  |                                                                                               /-> move.w dff002 <_end+0xd75a66>,d0
     4208:	|  |  |  |  |  |  |                                                                                               |   btst #14,d0
     420c:	|  |  |  |  |  |  |                                                                                               \-- bne.s 4202 <DrawCube3d+0xce6>
     custom->bltapt = bltapos;
-    420e:	|  |  |  |  |  |  |                                                                                                   move.l a1,dff050 <_end+0xd79d48>
+    420e:	|  |  |  |  |  |  |                                                                                                   move.l a1,dff050 <_end+0xd75ab4>
     custom->bltbpt = bltbpos;
-    4214:	|  |  |  |  |  |  |                                                                                                   move.l d4,dff04c <_end+0xd79d44>
+    4214:	|  |  |  |  |  |  |                                                                                                   move.l d4,dff04c <_end+0xd75ab0>
     custom->bltdpt = bltdpos;
-    421a:	|  |  |  |  |  |  |                                                                                                   move.l a1,dff054 <_end+0xd79d4c>
+    421a:	|  |  |  |  |  |  |                                                                                                   move.l a1,dff054 <_end+0xd75ab8>
     custom->bltsize = length+1 + height * 64;
-    4220:	|  |  |  |  |  |  |                                                                                                   move.w a0,dff058 <_end+0xd79d50>
+    4220:	|  |  |  |  |  |  |                                                                                                   move.w a0,dff058 <_end+0xd75abc>
     UWORD tst=*(volatile UWORD*)&custom->dmaconr; //for compatiblity a1000
-    4226:	|  |  |  |  |  |  |                                                                                                   move.w dff002 <_end+0xd79cfa>,d0
+    4226:	|  |  |  |  |  |  |                                                                                                   move.w dff002 <_end+0xd75a66>,d0
 	  while (*(volatile UWORD*)&custom->dmaconr&(1<<14)) {} //blitter busy wait     
-    422c:	|  |  |  |  |  |  |                                                                                               /-> move.w dff002 <_end+0xd79cfa>,d0
+    422c:	|  |  |  |  |  |  |                                                                                               /-> move.w dff002 <_end+0xd75a66>,d0
     4232:	|  |  |  |  |  |  |                                                                                               |   btst #14,d0
     4236:	|  |  |  |  |  |  |                                                                                               \-- bne.s 422c <DrawCube3d+0xd10>
   custom->bltcon0 = 0x09f0;
-    4238:	|  |  |  |  |  |  |                                                                                                   move.w #2544,dff040 <_end+0xd79d38>
+    4238:	|  |  |  |  |  |  |                                                                                                   move.w #2544,dff040 <_end+0xd75aa4>
   custom->bltcon1 = 0x0002;
-    4240:	|  |  |  |  |  |  |                                                                                                   move.w #2,dff042 <_end+0xd79d3a>
+    4240:	|  |  |  |  |  |  |                                                                                                   move.w #2,dff042 <_end+0xd75aa6>
   custom->bltcdat = 0x0;
-    4248:	|  |  |  |  |  |  |                                                                                                   move.w #0,dff070 <_end+0xd79d68>
+    4248:	|  |  |  |  |  |  |                                                                                                   move.w #0,dff070 <_end+0xd75ad4>
   mod=64 -length*2;
     4250:	|  |  |  |  |  |  |                                                                                                   moveq #32,d0
     4252:	|  |  |  |  |  |  |                                                                                                   sub.l d7,d0
     4254:	|  |  |  |  |  |  |                                                                                                   add.w d0,d0
   custom->bltamod = mod;  
-    4256:	|  |  |  |  |  |  |                                                                                                   move.w d0,dff064 <_end+0xd79d5c>
+    4256:	|  |  |  |  |  |  |                                                                                                   move.w d0,dff064 <_end+0xd75ac8>
   custom->bltdmod = mod;
-    425c:	|  |  |  |  |  |  |                                                                                                   move.w d0,dff066 <_end+0xd79d5e>
+    425c:	|  |  |  |  |  |  |                                                                                                   move.w d0,dff066 <_end+0xd75aca>
   custom->bltafwm = bltfmask;
-    4262:	|  |  |  |  |  |  |                                                                                                   move.w 114(sp),dff044 <_end+0xd79d3c>
+    4262:	|  |  |  |  |  |  |                                                                                                   move.w 114(sp),dff044 <_end+0xd75aa8>
     UBYTE *bltdpos = targetbuffer + bitplaneoffset + (height - 1) * 64 + length * 2 - 2;
     426a:	|  |  |  |  |  |  |                                                                                                   move.l 58(sp),d0
     426e:	|  |  |  |  |  |  |                                                                                                   add.l a3,d0
     4270:	|  |  |  |  |  |  |                                                                                                   add.l 54(sp),d0
     custom->bltapt = bltapos;
-    4274:	|  |  |  |  |  |  |                                                                                                   move.l d3,dff050 <_end+0xd79d48>
+    4274:	|  |  |  |  |  |  |                                                                                                   move.l d3,dff050 <_end+0xd75ab4>
     custom->bltdpt = bltdpos;
-    427a:	|  |  |  |  |  |  |                                                                                                   move.l d0,dff054 <_end+0xd79d4c>
+    427a:	|  |  |  |  |  |  |                                                                                                   move.l d0,dff054 <_end+0xd75ab8>
     custom->bltsize = length + height * 64;
-    4280:	|  |  |  |  |  |  |                                                                                                   move.w d5,dff058 <_end+0xd79d50>
+    4280:	|  |  |  |  |  |  |                                                                                                   move.w d5,dff058 <_end+0xd75abc>
     UWORD tst=*(volatile UWORD*)&custom->dmaconr; //for compatiblity a1000
-    4286:	|  |  |  |  |  |  |                                                                                                   move.w dff002 <_end+0xd79cfa>,d0
+    4286:	|  |  |  |  |  |  |                                                                                                   move.w dff002 <_end+0xd75a66>,d0
 	  while (*(volatile UWORD*)&custom->dmaconr&(1<<14)) {} //blitter busy wait     
-    428c:	|  |  |  |  |  |  |                                                                                               /-> move.w dff002 <_end+0xd79cfa>,d0
+    428c:	|  |  |  |  |  |  |                                                                                               /-> move.w dff002 <_end+0xd75a66>,d0
     4292:	|  |  |  |  |  |  |                                                                                               |   btst #14,d0
     4296:	|  |  |  |  |  |  |                                                                                               \-- bne.s 428c <DrawCube3d+0xd70>
     UBYTE *bltapos = preparebuffer + bitplaneoffset + (height - 1) * 64 + length * 2 - 2;      
@@ -6393,19 +6393,19 @@ void KPrintF(const char* fmt, ...) {
     429e:	|  |  |  |  |  |  |                                                                                                   add.l d6,d0
     42a0:	|  |  |  |  |  |  |                                                                                                   add.l 54(sp),d0
     custom->bltapt = bltapos;
-    42a4:	|  |  |  |  |  |  |                                                                                                   move.l a6,dff050 <_end+0xd79d48>
+    42a4:	|  |  |  |  |  |  |                                                                                                   move.l a6,dff050 <_end+0xd75ab4>
     custom->bltdpt = bltdpos;
-    42aa:	|  |  |  |  |  |  |                                                                                                   move.l d0,dff054 <_end+0xd79d4c>
+    42aa:	|  |  |  |  |  |  |                                                                                                   move.l d0,dff054 <_end+0xd75ab8>
     custom->bltsize = length + height * 64;
-    42b0:	|  |  |  |  |  |  |                                                                                                   move.w d5,dff058 <_end+0xd79d50>
+    42b0:	|  |  |  |  |  |  |                                                                                                   move.w d5,dff058 <_end+0xd75abc>
     UWORD tst=*(volatile UWORD*)&custom->dmaconr; //for compatiblity a1000
-    42b6:	|  |  |  |  |  |  |                                                                                                   move.w dff002 <_end+0xd79cfa>,d0
+    42b6:	|  |  |  |  |  |  |                                                                                                   move.w dff002 <_end+0xd75a66>,d0
 	  while (*(volatile UWORD*)&custom->dmaconr&(1<<14)) {} //blitter busy wait     
-    42bc:	|  |  |  |  |  |  |                                                                                               /-> move.w dff002 <_end+0xd79cfa>,d0
+    42bc:	|  |  |  |  |  |  |                                                                                               /-> move.w dff002 <_end+0xd75a66>,d0
     42c2:	|  |  |  |  |  |  |                                                                                               |   btst #14,d0
     42c6:	|  |  |  |  |  |  |                                                                                               \-- bne.s 42bc <DrawCube3d+0xda0>
   custom->bltafwm = 0xffff;
-    42c8:	|  |  |  |  |  |  |                                                                                                   move.w #-1,dff044 <_end+0xd79d3c>
+    42c8:	|  |  |  |  |  |  |                                                                                                   move.w #-1,dff044 <_end+0xd75aa8>
   DrawBuffer->minytotal = minytotal;
     42d0:	|  |  |  |  |  |  |                                                                                                   move.w 102(sp),54(a2)
   DrawBuffer->maxytotal = maxytotal;
@@ -6423,21 +6423,21 @@ void KPrintF(const char* fmt, ...) {
     42f4:	|  |  |  |  |  |                                                                                                      movea.l 54(sp),a4
     42f8:	|  |  |  |  |  |                                                                                                      move.w (0,a4,d6.l),102(sp)
   UWORD tst=*(volatile UWORD*)&custom->dmaconr; //for compatiblity a1000
-    42fe:	|  |  |  |  |  |                                                                                                      move.w dff002 <_end+0xd79cfa>,d6
+    42fe:	|  |  |  |  |  |                                                                                                      move.w dff002 <_end+0xd75a66>,d6
     4304:	|  |  |  |  |  |                                                                                                      move.l 50(sp),d0
     4308:	|  |  |  |  |  |                                                                                                      movea.l 46(sp),a4
   while (*(volatile UWORD*)&custom->dmaconr&(1<<14)) {} //blitter busy wait
-    430c:	|  |  |  |  |  |                                                                                                  /-> move.w dff002 <_end+0xd79cfa>,d6
+    430c:	|  |  |  |  |  |                                                                                                  /-> move.w dff002 <_end+0xd75a66>,d6
     4312:	|  |  |  |  |  |                                                                                                  |   btst #14,d6
     4316:	|  |  |  |  |  |                                                                                                  \-- bne.s 430c <DrawCube3d+0xdf0>
     custom->bltdpt =(ULONG *)target;
     4318:	|  |  |  |  |  |                                                                                                      move.l d0,50(sp)
     431c:	|  |  |  |  |  |                                                                                                      move.l a4,46(sp)
-    4320:	|  |  |  |  |  |                                                                                                      move.l a5,dff054 <_end+0xd79d4c>
+    4320:	|  |  |  |  |  |                                                                                                      move.l a5,dff054 <_end+0xd75ab8>
     custom->bltadat = 0x0;
-    4326:	|  |  |  |  |  |                                                                                                      move.w #0,dff074 <_end+0xd79d6c>
+    4326:	|  |  |  |  |  |                                                                                                      move.w #0,dff074 <_end+0xd75ad8>
     custom->bltsize = bltsize;    
-    432e:	|  |  |  |  |  |                                                                                                      move.w 102(sp),dff058 <_end+0xd79d50>
+    432e:	|  |  |  |  |  |                                                                                                      move.w 102(sp),dff058 <_end+0xd75abc>
       clearpos += 64*BPLHEIGHT;
     4336:	|  |  |  |  |  |                                                                                                      lea 16384(a5),a5
     433a:	|  |  |  \--|--|----------------------------------------------------------------------------------------------------- bra.w 3876 <DrawCube3d+0x35a>
@@ -6449,17 +6449,17 @@ void KPrintF(const char* fmt, ...) {
     434a:	|  |        |  |                                                                                                      add.l d0,d0
     434c:	|  |        |  |                                                                                                      move.w (0,a6,d0.l),d1
   UWORD tst=*(volatile UWORD*)&custom->dmaconr; //for compatiblity a1000
-    4350:	|  |        |  |                                                                                                      move.w dff002 <_end+0xd79cfa>,d0
+    4350:	|  |        |  |                                                                                                      move.w dff002 <_end+0xd75a66>,d0
   while (*(volatile UWORD*)&custom->dmaconr&(1<<14)) {} //blitter busy wait
-    4356:	|  |        |  |                                                                                                  /-> move.w dff002 <_end+0xd79cfa>,d0
+    4356:	|  |        |  |                                                                                                  /-> move.w dff002 <_end+0xd75a66>,d0
     435c:	|  |        |  |                                                                                                  |   btst #14,d0
     4360:	|  |        |  |                                                                                                  \-- bne.s 4356 <DrawCube3d+0xe3a>
     custom->bltdpt =(ULONG *)target;
-    4362:	|  |        |  |                                                                                                      move.l a5,dff054 <_end+0xd79d4c>
+    4362:	|  |        |  |                                                                                                      move.l a5,dff054 <_end+0xd75ab8>
     custom->bltadat = 0x0;
-    4368:	|  |        |  |                                                                                                      move.w #0,dff074 <_end+0xd79d6c>
+    4368:	|  |        |  |                                                                                                      move.w #0,dff074 <_end+0xd75ad8>
     custom->bltsize = bltsize;    
-    4370:	|  |        |  |                                                                                                      move.w d1,dff058 <_end+0xd79d50>
+    4370:	|  |        |  |                                                                                                      move.w d1,dff058 <_end+0xd75abc>
       clearpos += 64*BPLHEIGHT;
     4376:	|  |        |  |                                                                                                      lea 16384(a5),a5
     437a:	|  \--------|--|----------------------------------------------------------------------------------------------------- bra.w 375c <DrawCube3d+0x240>
@@ -6472,17 +6472,17 @@ void KPrintF(const char* fmt, ...) {
     438c:	|           |                                                                                                         movea.l 54(sp),a4
     4390:	|           |                                                                                                         move.w (0,a4,d0.l),d6
   UWORD tst=*(volatile UWORD*)&custom->dmaconr; //for compatiblity a1000
-    4394:	|           |                                                                                                         move.w dff002 <_end+0xd79cfa>,d0
+    4394:	|           |                                                                                                         move.w dff002 <_end+0xd75a66>,d0
   while (*(volatile UWORD*)&custom->dmaconr&(1<<14)) {} //blitter busy wait
-    439a:	|           |                                                                                                     /-> move.w dff002 <_end+0xd79cfa>,d0
+    439a:	|           |                                                                                                     /-> move.w dff002 <_end+0xd75a66>,d0
     43a0:	|           |                                                                                                     |   btst #14,d0
     43a4:	|           |                                                                                                     \-- bne.s 439a <DrawCube3d+0xe7e>
     custom->bltdpt =(ULONG *)target;
-    43a6:	|           |                                                                                                         move.l a5,dff054 <_end+0xd79d4c>
+    43a6:	|           |                                                                                                         move.l a5,dff054 <_end+0xd75ab8>
     custom->bltadat = 0x0;
-    43ac:	|           |                                                                                                         move.w #0,dff074 <_end+0xd79d6c>
+    43ac:	|           |                                                                                                         move.w #0,dff074 <_end+0xd75ad8>
     custom->bltsize = bltsize;    
-    43b4:	|           |                                                                                                         move.w d6,dff058 <_end+0xd79d50>
+    43b4:	|           |                                                                                                         move.w d6,dff058 <_end+0xd75abc>
     squares[3].Vertices[0].X = xs0;
     43ba:	|           |                                                                                                         move.w 58(sp),96(a3)
     squares[3].Vertices[0].Y = ys0;
@@ -6603,7 +6603,7 @@ void debug_register_bitmap(const void* addr, const char* name, short width, shor
 	*destination = '\0';
     44de:	\----> clr.b (a0)
 	if(*((UWORD *)UaeLib) == 0x4eb9 || *((UWORD *)UaeLib) == 0xa00e) {
-    44e0:	       move.w f0ff60 <_end+0xe8ac58>,d0
+    44e0:	       move.w f0ff60 <_end+0xe869c4>,d0
     44e6:	       cmpi.w #20153,d0
     44ea:	   /-- beq.s 44fe <debug_register_bitmap.constprop.0+0x92>
     44ec:	   |   cmpi.w #-24562,d0
@@ -6624,7 +6624,7 @@ void debug_register_bitmap(const void* addr, const char* name, short width, shor
     4502:	       pea -50(a5)
     4506:	       pea 4 <_start+0x4>
     450a:	       pea 58 <_start+0x58>
-    450e:	       jsr f0ff60 <_end+0xe8ac58>
+    450e:	       jsr f0ff60 <_end+0xe869c4>
 }
     4514:	       lea 20(sp),sp
 }
@@ -6648,7 +6648,7 @@ void DrawLetters( WORD *vectors, WORD *metadata, struct ScreenBuffer *buffer, UW
     4544:	                            tst.w d0
     4546:	/-------------------------- beq.s 45b6 <DrawLetters.isra.0+0x92>
     4548:	|                           clr.l 44(sp)
-    454c:	|                           move.l #544372,60(sp)
+    454c:	|                           move.l #561416,60(sp)
     4554:	|                           lea 42108 <zMult>,a4
     455a:	|                           cmpi.w #1,d1
     455e:	|  /----------------------- beq.w 4740 <DrawLetters.isra.0+0x21c>
@@ -7110,14 +7110,14 @@ UWORD DrawDices( UWORD *cubenrreverse, WORD *lettermetadata,WORD *lettermetadata
     495c:	          move.l 40(sp),d2
   ptrvector = VectorBuffer +  vectorpos;    
     4960:	          moveq #0,d1
-    4962:	          move.w 8518e <vectorpos>,d1
+    4962:	          move.w 89422 <vectorpos>,d1
     4968:	          add.l d1,d1
   ptrvectorletters = LetterBuffer + VectorPosLetters;
     496a:	          moveq #0,d0
-    496c:	          move.w 8518c <VectorPosLetters>,d0
+    496c:	          move.w 89420 <VectorPosLetters>,d0
     4972:	          add.l d0,d0
     4974:	          addi.l #321516,d0
-    497a:	          move.l d0,85188 <ptrvectorletters>
+    497a:	          move.l d0,8941c <ptrvectorletters>
   DrawCube3d( ptrvector, mirroring, nrofcubes);      
     4980:	          move.l d3,-(sp)
   if( nrofcubesreversed > 0) mirroring = 1;
@@ -7135,7 +7135,7 @@ UWORD DrawDices( UWORD *cubenrreverse, WORD *lettermetadata,WORD *lettermetadata
     499a:	          clr.l -(sp)
     499c:	          move.l d3,-(sp)
     499e:	          move.l 40(sp),-(sp)
-    49a2:	          move.l 85188 <ptrvectorletters>,-(sp)
+    49a2:	          move.l 8941c <ptrvectorletters>,-(sp)
     49a8:	          lea 4524 <DrawLetters.isra.0>(pc),a2
     49ac:	          jsr (a2)
   if( nrofcubesreversed > 0) {
@@ -7149,22 +7149,22 @@ UWORD DrawDices( UWORD *cubenrreverse, WORD *lettermetadata,WORD *lettermetadata
     49c0:	|  |      add.w d3,d2
     49c2:	|  |      add.w d3,d2
     49c4:	|  |      lsl.w #3,d2
-    49c6:	|  |      add.w 8518e <vectorpos>,d2
-    49cc:	|  |      move.w d2,8518e <vectorpos>
+    49c6:	|  |      add.w 89422 <vectorpos>,d2
+    49cc:	|  |      move.w d2,89422 <vectorpos>
   VectorPosLetters += 4*3*nrofvertsletter;
     49d2:	|  |      move.w 30(sp),d0
     49d6:	|  |      add.w d0,d0
     49d8:	|  |      add.w 30(sp),d0
     49dc:	|  |      add.w d0,d0
     49de:	|  |      add.w d0,d0
-    49e0:	|  |      add.w d0,8518c <VectorPosLetters>
+    49e0:	|  |      add.w d0,89420 <VectorPosLetters>
   VectorPosLettersReversed += 4*3*nrofvertsletterreversed;
     49e6:	|  |      move.w 34(sp),d0
     49ea:	|  |      add.w d0,d0
     49ec:	|  |      add.w 34(sp),d0
     49f0:	|  |      add.w d0,d0
     49f2:	|  |      add.w d0,d0
-    49f4:	|  |      add.w d0,8517e <VectorPosLettersReversed>
+    49f4:	|  |      add.w d0,89412 <VectorPosLettersReversed>
   SetCl( clminendpos);
     49fa:	|  |      move.l 44(sp),-(sp)
     49fe:	|  |      jsr 15ce <SetCl>(pc)
@@ -7183,11 +7183,11 @@ UWORD DrawDices( UWORD *cubenrreverse, WORD *lettermetadata,WORD *lettermetadata
     CubeNrReversePos = 1;
     4a24:	|  |  |   move.w #1,44154 <CubeNrReversePos>
     vectorpos = 0;
-    4a2c:	|  |  |   clr.w 8518e <vectorpos>
+    4a2c:	|  |  |   clr.w 89422 <vectorpos>
     VectorPosLetters = 0;
-    4a32:	|  |  |   clr.w 8518c <VectorPosLetters>
+    4a32:	|  |  |   clr.w 89420 <VectorPosLetters>
     VectorPosLettersReversed = 0;
-    4a38:	|  |  |   clr.w 8517e <VectorPosLettersReversed>
+    4a38:	|  |  |   clr.w 89412 <VectorPosLettersReversed>
     return 1;
     4a3e:	|  |  |   moveq #1,d0
 }
@@ -7203,14 +7203,14 @@ UWORD DrawDices( UWORD *cubenrreverse, WORD *lettermetadata,WORD *lettermetadata
     4a50:	|         move.w 44154 <CubeNrReversePos>,d0
     4a56:	|         add.l d0,d0
     4a58:	|         add.l 16(sp),d0
-    4a5c:	|         move.l d0,85180 <CubeNrReversePtr>
+    4a5c:	|         move.l d0,89414 <CubeNrReversePtr>
     DrawLetters( ptrvectorlettersreversed, lettermetadatareversed,DrawBuffer,nrofcubesreversed, 1);
     4a62:	|         pea 1 <_start+0x1>
     4a66:	|         move.l d2,-(sp)
     4a68:	|         move.l 32(sp),-(sp)
     ptrvectorlettersreversed = LetterBuffer2 + VectorPosLettersReversed;
     4a6c:	|         moveq #0,d0
-    4a6e:	|         move.w 8517e <VectorPosLettersReversed>,d0
+    4a6e:	|         move.w 89412 <VectorPosLettersReversed>,d0
     4a74:	|         add.l d0,d0
     DrawLetters( ptrvectorlettersreversed, lettermetadatareversed,DrawBuffer,nrofcubesreversed, 1);
     4a76:	|         addi.l #281580,d0
@@ -7225,7 +7225,7 @@ UWORD DrawDices( UWORD *cubenrreverse, WORD *lettermetadata,WORD *lettermetadata
 int End_PrepareDisplay() {
     4a88:	          movem.l d2-d3/a2/a6,-(sp)
   ULONG *retval = AllocMem(  ZMCPSIZE, MEMF_CHIP);
-    4a8c:	          movea.l 85304 <SysBase>,a6
+    4a8c:	          movea.l 89598 <SysBase>,a6
     4a92:	          move.l #1360,d0
     4a98:	          moveq #2,d1
     4a9a:	          jsr -198(a6)
@@ -7266,62 +7266,62 @@ int End_PrepareDisplay() {
   *cw++ = 0x00e0;
     4b84:	|  |      move.w #224,112(a2)
   UWORD bpl1pointerhigh = (ULONG) End_Bitmap >> 16;
-    4b8a:	|  |      move.l #493160,d0
+    4b8a:	|  |      move.l #510204,d0
     4b90:	|  |      clr.w d0
     4b92:	|  |      swap d0
     4b94:	|  |      move.w d0,114(a2)
   *cw++ = 0x00e2;
     4b98:	|  |      move.w #226,116(a2)
   *cw++ = bpl1pointerlow;
-    4b9e:	|  |      move.l #493160,d0
+    4b9e:	|  |      move.l #510204,d0
     4ba4:	|  |      move.w d0,118(a2)
   *cw++ = 0x00e4;
     4ba8:	|  |      move.w #228,120(a2)
   UWORD bpl2pointerhigh = (ULONG)(End_Bitmap + 10240) >> 16;
-    4bae:	|  |      move.l #503400,d0
+    4bae:	|  |      move.l #520444,d0
     4bb4:	|  |      clr.w d0
     4bb6:	|  |      swap d0
     4bb8:	|  |      move.w d0,122(a2)
   *cw++ = 0x00e6;
     4bbc:	|  |      move.w #230,124(a2)
   *cw++ = bpl2pointerlow;
-    4bc2:	|  |      move.l #503400,d0
+    4bc2:	|  |      move.l #520444,d0
     4bc8:	|  |      move.w d0,126(a2)
   *cw++ = 0x00e8;
     4bcc:	|  |      move.w #232,128(a2)
   UWORD bpl3pointerhigh = (ULONG)(End_Bitmap + 10240*2) >> 16;
-    4bd2:	|  |      move.l #513640,d0
+    4bd2:	|  |      move.l #530684,d0
     4bd8:	|  |      clr.w d0
     4bda:	|  |      swap d0
     4bdc:	|  |      move.w d0,130(a2)
   *cw++ = 0x00ea;
     4be0:	|  |      move.w #234,132(a2)
   *cw++ = bpl3pointerlow;  
-    4be6:	|  |      move.l #513640,d0
+    4be6:	|  |      move.l #530684,d0
     4bec:	|  |      move.w d0,134(a2)
   *cw++ = 0x00ec;
     4bf0:	|  |      move.w #236,136(a2)
   UWORD bpl4pointerhigh = (ULONG)(End_Bitmap + 10240*3) >> 16;
-    4bf6:	|  |      move.l #523880,d0
+    4bf6:	|  |      move.l #540924,d0
     4bfc:	|  |      clr.w d0
     4bfe:	|  |      swap d0
     4c00:	|  |      move.w d0,138(a2)
   *cw++ = 0x00ee;
     4c04:	|  |      move.w #238,140(a2)
   *cw++ = bpl4pointerlow;  
-    4c0a:	|  |      move.l #523880,d0
+    4c0a:	|  |      move.l #540924,d0
     4c10:	|  |      move.w d0,142(a2)
   *cw++ = 0x00f0;
     4c14:	|  |      move.w #240,144(a2)
   UWORD bpl5pointerhigh = (ULONG)(End_Bitmap + 10240*4) >> 16;
-    4c1a:	|  |      move.l #534120,d0
+    4c1a:	|  |      move.l #551164,d0
     4c20:	|  |      clr.w d0
     4c22:	|  |      swap d0
     4c24:	|  |      move.w d0,146(a2)
   *cw++ = 0x00f2;
     4c28:	|  |      move.w #242,148(a2)
   *cw++ = bpl5pointerlow;  
-    4c2e:	|  |      move.l #534120,d0
+    4c2e:	|  |      move.l #551164,d0
     4c34:	|  |      move.w d0,150(a2)
     *cl++ = *clpartinstruction++;
     4c38:	|  |      pea 80 <main+0x1a>
@@ -7337,10 +7337,10 @@ int End_PrepareDisplay() {
     4c5c:	|  |      move.l d0,288(a2)
 
   End_DrawCopper = End_ClBuild( );  
-    4c60:	|  |      move.l a2,84e6c <End_DrawCopper>
+    4c60:	|  |      move.l a2,89100 <End_DrawCopper>
 
    if ((End_Vbint = AllocMem(sizeof(struct Interrupt),    
-    4c66:	|  |      movea.l 85304 <SysBase>,a6
+    4c66:	|  |      movea.l 89598 <SysBase>,a6
     4c6c:	|  |      moveq #22,d0
     4c6e:	|  |      move.l #65537,d1
     4c74:	|  |      jsr -198(a6)
@@ -7361,7 +7361,7 @@ int End_PrepareDisplay() {
   }
 
   AddIntServer( INTB_COPER, End_Vbint);
-    4c9c:	|  |  \-> movea.l 85304 <SysBase>,a6
+    4c9c:	|  |  \-> movea.l 89598 <SysBase>,a6
     4ca2:	|  |      moveq #4,d0
     4ca4:	|  |      jsr -168(a6)
 void End_Cleanup() {
@@ -7370,21 +7370,21 @@ void End_Cleanup() {
 
 void End_SetCl() {
   custom->cop1lc = (ULONG) End_DrawCopper;
-    4ca8:	|  |      movea.l 85300 <custom>,a0
-    4cae:	|  |      move.l 84e6c <End_DrawCopper>,128(a0)
+    4ca8:	|  |      movea.l 89594 <custom>,a0
+    4cae:	|  |      move.l 89100 <End_DrawCopper>,128(a0)
 }
     4cb6:	|  |      movem.l (sp)+,d2-d3/a2/a6
     4cba:	|  |      rts
     Write( Output(), "Allocation of Ram for Copper failed.\n", 40);
-    4cbc:	|  \----> movea.l 852f8 <DOSBase>,a6
+    4cbc:	|  \----> movea.l 8958c <DOSBase>,a6
     4cc2:	|         jsr -60(a6)
-    4cc6:	|         movea.l 852f8 <DOSBase>,a6
+    4cc6:	|         movea.l 8958c <DOSBase>,a6
     4ccc:	|         move.l d0,d1
     4cce:	|         move.l #250047,d2
     4cd4:	|         moveq #40,d3
     4cd6:	|         jsr -48(a6)
     Exit(1);
-    4cda:	|         movea.l 852f8 <DOSBase>,a6
+    4cda:	|         movea.l 8958c <DOSBase>,a6
     4ce0:	|         moveq #1,d1
     4ce2:	|         jsr -144(a6)
     4ce6:	\-------- bra.w 4aa6 <End_PrepareDisplay.isra.0+0x1e>
@@ -7394,7 +7394,7 @@ int Sw_PrepareDisplay() {
     4cea:	                         link.w a5,#-52
     4cee:	                         movem.l d2-d3/a2-a3/a6,-(sp)
   SwScrollerFinished = 0;
-    4cf2:	                         clr.w 852f6 <SwScrollerFinished>
+    4cf2:	                         clr.w 8958a <SwScrollerFinished>
 
 void debug_register_palette(const void* addr, const char* name, short numEntries, unsigned short flags) {
 	struct debug_resource resource = {
@@ -7432,17 +7432,17 @@ void debug_register_palette(const void* addr, const char* name, short numEntries
 	*destination = '\0';
     4d5a:	                     \-> clr.b (a0)
 	if(*((UWORD *)UaeLib) == 0x4eb9 || *((UWORD *)UaeLib) == 0xa00e) {
-    4d5c:	                         move.w f0ff60 <_end+0xe8ac58>,d0
+    4d5c:	                         move.w f0ff60 <_end+0xe869c4>,d0
     4d62:	                         cmpi.w #20153,d0
     4d66:	                  /----- beq.w 4f0e <Sw_PrepareDisplay.isra.0+0x224>
     4d6a:	                  |      cmpi.w #-24562,d0
     4d6e:	                  +----- beq.w 4f0e <Sw_PrepareDisplay.isra.0+0x224>
   Sw_FontBuffer = AllocMem( 80*50, MEMF_CHIP);  
-    4d72:	                  |      movea.l 85304 <SysBase>,a6
+    4d72:	                  |      movea.l 89598 <SysBase>,a6
     4d78:	                  |      move.l #4000,d0
     4d7e:	                  |      moveq #2,d1
     4d80:	                  |      jsr -198(a6)
-    4d84:	                  |      move.l d0,851f2 <Sw_FontBuffer>
+    4d84:	                  |      move.l d0,89486 <Sw_FontBuffer>
   debug_register_bitmap( Sw_FontBuffer, "fontbuffer.bpl", 512, 50, 1, 0);
     4d8a:	                  |      pea 1 <_start+0x1>
     4d8e:	                  |      pea 32 <_start+0x32>
@@ -7453,15 +7453,15 @@ void debug_register_palette(const void* addr, const char* name, short numEntries
   Utils_FillLong( (ULONG *)Sw_FontBuffer, 0x0, 50, 20,0);   
     4da0:	                  |      pea 14 <_start+0x14>
     4da4:	                  |      pea 32 <_start+0x32>
-    4da8:	                  |      move.l 851f2 <Sw_FontBuffer>,-(sp)
+    4da8:	                  |      move.l 89486 <Sw_FontBuffer>,-(sp)
     4dae:	                  |      lea c92 <Utils_FillLong.constprop.0>(pc),a2
     4db2:	                  |      jsr (a2)
   Sw_ScreenBuffer3 = AllocMem( BPLSIZE*BPLDEPTH, MEMF_CHIP);
-    4db4:	                  |      movea.l 85304 <SysBase>,a6
+    4db4:	                  |      movea.l 89598 <SysBase>,a6
     4dba:	                  |      move.l #20560,d0
     4dc0:	                  |      moveq #2,d1
     4dc2:	                  |      jsr -198(a6)
-    4dc6:	                  |      move.l d0,851f6 <Sw_ScreenBuffer3>
+    4dc6:	                  |      move.l d0,8948a <Sw_ScreenBuffer3>
   if(Sw_ScreenBuffer3 == 0) {
     4dcc:	                  |      lea 28(sp),sp
     4dd0:	      /-----------|----- beq.w 5038 <Sw_PrepareDisplay.isra.0+0x34e>
@@ -7474,14 +7474,14 @@ void debug_register_palette(const void* addr, const char* name, short numEntries
   Utils_FillLong( (ULONG *)Sw_ScreenBuffer3, 0, 256, 20,0);   
     4de6:	      |        |  |      pea 14 <_start+0x14>
     4dea:	      |        |  |      pea 100 <main+0x9a>
-    4dee:	      |        |  |      move.l 851f6 <Sw_ScreenBuffer3>,-(sp)
+    4dee:	      |        |  |      move.l 8948a <Sw_ScreenBuffer3>,-(sp)
     4df4:	      |        |  |      jsr (a2)
   Sw_ScreenBuffer2 = AllocMem(BPLSIZE*BPLDEPTH, MEMF_CHIP);
-    4df6:	      |        |  |      movea.l 85304 <SysBase>,a6
+    4df6:	      |        |  |      movea.l 89598 <SysBase>,a6
     4dfc:	      |        |  |      move.l #20560,d0
     4e02:	      |        |  |      moveq #2,d1
     4e04:	      |        |  |      jsr -198(a6)
-    4e08:	      |        |  |      move.l d0,851fa <Sw_ScreenBuffer2>
+    4e08:	      |        |  |      move.l d0,8948e <Sw_ScreenBuffer2>
   if(Sw_ScreenBuffer2 == 0) {
     4e0e:	      |        |  |      lea 28(sp),sp
     4e12:	/-----|--------|--|----- beq.w 4fc2 <Sw_PrepareDisplay.isra.0+0x2d8>
@@ -7494,14 +7494,14 @@ void debug_register_palette(const void* addr, const char* name, short numEntries
   Utils_FillLong( (ULONG *) Sw_ScreenBuffer2, 0, 256, 20,0);  
     4e28:	|  |  |        |  |      pea 14 <_start+0x14>
     4e2c:	|  |  |        |  |      pea 100 <main+0x9a>
-    4e30:	|  |  |        |  |      move.l 851fa <Sw_ScreenBuffer2>,-(sp)
+    4e30:	|  |  |        |  |      move.l 8948e <Sw_ScreenBuffer2>,-(sp)
     4e36:	|  |  |        |  |      jsr (a2)
   Sw_ScreenBuffer1 = AllocMem(BPLSIZE*BPLDEPTH, MEMF_CHIP);
-    4e38:	|  |  |        |  |      movea.l 85304 <SysBase>,a6
+    4e38:	|  |  |        |  |      movea.l 89598 <SysBase>,a6
     4e3e:	|  |  |        |  |      move.l #20560,d0
     4e44:	|  |  |        |  |      moveq #2,d1
     4e46:	|  |  |        |  |      jsr -198(a6)
-    4e4a:	|  |  |        |  |      move.l d0,851fe <Sw_ScreenBuffer1>
+    4e4a:	|  |  |        |  |      move.l d0,89492 <Sw_ScreenBuffer1>
   if(Sw_ScreenBuffer1 == 0) {
     4e50:	|  |  |        |  |      lea 28(sp),sp
     4e54:	|  |  |  /-----|--|----- beq.w 4f8e <Sw_PrepareDisplay.isra.0+0x2a4>
@@ -7514,29 +7514,29 @@ void debug_register_palette(const void* addr, const char* name, short numEntries
   Utils_FillLong( (ULONG *) Sw_ScreenBuffer1, 0, 256, 20,0);  
     4e6a:	|  |  |  |  |  |  |      pea 14 <_start+0x14>
     4e6e:	|  |  |  |  |  |  |      pea 100 <main+0x9a>
-    4e72:	|  |  |  |  |  |  |      move.l 851fe <Sw_ScreenBuffer1>,-(sp)
+    4e72:	|  |  |  |  |  |  |      move.l 89492 <Sw_ScreenBuffer1>,-(sp)
     4e78:	|  |  |  |  |  |  |      jsr (a2)
   Sw_ViewCopper = Sw_ClBuild( );
     4e7a:	|  |  |  |  |  |  |      lea 111c <Sw_ClBuild>(pc),a2
     4e7e:	|  |  |  |  |  |  |      jsr (a2)
   Sw_DrawCopper = Sw_ClBuild( );
     4e80:	|  |  |  |  |  |  |      jsr (a2)
-    4e82:	|  |  |  |  |  |  |      move.l d0,85194 <Sw_DrawCopper>
+    4e82:	|  |  |  |  |  |  |      move.l d0,89428 <Sw_DrawCopper>
 void Sw_SwapCl() {
 
   /*ULONG tmp = (ULONG) Sw_DrawCopper;
   Sw_DrawCopper = Sw_ViewCopper;
   Sw_ViewCopper = (UWORD *)tmp;*/
   custom->cop1lc = (ULONG) Sw_DrawCopper;
-    4e88:	|  |  |  |  |  |  |      movea.l 85300 <custom>,a0
+    4e88:	|  |  |  |  |  |  |      movea.l 89594 <custom>,a0
     4e8e:	|  |  |  |  |  |  |      move.l d0,128(a0)
   if ((Sw_Vbint = AllocMem(sizeof(struct Interrupt),    
-    4e92:	|  |  |  |  |  |  |      movea.l 85304 <SysBase>,a6
+    4e92:	|  |  |  |  |  |  |      movea.l 89598 <SysBase>,a6
     4e98:	|  |  |  |  |  |  |      moveq #22,d0
     4e9a:	|  |  |  |  |  |  |      move.l #65537,d1
     4ea0:	|  |  |  |  |  |  |      jsr -198(a6)
     4ea4:	|  |  |  |  |  |  |      movea.l d0,a1
-    4ea6:	|  |  |  |  |  |  |      move.l d0,851ee <Sw_Vbint>
+    4ea6:	|  |  |  |  |  |  |      move.l d0,89482 <Sw_Vbint>
     4eac:	|  |  |  |  |  |  |      lea 28(sp),sp
     4eb0:	|  |  |  |  |  |  |  /-- beq.s 4ecc <Sw_PrepareDisplay.isra.0+0x1e2>
     Sw_Vbint->is_Node.ln_Type = NT_INTERRUPT;       
@@ -7548,21 +7548,21 @@ void Sw_SwapCl() {
     Sw_Vbint->is_Code = Sw_VblankHandler;
     4ec4:	|  |  |  |  |  |  |  |   move.l #5430,18(a1)
   AddIntServer( INTB_COPER, Sw_Vbint);
-    4ecc:	|  |  |  |  |  |  |  \-> movea.l 85304 <SysBase>,a6
+    4ecc:	|  |  |  |  |  |  |  \-> movea.l 89598 <SysBase>,a6
     4ed2:	|  |  |  |  |  |  |      moveq #4,d0
     4ed4:	|  |  |  |  |  |  |      jsr -168(a6)
   Sw_ScreenBufferList[0] = Sw_ScreenBuffer1;
-    4ed8:	|  |  |  |  |  |  |      move.l 851fe <Sw_ScreenBuffer1>,d0
-    4ede:	|  |  |  |  |  |  |      move.l d0,85198 <Sw_ScreenBufferList>
+    4ed8:	|  |  |  |  |  |  |      move.l 89492 <Sw_ScreenBuffer1>,d0
+    4ede:	|  |  |  |  |  |  |      move.l d0,8942c <Sw_ScreenBufferList>
   Sw_ScreenBufferList[1] = Sw_ScreenBuffer2;    
-    4ee4:	|  |  |  |  |  |  |      move.l 851fa <Sw_ScreenBuffer2>,d1
-    4eea:	|  |  |  |  |  |  |      move.l d1,8519c <Sw_ScreenBufferList+0x4>
+    4ee4:	|  |  |  |  |  |  |      move.l 8948e <Sw_ScreenBuffer2>,d1
+    4eea:	|  |  |  |  |  |  |      move.l d1,89430 <Sw_ScreenBufferList+0x4>
   Sw_ScreenBufferList[2] = Sw_ScreenBuffer2;
-    4ef0:	|  |  |  |  |  |  |      move.l d1,851a0 <Sw_ScreenBufferList+0x8>
+    4ef0:	|  |  |  |  |  |  |      move.l d1,89434 <Sw_ScreenBufferList+0x8>
   Sw_ScreenBufferList[3] = Sw_ScreenBuffer1;   
-    4ef6:	|  |  |  |  |  |  |      move.l d0,851a4 <Sw_ScreenBufferList+0xc>
+    4ef6:	|  |  |  |  |  |  |      move.l d0,89438 <Sw_ScreenBufferList+0xc>
   Sw_InitComplete = 1;
-    4efc:	|  |  |  |  |  |  |      move.w #1,851d6 <Sw_InitComplete>
+    4efc:	|  |  |  |  |  |  |      move.w #1,8946a <Sw_InitComplete>
 }
     4f04:	|  |  |  |  |  |  |      movem.l -72(a5),d2-d3/a2-a3/a6
     4f0a:	|  |  |  |  |  |  |      unlk a5
@@ -7573,15 +7573,15 @@ void Sw_SwapCl() {
     4f12:	|  |  |  |  |  |         pea -50(a5)
     4f16:	|  |  |  |  |  |         pea 4 <_start+0x4>
     4f1a:	|  |  |  |  |  |         pea 58 <_start+0x58>
-    4f1e:	|  |  |  |  |  |         jsr f0ff60 <_end+0xe8ac58>
+    4f1e:	|  |  |  |  |  |         jsr f0ff60 <_end+0xe869c4>
 }
     4f24:	|  |  |  |  |  |         lea 20(sp),sp
   Sw_FontBuffer = AllocMem( 80*50, MEMF_CHIP);  
-    4f28:	|  |  |  |  |  |         movea.l 85304 <SysBase>,a6
+    4f28:	|  |  |  |  |  |         movea.l 89598 <SysBase>,a6
     4f2e:	|  |  |  |  |  |         move.l #4000,d0
     4f34:	|  |  |  |  |  |         moveq #2,d1
     4f36:	|  |  |  |  |  |         jsr -198(a6)
-    4f3a:	|  |  |  |  |  |         move.l d0,851f2 <Sw_FontBuffer>
+    4f3a:	|  |  |  |  |  |         move.l d0,89486 <Sw_FontBuffer>
   debug_register_bitmap( Sw_FontBuffer, "fontbuffer.bpl", 512, 50, 1, 0);
     4f40:	|  |  |  |  |  |         pea 1 <_start+0x1>
     4f44:	|  |  |  |  |  |         pea 32 <_start+0x32>
@@ -7592,48 +7592,48 @@ void Sw_SwapCl() {
   Utils_FillLong( (ULONG *)Sw_FontBuffer, 0x0, 50, 20,0);   
     4f56:	|  |  |  |  |  |         pea 14 <_start+0x14>
     4f5a:	|  |  |  |  |  |         pea 32 <_start+0x32>
-    4f5e:	|  |  |  |  |  |         move.l 851f2 <Sw_FontBuffer>,-(sp)
+    4f5e:	|  |  |  |  |  |         move.l 89486 <Sw_FontBuffer>,-(sp)
     4f64:	|  |  |  |  |  |         lea c92 <Utils_FillLong.constprop.0>(pc),a2
     4f68:	|  |  |  |  |  |         jsr (a2)
   Sw_ScreenBuffer3 = AllocMem( BPLSIZE*BPLDEPTH, MEMF_CHIP);
-    4f6a:	|  |  |  |  |  |         movea.l 85304 <SysBase>,a6
+    4f6a:	|  |  |  |  |  |         movea.l 89598 <SysBase>,a6
     4f70:	|  |  |  |  |  |         move.l #20560,d0
     4f76:	|  |  |  |  |  |         moveq #2,d1
     4f78:	|  |  |  |  |  |         jsr -198(a6)
-    4f7c:	|  |  |  |  |  |         move.l d0,851f6 <Sw_ScreenBuffer3>
+    4f7c:	|  |  |  |  |  |         move.l d0,8948a <Sw_ScreenBuffer3>
   if(Sw_ScreenBuffer3 == 0) {
     4f82:	|  |  |  |  |  |         lea 28(sp),sp
     4f86:	|  |  |  |  |  \-------- bne.w 4dd4 <Sw_PrepareDisplay.isra.0+0xea>
     4f8a:	|  |  +--|--|----------- bra.w 5038 <Sw_PrepareDisplay.isra.0+0x34e>
     Write(Output(), "Cannot allocate Memory for Bitplane2.\n", 38);
-    4f8e:	|  |  |  >--|----------> movea.l 852f8 <DOSBase>,a6
+    4f8e:	|  |  |  >--|----------> movea.l 8958c <DOSBase>,a6
     4f94:	|  |  |  |  |            jsr -60(a6)
-    4f98:	|  |  |  |  |            movea.l 852f8 <DOSBase>,a6
+    4f98:	|  |  |  |  |            movea.l 8958c <DOSBase>,a6
     4f9e:	|  |  |  |  |            move.l d0,d1
     4fa0:	|  |  |  |  |            move.l #250252,d2
     4fa6:	|  |  |  |  |            moveq #38,d3
     4fa8:	|  |  |  |  |            jsr -48(a6)
     Exit(1);
-    4fac:	|  |  |  |  |            movea.l 852f8 <DOSBase>,a6
+    4fac:	|  |  |  |  |            movea.l 8958c <DOSBase>,a6
     4fb2:	|  |  |  |  |            moveq #1,d1
     4fb4:	|  |  |  |  |            jsr -144(a6)
   debug_register_bitmap( Sw_ScreenBuffer1, "screenbuffer1.bpl", 512, 257, 1, 0);
-    4fb8:	|  |  |  |  |            move.l 851fe <Sw_ScreenBuffer1>,d0
+    4fb8:	|  |  |  |  |            move.l 89492 <Sw_ScreenBuffer1>,d0
     4fbe:	|  |  |  |  +----------- bra.w 4e58 <Sw_PrepareDisplay.isra.0+0x16e>
     Write(Output(), "Cannot allocate Memory for Bitplane2.\n", 38);
-    4fc2:	>--|--|--|--|----------> movea.l 852f8 <DOSBase>,a6
+    4fc2:	>--|--|--|--|----------> movea.l 8958c <DOSBase>,a6
     4fc8:	|  |  |  |  |            jsr -60(a6)
-    4fcc:	|  |  |  |  |            movea.l 852f8 <DOSBase>,a6
+    4fcc:	|  |  |  |  |            movea.l 8958c <DOSBase>,a6
     4fd2:	|  |  |  |  |            move.l d0,d1
     4fd4:	|  |  |  |  |            move.l #250252,d2
     4fda:	|  |  |  |  |            moveq #38,d3
     4fdc:	|  |  |  |  |            jsr -48(a6)
     Exit(1);
-    4fe0:	|  |  |  |  |            movea.l 852f8 <DOSBase>,a6
+    4fe0:	|  |  |  |  |            movea.l 8958c <DOSBase>,a6
     4fe6:	|  |  |  |  |            moveq #1,d1
     4fe8:	|  |  |  |  |            jsr -144(a6)
   debug_register_bitmap( Sw_ScreenBuffer2, "screenbuffer2.bpl", 512, 257, 1, 0);
-    4fec:	|  |  |  |  |            move.l 851fa <Sw_ScreenBuffer2>,d0
+    4fec:	|  |  |  |  |            move.l 8948e <Sw_ScreenBuffer2>,d0
     4ff2:	|  |  |  |  |            pea 1 <_start+0x1>
     4ff6:	|  |  |  |  |            pea 101 <main+0x9b>
     4ffa:	|  |  |  |  |            pea 3d1b3 <incbin_MercuryLetterData2Lz4_end+0xf5>
@@ -7642,32 +7642,32 @@ void Sw_SwapCl() {
   Utils_FillLong( (ULONG *) Sw_ScreenBuffer2, 0, 256, 20,0);  
     5004:	|  |  |  |  |            pea 14 <_start+0x14>
     5008:	|  |  |  |  |            pea 100 <main+0x9a>
-    500c:	|  |  |  |  |            move.l 851fa <Sw_ScreenBuffer2>,-(sp)
+    500c:	|  |  |  |  |            move.l 8948e <Sw_ScreenBuffer2>,-(sp)
     5012:	|  |  |  |  |            jsr (a2)
   Sw_ScreenBuffer1 = AllocMem(BPLSIZE*BPLDEPTH, MEMF_CHIP);
-    5014:	|  |  |  |  |            movea.l 85304 <SysBase>,a6
+    5014:	|  |  |  |  |            movea.l 89598 <SysBase>,a6
     501a:	|  |  |  |  |            move.l #20560,d0
     5020:	|  |  |  |  |            moveq #2,d1
     5022:	|  |  |  |  |            jsr -198(a6)
-    5026:	|  |  |  |  |            move.l d0,851fe <Sw_ScreenBuffer1>
+    5026:	|  |  |  |  |            move.l d0,89492 <Sw_ScreenBuffer1>
   if(Sw_ScreenBuffer1 == 0) {
     502c:	|  |  |  |  |            lea 28(sp),sp
     5030:	|  |  |  |  \----------- bne.w 4e58 <Sw_PrepareDisplay.isra.0+0x16e>
     5034:	|  |  |  \-------------- bra.w 4f8e <Sw_PrepareDisplay.isra.0+0x2a4>
     Write(Output(), "Cannot allocate Memory for Bitplane1.\n",38);
-    5038:	|  |  \----------------> movea.l 852f8 <DOSBase>,a6
+    5038:	|  |  \----------------> movea.l 8958c <DOSBase>,a6
     503e:	|  |                     jsr -60(a6)
-    5042:	|  |                     movea.l 852f8 <DOSBase>,a6
+    5042:	|  |                     movea.l 8958c <DOSBase>,a6
     5048:	|  |                     move.l d0,d1
     504a:	|  |                     move.l #250195,d2
     5050:	|  |                     moveq #38,d3
     5052:	|  |                     jsr -48(a6)
     Exit(1);
-    5056:	|  |                     movea.l 852f8 <DOSBase>,a6
+    5056:	|  |                     movea.l 8958c <DOSBase>,a6
     505c:	|  |                     moveq #1,d1
     505e:	|  |                     jsr -144(a6)
   debug_register_bitmap( Sw_ScreenBuffer3, "screenbuffer3.bpl", 512, 257, 1, 0);
-    5062:	|  |                     move.l 851f6 <Sw_ScreenBuffer3>,d0
+    5062:	|  |                     move.l 8948a <Sw_ScreenBuffer3>,d0
     5068:	|  |                     pea 1 <_start+0x1>
     506c:	|  |                     pea 101 <main+0x9b>
     5070:	|  |                     pea 3d17a <incbin_MercuryLetterData2Lz4_end+0xbc>
@@ -7676,14 +7676,14 @@ void Sw_SwapCl() {
   Utils_FillLong( (ULONG *)Sw_ScreenBuffer3, 0, 256, 20,0);   
     507a:	|  |                     pea 14 <_start+0x14>
     507e:	|  |                     pea 100 <main+0x9a>
-    5082:	|  |                     move.l 851f6 <Sw_ScreenBuffer3>,-(sp)
+    5082:	|  |                     move.l 8948a <Sw_ScreenBuffer3>,-(sp)
     5088:	|  |                     jsr (a2)
   Sw_ScreenBuffer2 = AllocMem(BPLSIZE*BPLDEPTH, MEMF_CHIP);
-    508a:	|  |                     movea.l 85304 <SysBase>,a6
+    508a:	|  |                     movea.l 89598 <SysBase>,a6
     5090:	|  |                     move.l #20560,d0
     5096:	|  |                     moveq #2,d1
     5098:	|  |                     jsr -198(a6)
-    509c:	|  |                     move.l d0,851fa <Sw_ScreenBuffer2>
+    509c:	|  |                     move.l d0,8948e <Sw_ScreenBuffer2>
   if(Sw_ScreenBuffer2 == 0) {
     50a2:	|  |                     lea 28(sp),sp
     50a6:	|  \-------------------- bne.w 4e16 <Sw_PrepareDisplay.isra.0+0x12c>
@@ -7694,12 +7694,12 @@ void Sw_SwapCl() {
     50ae:	                   lea -44(sp),sp
     50b2:	                   movem.l d2-d7/a2-a6,-(sp)
   WaitBlit();
-    50b6:	                   movea.l 852fc <GfxBase>,a6
+    50b6:	                   movea.l 89590 <GfxBase>,a6
     50bc:	                   jsr -228(a6)
   custom->bltafwm = 0xffff; //Static
-    50c0:	                   move.w #-1,dff044 <_end+0xd79d3c>
+    50c0:	                   move.w #-1,dff044 <_end+0xd75aa8>
   custom->bltalwm = 0xffff; //Static
-    50c8:	                   move.w #-1,dff046 <_end+0xd79d3e>
+    50c8:	                   move.w #-1,dff046 <_end+0xd75aaa>
   switch(Scene) {
     50d0:	                   cmpi.w #18,64ed6 <Scene>
     50d8:	         /-------- bhi.s 514c <DrawScreen+0x9e>
@@ -7737,7 +7737,7 @@ void Sw_SwapCl() {
     5150:	         |  |      lea 44(sp),sp
     5154:	         |  |      rts
       CubeFinished = 1;
-    5156:	         |  |      move.w #1,852f2 <CubeFinished>
+    5156:	         |  |      move.w #1,89586 <CubeFinished>
 }
     515e:	         |  |      movem.l (sp)+,d2-d7/a2-a6
     5162:	         |  |      lea 44(sp),sp
@@ -7761,14 +7761,14 @@ void Sw_SwapCl() {
     51a0:	         |  +----- bra.w 5312 <DrawScreen+0x264>
   ptrvector = VectorBuffer +  vectorpos;    
     51a4:	         |  |      moveq #0,d0
-    51a6:	         |  |      move.w 8518e <vectorpos>,d0
+    51a6:	         |  |      move.w 89422 <vectorpos>,d0
     51ac:	         |  |      add.l d0,d0
   ptrvectorletters = LetterBuffer + VectorPosLetters;
     51ae:	         |  |      moveq #0,d1
-    51b0:	         |  |      move.w 8518c <VectorPosLetters>,d1
+    51b0:	         |  |      move.w 89420 <VectorPosLetters>,d1
     51b6:	         |  |      add.l d1,d1
     51b8:	         |  |      addi.l #321516,d1
-    51be:	         |  |      move.l d1,85188 <ptrvectorletters>
+    51be:	         |  |      move.l d1,8941c <ptrvectorletters>
   DrawCube3d( ptrvector, mirroring, nrofcubes);      
     51c4:	         |  |      pea 4 <_start+0x4>
     51c8:	         |  |      clr.l -(sp)
@@ -7776,7 +7776,7 @@ void Sw_SwapCl() {
     51d0:	         |  |      move.l d0,-(sp)
     51d2:	         |  |      jsr 351c <DrawCube3d>(pc)
   DrawLetters( ptrvectorletters, lettermetadata, DrawBuffer,nrofcubes, 0);
-    51d6:	         |  |      movea.l 85188 <ptrvectorletters>,a2
+    51d6:	         |  |      movea.l 8941c <ptrvectorletters>,a2
     51dc:	         |  |      lea 12(sp),sp
     51e0:	         |  |      moveq #4,d0
     51e2:	         |  |      move.l d0,44(sp)
@@ -7796,7 +7796,7 @@ void Sw_SwapCl() {
     5208:	|        |  |      move.l a0,d2
     520a:	|        |  |      lsl.l #5,d2
     520c:	|        |  |      movea.l d2,a0
-    520e:	|        |  |      adda.l #544372,a0
+    520e:	|        |  |      adda.l #561416,a0
     5214:	|        |  |      move.l 16(a0),d0
     5218:	|        |  |      move.l d0,72(sp)
       for(int i=0;i<metadata[2];i++)
@@ -7822,11 +7822,11 @@ void Sw_SwapCl() {
   CubeNrReversePos++;
     5240:	|  /-----|--|--|-> addq.w #1,44154 <CubeNrReversePos>
   vectorpos += 3*8*nrofcubes;
-    5246:	|  |     |  |  |   move.w 8518e <vectorpos>,d2
+    5246:	|  |     |  |  |   move.w 89422 <vectorpos>,d2
     524c:	|  |     |  |  |   addi.w #96,d2
-    5250:	|  |     |  |  |   move.w d2,8518e <vectorpos>
+    5250:	|  |     |  |  |   move.w d2,89422 <vectorpos>
   VectorPosLetters += 4*3*nrofvertsletter;
-    5256:	|  |     |  |  |   addi.w #156,8518c <VectorPosLetters>
+    5256:	|  |     |  |  |   addi.w #156,89420 <VectorPosLetters>
   SetCl( clminendpos);
     525e:	|  |     |  |  |   pea 1 <_start+0x1>
     5262:	|  |     |  |  |   jsr 15ce <SetCl>(pc)
@@ -7835,12 +7835,12 @@ void Sw_SwapCl() {
     5268:	|  |     |  |  |   cmpi.w #12767,d2
     526c:	|  |     +--|--|-- bls.w 514c <DrawScreen+0x9e>
     DoNotClearDirty = 1;
-    5270:	|  |     |  |  |   move.w #1,8517c <DoNotClearDirty>
+    5270:	|  |     |  |  |   move.w #1,89410 <DoNotClearDirty>
   if(vectorpos >= 8*3*nrofframes*nrofcubes) 
     5278:	|  |     |  |  |   cmpi.w #12959,d2
     527c:	|  |     +--|--|-- bls.w 514c <DrawScreen+0x9e>
     ClearBuffer->MyDirtyArea[0].Address = 0;
-    5280:	|  |     |  |  |   movea.l 85178 <ClearBuffer>,a2
+    5280:	|  |     |  |  |   movea.l 8940c <ClearBuffer>,a2
     5286:	|  |     |  |  |   clr.l 4(a2)
     ClearBuffer->MyDirtyArea[1].Address = 0;
     528a:	|  |     |  |  |   clr.l 16(a2)
@@ -7849,7 +7849,7 @@ void Sw_SwapCl() {
     ClearBuffer->MyDirtyArea[3].Address = 0;    
     5292:	|  |     |  |  |   clr.l 40(a2)
     DrawBuffer->MyDirtyArea[0].Address = 0;
-    5296:	|  |     |  |  |   movea.l 85184 <DrawBuffer>,a1
+    5296:	|  |     |  |  |   movea.l 89418 <DrawBuffer>,a1
     529c:	|  |     |  |  |   clr.l 4(a1)
     DrawBuffer->MyDirtyArea[1].Address = 0;
     52a0:	|  |     |  |  |   clr.l 16(a1)
@@ -7858,7 +7858,7 @@ void Sw_SwapCl() {
     DrawBuffer->MyDirtyArea[3].Address = 0;    
     52a8:	|  |     |  |  |   clr.l 40(a1)
     ViewBuffer->MyDirtyArea[0].Address = 0;
-    52ac:	|  |     |  |  |   movea.l 85174 <ViewBuffer>,a0
+    52ac:	|  |     |  |  |   movea.l 89408 <ViewBuffer>,a0
     52b2:	|  |     |  |  |   clr.l 4(a0)
     ViewBuffer->MyDirtyArea[1].Address = 0;
     52b6:	|  |     |  |  |   clr.l 16(a0)
@@ -7891,15 +7891,15 @@ void Sw_SwapCl() {
     ViewBuffer->MyDirtyArea[3].AddressRev = 0;    
     52ee:	|  |     |  |  |   clr.l 44(a0)
     DoNotClearDirty = 0;    
-    52f2:	|  |     |  |  |   clr.w 8517c <DoNotClearDirty>
+    52f2:	|  |     |  |  |   clr.w 89410 <DoNotClearDirty>
     CubeNrReversePos = 1;
     52f8:	|  |     |  |  |   move.w #1,44154 <CubeNrReversePos>
     vectorpos = 0;
-    5300:	|  |     |  |  |   clr.w 8518e <vectorpos>
+    5300:	|  |     |  |  |   clr.w 89422 <vectorpos>
     VectorPosLetters = 0;
-    5306:	|  |     |  |  |   clr.w 8518c <VectorPosLetters>
+    5306:	|  |     |  |  |   clr.w 89420 <VectorPosLetters>
     VectorPosLettersReversed = 0;
-    530c:	|  |     |  |  |   clr.w 8517e <VectorPosLettersReversed>
+    530c:	|  |     |  |  |   clr.w 89412 <VectorPosLettersReversed>
   if(result == 1) Scene++;
     5312:	|  |     |  >--|-> addq.w #1,64ed6 <Scene>
 }
@@ -7908,12 +7908,12 @@ void Sw_SwapCl() {
     5320:	|  |     |  |  |   rts
      Utils_Lz4DepackAsm( PointCubeDataLz4, WorkingMem, 11224);
     5322:	|  |     |  |  |   pea 2bd8 <DrawRect+0x5e4>
-    5326:	|  |     |  |  |   move.l 852ee <WorkingMem>,-(sp)
+    5326:	|  |     |  |  |   move.l 89582 <WorkingMem>,-(sp)
     532c:	|  |     |  |  |   pea 200ee <incbin_PointCubeDataLz4_start>
     5332:	|  |     |  |  |   lea bd4 <Utils_Lz4DepackAsm>(pc),a3
     5336:	|  |     |  |  |   jsr (a3)
      LoadVectors( PointCubeData, WorkingMem, VectorBuffer);   
-    5338:	|  |     |  |  |   move.l 852ee <WorkingMem>,d2
+    5338:	|  |     |  |  |   move.l 89582 <WorkingMem>,d2
     533e:	|  |     |  |  |   pea 5b00e <VectorBuffer>
     5344:	|  |     |  |  |   move.l d2,-(sp)
     5346:	|  |     |  |  |   pea 2005a <incbin_PointCubeData_start>
@@ -7925,7 +7925,7 @@ void Sw_SwapCl() {
     5358:	|  |     |  |  |   pea 22d6e <incbin_PointLetterDataLz4_start>
     535e:	|  |     |  |  |   jsr (a3)
      LoadVectors(PointLetterData, WorkingMem, LetterBuffer);
-    5360:	|  |     |  |  |   move.l 852ee <WorkingMem>,d2
+    5360:	|  |     |  |  |   move.l 89582 <WorkingMem>,d2
     5366:	|  |     |  |  |   lea 32(sp),sp
     536a:	|  |     |  |  |   move.l #321516,(sp)
     5370:	|  |     |  |  |   move.l d2,-(sp)
@@ -7938,7 +7938,7 @@ void Sw_SwapCl() {
     5386:	|  |     |  |  |   jsr (a3)
      LoadVectors(PointReversedLetterData, WorkingMem, LetterBuffer2);
     5388:	|  |     |  |  |   pea 44bec <LetterBuffer2>
-    538e:	|  |     |  |  |   move.l 852ee <WorkingMem>,-(sp)
+    538e:	|  |     |  |  |   move.l 89582 <WorkingMem>,-(sp)
     5394:	|  |     |  |  |   pea 252a0 <incbin_PointReversedLetterData_start>
     539a:	|  |     |  |  |   jsr (a2)
      Scene = 3;
@@ -7967,12 +7967,12 @@ void Sw_SwapCl() {
     53ec:	|  |     |  +--|-- bra.w 5312 <DrawScreen+0x264>
       Utils_Lz4DepackAsm( TekCubeDataLz4, WorkingMem, 9421);
     53f0:	|  |     |  |  |   pea 24cd <Clbuild+0x347>
-    53f4:	|  |     |  |  |   move.l 852ee <WorkingMem>,-(sp)
+    53f4:	|  |     |  |  |   move.l 89582 <WorkingMem>,-(sp)
     53fa:	|  |     |  |  |   pea 1b010 <incbin_TekCubeDataLz4_start>
     5400:	|  |     |  |  |   lea bd4 <Utils_Lz4DepackAsm>(pc),a3
     5404:	|  |     |  |  |   jsr (a3)
       LoadVectors( TekCubeData, WorkingMem, VectorBuffer);   
-    5406:	|  |     |  |  |   move.l 852ee <WorkingMem>,d2
+    5406:	|  |     |  |  |   move.l 89582 <WorkingMem>,d2
     540c:	|  |     |  |  |   pea 5b00e <VectorBuffer>
     5412:	|  |     |  |  |   move.l d2,-(sp)
     5414:	|  |     |  |  |   pea 1af7c <incbin_TekCubeData_start>
@@ -7986,7 +7986,7 @@ void Sw_SwapCl() {
       LoadVectors(TekLetterData, WorkingMem, LetterBuffer);      
     542e:	|  |     |  |  |   lea 32(sp),sp
     5432:	|  |     |  |  |   move.l #321516,(sp)
-    5438:	|  |     |  |  |   move.l 852ee <WorkingMem>,-(sp)
+    5438:	|  |     |  |  |   move.l 89582 <WorkingMem>,-(sp)
     543e:	|  |     |  |  |   pea 1d4f2 <incbin_TekLetterData_start>
     5444:	|  |     |  |  |   jsr (a2)
       Scene = 5;
@@ -8015,12 +8015,12 @@ void Sw_SwapCl() {
     5492:	|  |     |  +--|-- bra.w 5312 <DrawScreen+0x264>
       Utils_Lz4DepackAsm( FlexCubeDataLz4, WorkingMem, 11238);
     5496:	|  |     |  |  |   pea 2be6 <DrawRect+0x5f2>
-    549a:	|  |     |  |  |   move.l 852ee <WorkingMem>,-(sp)
+    549a:	|  |     |  |  |   move.l 89582 <WorkingMem>,-(sp)
     54a0:	|  |     |  |  |   pea 274cc <incbin_FlexCubeDataLz4_start>
     54a6:	|  |     |  |  |   lea bd4 <Utils_Lz4DepackAsm>(pc),a3
     54aa:	|  |     |  |  |   jsr (a3)
       LoadVectors( FlexCubeData, WorkingMem, VectorBuffer);   
-    54ac:	|  |     |  |  |   move.l 852ee <WorkingMem>,d2
+    54ac:	|  |     |  |  |   move.l 89582 <WorkingMem>,d2
     54b2:	|  |     |  |  |   pea 5b00e <VectorBuffer>
     54b8:	|  |     |  |  |   move.l d2,-(sp)
     54ba:	|  |     |  |  |   pea 27408 <incbin_FlexCubeData_start>
@@ -8034,7 +8034,7 @@ void Sw_SwapCl() {
       LoadVectors(FlexLetterData, WorkingMem, LetterBuffer);
     54d4:	|  |     |  |  |   lea 32(sp),sp
     54d8:	|  |     |  |  |   move.l #321516,(sp)
-    54de:	|  |     |  |  |   move.l 852ee <WorkingMem>,-(sp)
+    54de:	|  |     |  |  |   move.l 89582 <WorkingMem>,-(sp)
     54e4:	|  |     |  |  |   pea 2a0c6 <incbin_FlexLetterData_start>
     54ea:	|  |     |  |  |   jsr (a2)
       Scene = 7;
@@ -8063,12 +8063,12 @@ void Sw_SwapCl() {
     5538:	|  |     |  +--|-- bra.w 5312 <DrawScreen+0x264>
       Utils_Lz4DepackAsm( DesireCubeDataLz4, WorkingMem, 9133);
     553c:	|  |     |  |  |   pea 23ad <Clbuild+0x227>
-    5540:	|  |     |  |  |   move.l 852ee <WorkingMem>,-(sp)
+    5540:	|  |     |  |  |   move.l 89582 <WorkingMem>,-(sp)
     5546:	|  |     |  |  |   pea 2d304 <incbin_DesireCubeDataLz4_start>
     554c:	|  |     |  |  |   lea bd4 <Utils_Lz4DepackAsm>(pc),a3
     5550:	|  |     |  |  |   jsr (a3)
       LoadVectors( DesireCubeData, WorkingMem, VectorBuffer);   
-    5552:	|  |     |  |  |   move.l 852ee <WorkingMem>,d2
+    5552:	|  |     |  |  |   move.l 89582 <WorkingMem>,d2
     5558:	|  |     |  |  |   pea 5b00e <VectorBuffer>
     555e:	|  |     |  |  |   move.l d2,-(sp)
     5560:	|  |     |  |  |   pea 2d270 <incbin_DesireCubeData_start>
@@ -8080,7 +8080,7 @@ void Sw_SwapCl() {
     5572:	|  |     |  |  |   pea 2f78a <incbin_DesireLetterDataLz4_start>
     5578:	|  |     |  |  |   jsr (a3)
       LoadVectors(DesireLetterData, WorkingMem, LetterBuffer);
-    557a:	|  |     |  |  |   move.l 852ee <WorkingMem>,d2
+    557a:	|  |     |  |  |   move.l 89582 <WorkingMem>,d2
     5580:	|  |     |  |  |   lea 32(sp),sp
     5584:	|  |     |  |  |   move.l #321516,(sp)
     558a:	|  |     |  |  |   move.l d2,-(sp)
@@ -8093,7 +8093,7 @@ void Sw_SwapCl() {
     55a0:	|  |     |  |  |   jsr (a3)
       LoadVectors(DesireReversedLetterData, WorkingMem, LetterBuffer2);      
     55a2:	|  |     |  |  |   pea 44bec <LetterBuffer2>
-    55a8:	|  |     |  |  |   move.l 852ee <WorkingMem>,-(sp)
+    55a8:	|  |     |  |  |   move.l 89582 <WorkingMem>,-(sp)
     55ae:	|  |     |  |  |   pea 32008 <incbin_DesireReversedLetterData_start>
     55b4:	|  |     |  |  |   jsr (a2)
       Scene = 9;
@@ -8122,12 +8122,12 @@ void Sw_SwapCl() {
     5606:	|  |     |  +--|-- bra.w 5312 <DrawScreen+0x264>
       Utils_Lz4DepackAsm( AtwCubeDataLz4, WorkingMem, 9458);
     560a:	|  |     |  |  |   pea 24f2 <SetBplPointers+0xc>
-    560e:	|  |     |  |  |   move.l 852ee <WorkingMem>,-(sp)
+    560e:	|  |     |  |  |   move.l 89582 <WorkingMem>,-(sp)
     5614:	|  |     |  |  |   pea 15d42 <incbin_AtwCubeDataLz4_start>
     561a:	|  |     |  |  |   lea bd4 <Utils_Lz4DepackAsm>(pc),a3
     561e:	|  |     |  |  |   jsr (a3)
       LoadVectors( AtwCubeData, WorkingMem, VectorBuffer);   
-    5620:	|  |     |  |  |   move.l 852ee <WorkingMem>,d2
+    5620:	|  |     |  |  |   move.l 89582 <WorkingMem>,d2
     5626:	|  |     |  |  |   pea 5b00e <VectorBuffer>
     562c:	|  |     |  |  |   move.l d2,-(sp)
     562e:	|  |     |  |  |   pea 15cae <incbin_AtwCubeData_start>
@@ -8141,7 +8141,7 @@ void Sw_SwapCl() {
       LoadVectors(AtwLetterData, WorkingMem, LetterBuffer);
     5648:	|  |     |  |  |   lea 32(sp),sp
     564c:	|  |     |  |  |   move.l #321516,(sp)
-    5652:	|  |     |  |  |   move.l 852ee <WorkingMem>,-(sp)
+    5652:	|  |     |  |  |   move.l 89582 <WorkingMem>,-(sp)
     5658:	|  |     |  |  |   pea 18248 <incbin_AtwLetterData_start>
     565e:	|  |     |  |  |   jsr (a2)
       Scene = 11;
@@ -8170,12 +8170,12 @@ void Sw_SwapCl() {
     56ac:	|  |     |  +--|-- bra.w 5312 <DrawScreen+0x264>
       Utils_Lz4DepackAsm( AbyssCubeDataLz4, WorkingMem, 10490);
     56b0:	|  |     |  |  |   pea 28fa <DrawRect+0x306>
-    56b4:	|  |     |  |  |   move.l 852ee <WorkingMem>,-(sp)
+    56b4:	|  |     |  |  |   move.l 89582 <WorkingMem>,-(sp)
     56ba:	|  |     |  |  |   pea de6a <incbin_AbyssCubeDataLz4_start>
     56c0:	|  |     |  |  |   lea bd4 <Utils_Lz4DepackAsm>(pc),a3
     56c4:	|  |     |  |  |   jsr (a3)
       LoadVectors( AbyssCubeData, WorkingMem, VectorBuffer);   
-    56c6:	|  |     |  |  |   move.l 852ee <WorkingMem>,d2
+    56c6:	|  |     |  |  |   move.l 89582 <WorkingMem>,d2
     56cc:	|  |     |  |  |   pea 5b00e <VectorBuffer>
     56d2:	|  |     |  |  |   move.l d2,-(sp)
     56d4:	|  |     |  |  |   pea ddd6 <incbin_AbyssCubeData_start>
@@ -8187,7 +8187,7 @@ void Sw_SwapCl() {
     56e6:	|  |     |  |  |   pea 10854 <incbin_AbyssLetterDataLz4_start>
     56ec:	|  |     |  |  |   jsr (a3)
       LoadVectors(AbyssLetterData, WorkingMem, LetterBuffer);
-    56ee:	|  |     |  |  |   move.l 852ee <WorkingMem>,d2
+    56ee:	|  |     |  |  |   move.l 89582 <WorkingMem>,d2
     56f4:	|  |     |  |  |   lea 32(sp),sp
     56f8:	|  |     |  |  |   move.l #321516,(sp)
     56fe:	|  |     |  |  |   move.l d2,-(sp)
@@ -8200,7 +8200,7 @@ void Sw_SwapCl() {
     5714:	|  |     |  |  |   jsr (a3)
       LoadVectors(AbyssReversedLetterData, WorkingMem, LetterBuffer2);      
     5716:	|  |     |  |  |   pea 44bec <LetterBuffer2>
-    571c:	|  |     |  |  |   move.l 852ee <WorkingMem>,-(sp)
+    571c:	|  |     |  |  |   move.l 89582 <WorkingMem>,-(sp)
     5722:	|  |     |  |  |   pea 13968 <incbin_AbyssReversedLetterData_start>
     5728:	|  |     |  |  |   jsr (a2)
       Scene = 13;
@@ -8212,12 +8212,12 @@ void Sw_SwapCl() {
     573e:	|  |     |  |  |   rts
       Utils_Lz4DepackAsm( MercuryCubeData1Lz4, WorkingMem, 8195);
     5740:	|  |     |  |  |   pea 2003 <SetCl+0xa35>
-    5744:	|  |     |  |  |   move.l 852ee <WorkingMem>,-(sp)
+    5744:	|  |     |  |  |   move.l 89582 <WorkingMem>,-(sp)
     574a:	|  |     |  |  |   pea 349a4 <incbin_MercuryCubeData1Lz4_start>
     5750:	|  |     |  |  |   lea bd4 <Utils_Lz4DepackAsm>(pc),a3
     5754:	|  |     |  |  |   jsr (a3)
       LoadVectors( MercuryCubeData1, WorkingMem, VectorBuffer);   
-    5756:	|  |     |  |  |   move.l 852ee <WorkingMem>,d2
+    5756:	|  |     |  |  |   move.l 89582 <WorkingMem>,d2
     575c:	|  |     |  |  |   pea 5b00e <VectorBuffer>
     5762:	|  |     |  |  |   move.l d2,-(sp)
     5764:	|  |     |  |  |   pea 348e0 <incbin_MercuryCubeData1_start>
@@ -8231,7 +8231,7 @@ void Sw_SwapCl() {
       LoadVectors(MercuryLetterData1, WorkingMem, LetterBuffer);
     577e:	|  |     |  |  |   lea 32(sp),sp
     5782:	|  |     |  |  |   move.l #321516,(sp)
-    5788:	|  |     |  |  |   move.l 852ee <WorkingMem>,-(sp)
+    5788:	|  |     |  |  |   move.l 89582 <WorkingMem>,-(sp)
     578e:	|  |     |  |  |   pea 369bc <incbin_MercuryLetterData1_start>
     5794:	|  |     |  |  |   jsr (a2)
       Scene = 15;
@@ -8243,12 +8243,12 @@ void Sw_SwapCl() {
     57aa:	|  |     |  |  |   rts
       Utils_Lz4DepackAsm( MercuryCubeData2Lz4, WorkingMem, 6440);
     57ac:	|  |     |  |  |   pea 1928 <SetCl+0x35a>
-    57b0:	|  |     |  |  |   move.l 852ee <WorkingMem>,-(sp)
+    57b0:	|  |     |  |  |   move.l 89582 <WorkingMem>,-(sp)
     57b6:	|  |     |  |  |   pea 396f8 <incbin_MercuryCubeData2Lz4_start>
     57bc:	|  |     |  |  |   lea bd4 <Utils_Lz4DepackAsm>(pc),a3
     57c0:	|  |     |  |  |   jsr (a3)
       LoadVectors( MercuryCubeData2, WorkingMem, VectorBuffer);   
-    57c2:	|  |     |  |  |   move.l 852ee <WorkingMem>,d2
+    57c2:	|  |     |  |  |   move.l 89582 <WorkingMem>,d2
     57c8:	|  |     |  |  |   pea 5b00e <VectorBuffer>
     57ce:	|  |     |  |  |   move.l d2,-(sp)
     57d0:	|  |     |  |  |   pea 39634 <incbin_MercuryCubeData2_start>
@@ -8262,7 +8262,7 @@ void Sw_SwapCl() {
       LoadVectors(MercuryLetterData2, WorkingMem, LetterBuffer);
     57ea:	|  |     |  |  |   lea 32(sp),sp
     57ee:	|  |     |  |  |   move.l #321516,(sp)
-    57f4:	|  |     |  |  |   move.l 852ee <WorkingMem>,-(sp)
+    57f4:	|  |     |  |  |   move.l 89582 <WorkingMem>,-(sp)
     57fa:	|  |     |  |  |   pea 3b034 <incbin_MercuryLetterData2_start>
     5800:	|  |     |  |  |   jsr (a2)
       Scene = 17;
@@ -9156,7 +9156,7 @@ br1:
     add.w d5,d2
     5ca6:	add.w d5,d2
     lea   0xdff000,a3
-    5ca8:	lea dff000 <_end+0xd79cf8>,a3
+    5ca8:	lea dff000 <_end+0xd75a64>,a3
     tst.w 0x2(a3)
     5cae:	tst.w 2(a3)
 
