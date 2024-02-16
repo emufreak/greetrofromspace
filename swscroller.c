@@ -286,11 +286,16 @@ UWORD * Sw_ClBuild() {
 struct Interrupt *Sw_Vbint;
 UWORD Sw_ScreenBufferOffset = 0;
 UWORD Sw_InitComplete = 0;
+UWORD Sw_MusicDelay = 50;
 
 void Sw_VblankHandler() {
 
   custom->intreq = 0x0020;
-  //p61Music();
+  if(Sw_MusicDelay > 0) {
+    Sw_MusicDelay--;
+  } else {
+    p61Music();
+  }
 
   if( Sw_InitComplete == 1) {
     if( FrameCountBufferDraw == 2) {

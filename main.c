@@ -376,7 +376,7 @@ int main() {
 	//warpmode(1);
 	// TODO: precalc stuff here
 #ifdef MUSIC
-	if(p61Init(module2) != 0)
+	if(p61Init(module) != 0)
 		KPrintF("p61Init failed!\n");
 #endif
 	//warpmode(0);
@@ -385,7 +385,7 @@ int main() {
 	WaitVbl();
 
 	Sw_PrepareDisplay();
-	custom->dmacon = 0x83ff;	
+	custom->dmacon = 0x83f0;	
 	custom->intena=0xe020;//Enable vblank
 
 	while(SwScrollerFinished == 0) {
