@@ -70,9 +70,11 @@ char Sw_text[] =
 "          ALCATRAZ                      "
 "         ANDROMEDA                      "
 "            ATLANTIS                    "
+"           BITBENDAZ                    "
 "          DEKADENCE                     "
 "            ECHTZEIT                    "
 "          GHOSTOWN                      "
+"             INSANE                     "
 "           LOGICOMA                     "
 "          NAH-KOLOR                     "
 "             PACIFIC                    "
@@ -294,7 +296,7 @@ void Sw_VblankHandler() {
   if(Sw_MusicDelay > 0) {
     Sw_MusicDelay--;
   } else {
-    p61Music();
+    //p61Music();
   }
 
   if( Sw_InitComplete == 1) {

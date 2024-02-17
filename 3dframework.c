@@ -392,7 +392,7 @@ void VblankHandler() {
 
   custom->intreq = 1 << INTB_VERTB;
   custom->intreq = 1 << INTB_VERTB;
-  p61Music();
+  //p61Music();
   FrameCounter++;
 }
 

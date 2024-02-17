@@ -123,7 +123,7 @@ UWORD End_ScreenBufferOffset = 0;
 void End_VblankHandler() {
 
   custom->intreq = 0x0020;
-  p61Music();
+  //p61Music();
 }
 
 int End_PrepareDisplay() {

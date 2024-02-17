@@ -24,7 +24,7 @@ objects := $(cpp_objects) $(c_objects) $(s_objects) $(vasm_objects)
 program = out/a
 OUT = $(call forward-to-backward,$(program))
 CC = m68k-amiga-elf-gcc
-VASM = vasmm68k_mot_win32.exe
+VASM = vasmm68k_mot
 SDKDIR = $(call forward-to-backward,$(abspath $(dir $(shell where $(CC)))..\m68k-amiga-elf\sys-include))
 
 #-Ofast
@@ -32,7 +32,7 @@ CCFLAGS = -g -MP -MMD -m68000 -O2 -nostdlib -Wextra -Wno-unused-function -Wno-vo
 CPPFLAGS= $(CCFLAGS) -fno-rtti -fcoroutines -fno-use-cxa-atexit
 ASFLAGS = -Wa,-g,--register-prefix-optional,-I$(SDKDIR),-D
 LDFLAGS = -Wl,--emit-relocs,-Ttext=0,-Map=$(OUT).map
-VASMFLAGS = -m68000 -Felf -O2 -opt-fconst -nowarn=62 -dwarf=3 -quiet -x -I. -I$(SDKDIR) 
+VASMFLAGS = -m68000 -Felf -opt-fconst -nowarn=62 -dwarf=3 -quiet -x -I. -I$(SDKDIR)
 
 all: $(OUT).exe
 
