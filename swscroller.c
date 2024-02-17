@@ -22,7 +22,6 @@
 
 ULONG *Sw_ScreenBuffer2;
 ULONG *Sw_ScreenBuffer1;
-ULONG *Sw_ScreenBuffer3;
 UWORD *Sw_DrawBuffer;
 UWORD *Sw_ViewBufferP1;
 UWORD *Sw_ViewBufferP2;
@@ -127,7 +126,6 @@ void Sw_DrawScreen3() {
   
   while ( Sw_BlitFrame == 0)
   {
-    /* code */
   }
   
 
@@ -163,7 +161,7 @@ void Sw_DrawScreen3() {
   custom->bltsize = 64*Sw_CopyLines[Sw_framecountscreen]+40;  
 
   //Generate Right Part of Screen Part 1
-  //Copy unaltered part to screen using Sw_XMaskLeft
+  //Copy unaltered part to screen using Sw_XMasRight
 
   WaitBlit();
 
@@ -180,7 +178,7 @@ void Sw_DrawScreen3() {
   custom->bltsize = (255-Sw_CopyLines[Sw_framecountscreen])*64+20;
 
   //Generate Right Part of Screen Part 2
-  //Copy moved part to screen using Sw_XMaskLeft and merge with unmoved on conflicting pixel
+  //Copy moved part to screen using Sw_XMaskRight and merge with unmoved on conflicting pixel
   WaitBlit();
   custom->bltcon0 = 0xffea; // Shift A Channel 15 but actual -1 (Sourceline), Channels A+B+C+D, Minterm: Set if (Channel A = 1 and Channel B = 1) or Channel C = 1 
   custom->bltcon1 = 0xf000; // Shift B Channel 15 but actual -1 (Sourceline)
@@ -250,8 +248,6 @@ UWORD * Sw_ClBuild() {
     Exit(1);
   }
   ULONG *cl = retval;
-  /**cl = 0xfffffffe;
-  return retval;*/
   ULONG *clpartinstruction;
   clpartinstruction = Sw_ClsSprites;
   for(int i=0; i<16;i++)
@@ -278,7 +274,6 @@ UWORD * Sw_ClBuild() {
   {
     *cl++ = *clpartinstruction++;
   }
-  //*cl++ = 0xffdffffe;
   *cl++ = 0x20bffffe;
   *cl++ = 0x009c8010;
   *cl++ = 0xfffffffe;
@@ -333,15 +328,6 @@ int Sw_PrepareDisplay() {
   debug_register_bitmap( Sw_FontBuffer, "fontbuffer.bpl", 512, 50, 1, 0);
 
   Utils_FillLong( (ULONG *)Sw_FontBuffer, 0x0, 50, 20,0);   
-  
-  Sw_ScreenBuffer3 = AllocMem( BPLSIZE*BPLDEPTH, MEMF_CHIP);
-  if(Sw_ScreenBuffer3 == 0) {
-    Write(Output(), "Cannot allocate Memory for Bitplane1.\n",38);
-    Exit(1);
-  }
-  debug_register_bitmap( Sw_ScreenBuffer3, "screenbuffer3.bpl", 512, 257, 1, 0);
-
-  Utils_FillLong( (ULONG *)Sw_ScreenBuffer3, 0, 256, 20,0);   
 
   Sw_ScreenBuffer2 = AllocMem(BPLSIZE*BPLDEPTH, MEMF_CHIP);
   
@@ -366,7 +352,6 @@ int Sw_PrepareDisplay() {
 
   Sw_ViewCopper = Sw_ClBuild( );
   Sw_DrawCopper = Sw_ClBuild( );
-  //SetBplPointers(); //Set Buffer 1
   Sw_SwapCl();
 
   if ((Sw_Vbint = AllocMem(sizeof(struct Interrupt),    
@@ -409,17 +394,10 @@ int Sw_PrepareDisplay() {
 void Sw_Cleanup() {
   FreeMem( Sw_ScreenBuffer1, BPLSIZE*BPLDEPTH);
   FreeMem( Sw_ScreenBuffer2, BPLSIZE*BPLDEPTH);
-  FreeMem( Sw_ScreenBuffer3, BPLSIZE*BPLDEPTH);
   FreeMem( Sw_FontBuffer,  80*50);
   FreeMem( Sw_font, 38000);
   RemIntServer( INTB_COPER, Sw_Vbint);
 }
-
-
-/*INCBIN_CHIP( Sw_font, "data/swscroller/font.fnt");
-INCBIN_CHIP( Sw_XMaskLeft, "data/swscroller/xmaskleft.raw")
-INCBIN_CHIP( Sw_XMaskRight, "data/swscroller/xmaskright.raw")
-INCBIN( Sw_ClColorDim, "data/swscroller/clcolordim.raw")*/
 
 void Sw_SetBplPointers() {
 
@@ -437,16 +415,9 @@ void Sw_SetBplPointers() {
   Sw_DrawBuffer = (UWORD *)Sw_ScreenBufferList[Sw_ScreenBufferOffset];
   Sw_ViewBufferP1 = (UWORD *)Sw_ScreenBufferList[Sw_ScreenBufferOffset+1];
   Sw_ViewBufferP2 = (UWORD *)Sw_ScreenBufferList[Sw_ScreenBufferOffset+1]+40;
- //Sw_Sw_ViewBufferP3 = Sw_ScreenBufferList[Sw_ScreenBufferOffset+3];
-
-  /*Sw_ScreenBufferOffset += 2;
-  if(Sw_ScreenBufferOffset == 12) { Sw_ScreenBufferOffset = 0; }*/
 
   UWORD highword = (ULONG)Sw_ViewBufferP1 >> 16;
   UWORD lowword = (ULONG)Sw_ViewBufferP1 & 0xffff;  
-
-  /*highword = (ULONG)Sw_FontBuffer >> 16;
-  lowword = (ULONG)Sw_FontBuffer & 0xffff;*/
 
   UWORD *copword = (UWORD *) Sw_DrawCopper;
   copword[COPBPL1LOW] = lowword;
@@ -455,11 +426,6 @@ void Sw_SetBplPointers() {
   lowword = (ULONG)Sw_ViewBufferP2 & 0xffff;
   copword[COPBPL2LOW] = lowword;
   copword[COPBPL2HIGH] = highword;
-  
-  /*highword = (ULONG)Sw_ViewBufferP3 >> 16;
-  lowword = (ULONG)Sw_ViewBufferP3 & 0xffff;
-  copword[COPBPL3LOW] = lowword;
-  copword[COPBPL3HIGH] = highword;*/
 
 }
 
@@ -493,19 +459,5 @@ void Sw_SetColors() {
 }
 
 void Sw_SwapCl() {
-
-  /*ULONG tmp = (ULONG) Sw_DrawCopper;
-  Sw_DrawCopper = Sw_ViewCopper;
-  Sw_ViewCopper = (UWORD *)tmp;*/
   custom->cop1lc = (ULONG) Sw_DrawCopper;
-  //custom->copjmp1 = tmp;
 }
-
-/*void Utils_FillLong( ULONG *target, ULONG pattern, ULONG lines, 
-                                            ULONG linelength, ULONG mod ) {
-  for( int i=0;i<lines; i++) {
-    for( int i2=0;i2<linelength;i2++) 
-      *target++ = pattern;
-    target += mod;
-  }
-}*/

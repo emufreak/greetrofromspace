@@ -9,16 +9,15 @@ Name             Origin             Length             Attributes
 Linker script and memory map
 
 Address of section .text set to 0x0
-LOAD C:\Users\uersu\AppData\Local\Temp\cc8YJNpa.ltrans0.ltrans.o
-LOAD C:\Users\uersu\AppData\Local\Temp\cc3r4Wkc.debug.temp.o
-LOAD C:\Users\uersu\AppData\Local\Temp\ccWZO1pe.debug.temp.o
-LOAD C:\Users\uersu\AppData\Local\Temp\cc5FhNDf.debug.temp.o
-LOAD C:\Users\uersu\AppData\Local\Temp\ccO0nL6g.debug.temp.o
-LOAD C:\Users\uersu\AppData\Local\Temp\ccJrKXIh.debug.temp.o
-LOAD C:\Users\uersu\AppData\Local\Temp\ccih1BBi.debug.temp.o
+LOAD C:\Users\uersu\AppData\Local\Temp\ccdKB1bA.ltrans0.ltrans.o
+LOAD C:\Users\uersu\AppData\Local\Temp\cct99A7y.debug.temp.o
+LOAD C:\Users\uersu\AppData\Local\Temp\cc8Se5f8.debug.temp.o
+LOAD C:\Users\uersu\AppData\Local\Temp\cctIjhnG.debug.temp.o
+LOAD C:\Users\uersu\AppData\Local\Temp\ccwAUOCe.debug.temp.o
+LOAD C:\Users\uersu\AppData\Local\Temp\ccv4hF2M.debug.temp.o
+LOAD C:\Users\uersu\AppData\Local\Temp\ccKMSqvl.debug.temp.o
 LOAD obj/gcc8_a_support.o
 LOAD obj/depacker_doynax.o
-LOAD obj/smartlinefill.o
 LOAD obj/utilsasm.o
 LOAD obj/P6112-Play.o
                 [!provide]                        PROVIDE (__executable_start = SEGMENT_START ("text-segment", 0x80000000))
@@ -79,45 +78,45 @@ LOAD obj/P6112-Play.o
 .iplt
  *(.iplt)
 
-.text           0x00000000     0x6b42
+.text           0x00000000     0x69ee
  *(.text.unlikely .text.*_unlikely .text.unlikely.*)
  .text.unlikely
-                0x00000000       0x66 C:\Users\uersu\AppData\Local\Temp\cc8YJNpa.ltrans0.ltrans.o
+                0x00000000       0x66 C:\Users\uersu\AppData\Local\Temp\ccdKB1bA.ltrans0.ltrans.o
                 0x00000000                _start
  *(.text.exit .text.exit.*)
  *(.text.startup .text.startup.*)
- .text.startup  0x00000066      0xb6a C:\Users\uersu\AppData\Local\Temp\cc8YJNpa.ltrans0.ltrans.o
+ .text.startup  0x00000066      0xb54 C:\Users\uersu\AppData\Local\Temp\ccdKB1bA.ltrans0.ltrans.o
                 0x00000066                main
  *(.text.hot .text.hot.*)
  *(SORT_BY_NAME(.text.sorted.*))
  *(.text .stub .text.* .gnu.linkonce.t.*)
- .text          0x00000bd0     0x4e80 C:\Users\uersu\AppData\Local\Temp\cc8YJNpa.ltrans0.ltrans.o
-                0x000059ac                strlen
-                0x000059c4                memset
-                0x000059e6                memcpy
-                0x00005a04                memmove
- .text          0x00005a50      0x10c obj/gcc8_a_support.o
-                0x00005a50                __mulsi3
-                0x00005a72                __udivsi3
-                0x00005ace                __divsi3
-                0x00005af8                __modsi3
-                0x00005b20                __umodsi3
-                0x00005b4a                KPutCharX
-                0x00005b58                PutChar
- .text          0x00005b5c       0xd2 obj/depacker_doynax.o
-                0x00005b5c                _doynaxdepack_asm
- *fill*         0x00005c2e        0x2 4e714e71
- .text          0x00005c30       0x88 obj/smartlinefill.o
-                0x00005c30                _smartlinefillasm
- .text          0x00005cb8      0xe8a obj/utilsasm.o
-                0x00005cb8                _lz4_depack
+ *fill*         0x00000bba        0x2 4e714e71
+ .text          0x00000bbc     0x4dc6 C:\Users\uersu\AppData\Local\Temp\ccdKB1bA.ltrans0.ltrans.o
+                0x000058de                strlen
+                0x000058f6                memset
+                0x00005918                memcpy
+                0x00005936                memmove
+ *fill*         0x00005982        0x2 4e714e71
+ .text          0x00005984      0x10c obj/gcc8_a_support.o
+                0x00005984                __mulsi3
+                0x000059a6                __udivsi3
+                0x00005a02                __divsi3
+                0x00005a2c                __modsi3
+                0x00005a54                __umodsi3
+                0x00005a7e                KPutCharX
+                0x00005a8c                PutChar
+ .text          0x00005a90       0xd2 obj/depacker_doynax.o
+                0x00005a90                _doynaxdepack_asm
+ *fill*         0x00005b62        0x2 4e714e71
+ .text          0x00005b64      0xe8a obj/utilsasm.o
+                0x00005b64                _lz4_depack
  *(.gnu.warning)
 
-CODE            0x00006b42      0xd16
- CODE           0x00006b42      0xd16 obj/P6112-Play.o
-                0x00006ba0                _P61_Init
-                0x00006e72                _P61_End
-                0x00006ed8                _P61_Music
+CODE            0x000069ee      0xd16
+ CODE           0x000069ee      0xd16 obj/P6112-Play.o
+                0x00006a4c                _P61_Init
+                0x00006d1e                _P61_End
+                0x00006d84                _P61_Music
 
 .fini
  *(SORT_NONE(.fini))
@@ -125,89 +124,89 @@ CODE            0x00006b42      0xd16
                 [!provide]                        PROVIDE (_etext = .)
                 [!provide]                        PROVIDE (etext = .)
 
-.rodata         0x00007858    0x3aeaa
+.rodata         0x00007704    0x3ae70
  *(.rodata .rodata.* .gnu.linkonce.r.*)
- .rodata        0x00007858    0x3aeaa C:\Users\uersu\AppData\Local\Temp\cc8YJNpa.ltrans0.ltrans.o
-                0x00007858                incbin_Sw_ClColorDim_start
-                0x0000d0cc                incbin_Sw_ClColorDim_end
-                0x0000d0ce                incbin_End_ClColor_start
-                0x0000d14e                incbin_End_ClColor_end
-                0x0000d150                incbin_AbyssCubeData_start
-                0x0000d1e2                incbin_AbyssCubeData_end
-                0x0000d1e4                incbin_AbyssCubeDataLz4_start
-                0x0000faf1                incbin_AbyssCubeDataLz4_end
-                0x0000faf2                incbin_AbyssLetterData_start
-                0x0000fbcc                incbin_AbyssLetterData_end
-                0x0000fbce                incbin_AbyssLetterDataLz4_start
-                0x00012ce0                incbin_AbyssLetterDataLz4_end
-                0x00012ce2                incbin_AbyssReversedLetterData_start
-                0x00012d74                incbin_AbyssReversedLetterData_end
-                0x00012d76                incbin_AbyssReversedLetterDataLz4_start
-                0x00015026                incbin_AbyssReversedLetterDataLz4_end
-                0x00015028                incbin_AtwCubeData_start
-                0x000150ba                incbin_AtwCubeData_end
-                0x000150bc                incbin_AtwCubeDataLz4_start
-                0x000175c1                incbin_AtwCubeDataLz4_end
-                0x000175c2                incbin_AtwLetterData_start
-                0x00017684                incbin_AtwLetterData_end
-                0x00017686                incbin_AtwLetterDataLz4_start
-                0x0001a2f4                incbin_AtwLetterDataLz4_end
-                0x0001a2f6                incbin_TekCubeData_start
-                0x0001a388                incbin_TekCubeData_end
-                0x0001a38a                incbin_TekCubeDataLz4_start
-                0x0001c86a                incbin_TekCubeDataLz4_end
-                0x0001c86c                incbin_TekLetterData_start
-                0x0001c92e                incbin_TekLetterData_end
-                0x0001c930                incbin_TekLetterDataLz4_start
-                0x0001f3d2                incbin_TekLetterDataLz4_end
-                0x0001f3d4                incbin_PointCubeData_start
-                0x0001f466                incbin_PointCubeData_end
-                0x0001f468                incbin_PointCubeDataLz4_start
-                0x00022053                incbin_PointCubeDataLz4_end
-                0x00022054                incbin_PointLetterData_start
-                0x000220e6                incbin_PointLetterData_end
-                0x000220e8                incbin_PointLetterDataLz4_start
-                0x00024619                incbin_PointLetterDataLz4_end
-                0x0002461a                incbin_PointReversedLetterData_start
-                0x00024694                incbin_PointReversedLetterData_end
-                0x00024696                incbin_PointReversedLetterDataLz4_start
-                0x00026781                incbin_PointReversedLetterDataLz4_end
-                0x00026782                incbin_FlexCubeData_start
-                0x00026844                incbin_FlexCubeData_end
-                0x00026846                incbin_FlexCubeDataLz4_start
-                0x0002943f                incbin_FlexCubeDataLz4_end
-                0x00029440                incbin_FlexLetterData_start
-                0x00029532                incbin_FlexLetterData_end
-                0x00029534                incbin_FlexLetterDataLz4_start
-                0x0002c5e8                incbin_FlexLetterDataLz4_end
-                0x0002c5ea                incbin_DesireCubeData_start
-                0x0002c67c                incbin_DesireCubeData_end
-                0x0002c67e                incbin_DesireCubeDataLz4_start
-                0x0002ea3e                incbin_DesireCubeDataLz4_end
-                0x0002ea40                incbin_DesireLetterData_start
-                0x0002eb02                incbin_DesireLetterData_end
-                0x0002eb04                incbin_DesireLetterDataLz4_start
-                0x00031381                incbin_DesireLetterDataLz4_end
-                0x00031382                incbin_DesireReversedLetterData_start
-                0x00031444                incbin_DesireReversedLetterData_end
-                0x00031446                incbin_DesireReversedLetterDataLz4_start
-                0x00033c58                incbin_DesireReversedLetterDataLz4_end
-                0x00033c5a                incbin_MercuryCubeData1_start
-                0x00033d1c                incbin_MercuryCubeData1_end
-                0x00033d1e                incbin_MercuryCubeData1Lz4_start
-                0x00035d34                incbin_MercuryCubeData1Lz4_end
-                0x00035d36                incbin_MercuryLetterData1_start
-                0x00035e70                incbin_MercuryLetterData1_end
-                0x00035e72                incbin_MercuryLetterData1Lz4_start
-                0x000389ac                incbin_MercuryLetterData1Lz4_end
-                0x000389ae                incbin_MercuryCubeData2_start
-                0x00038a70                incbin_MercuryCubeData2_end
-                0x00038a72                incbin_MercuryCubeData2Lz4_start
-                0x0003a3ad                incbin_MercuryCubeData2Lz4_end
-                0x0003a3ae                incbin_MercuryLetterData2_start
-                0x0003a4b8                incbin_MercuryLetterData2_end
-                0x0003a4ba                incbin_MercuryLetterData2Lz4_start
-                0x0003c438                incbin_MercuryLetterData2Lz4_end
+ .rodata        0x00007704    0x3ae70 C:\Users\uersu\AppData\Local\Temp\ccdKB1bA.ltrans0.ltrans.o
+                0x00007704                incbin_Sw_ClColorDim_start
+                0x0000cf78                incbin_Sw_ClColorDim_end
+                0x0000cf7a                incbin_End_ClColor_start
+                0x0000cffa                incbin_End_ClColor_end
+                0x0000cffc                incbin_AbyssCubeData_start
+                0x0000d08e                incbin_AbyssCubeData_end
+                0x0000d090                incbin_AbyssCubeDataLz4_start
+                0x0000f99d                incbin_AbyssCubeDataLz4_end
+                0x0000f99e                incbin_AbyssLetterData_start
+                0x0000fa78                incbin_AbyssLetterData_end
+                0x0000fa7a                incbin_AbyssLetterDataLz4_start
+                0x00012b8c                incbin_AbyssLetterDataLz4_end
+                0x00012b8e                incbin_AbyssReversedLetterData_start
+                0x00012c20                incbin_AbyssReversedLetterData_end
+                0x00012c22                incbin_AbyssReversedLetterDataLz4_start
+                0x00014ed2                incbin_AbyssReversedLetterDataLz4_end
+                0x00014ed4                incbin_AtwCubeData_start
+                0x00014f66                incbin_AtwCubeData_end
+                0x00014f68                incbin_AtwCubeDataLz4_start
+                0x0001746d                incbin_AtwCubeDataLz4_end
+                0x0001746e                incbin_AtwLetterData_start
+                0x00017530                incbin_AtwLetterData_end
+                0x00017532                incbin_AtwLetterDataLz4_start
+                0x0001a1a0                incbin_AtwLetterDataLz4_end
+                0x0001a1a2                incbin_TekCubeData_start
+                0x0001a234                incbin_TekCubeData_end
+                0x0001a236                incbin_TekCubeDataLz4_start
+                0x0001c716                incbin_TekCubeDataLz4_end
+                0x0001c718                incbin_TekLetterData_start
+                0x0001c7da                incbin_TekLetterData_end
+                0x0001c7dc                incbin_TekLetterDataLz4_start
+                0x0001f27e                incbin_TekLetterDataLz4_end
+                0x0001f280                incbin_PointCubeData_start
+                0x0001f312                incbin_PointCubeData_end
+                0x0001f314                incbin_PointCubeDataLz4_start
+                0x00021eff                incbin_PointCubeDataLz4_end
+                0x00021f00                incbin_PointLetterData_start
+                0x00021f92                incbin_PointLetterData_end
+                0x00021f94                incbin_PointLetterDataLz4_start
+                0x000244c5                incbin_PointLetterDataLz4_end
+                0x000244c6                incbin_PointReversedLetterData_start
+                0x00024540                incbin_PointReversedLetterData_end
+                0x00024542                incbin_PointReversedLetterDataLz4_start
+                0x0002662d                incbin_PointReversedLetterDataLz4_end
+                0x0002662e                incbin_FlexCubeData_start
+                0x000266f0                incbin_FlexCubeData_end
+                0x000266f2                incbin_FlexCubeDataLz4_start
+                0x000292eb                incbin_FlexCubeDataLz4_end
+                0x000292ec                incbin_FlexLetterData_start
+                0x000293de                incbin_FlexLetterData_end
+                0x000293e0                incbin_FlexLetterDataLz4_start
+                0x0002c494                incbin_FlexLetterDataLz4_end
+                0x0002c496                incbin_DesireCubeData_start
+                0x0002c528                incbin_DesireCubeData_end
+                0x0002c52a                incbin_DesireCubeDataLz4_start
+                0x0002e8ea                incbin_DesireCubeDataLz4_end
+                0x0002e8ec                incbin_DesireLetterData_start
+                0x0002e9ae                incbin_DesireLetterData_end
+                0x0002e9b0                incbin_DesireLetterDataLz4_start
+                0x0003122d                incbin_DesireLetterDataLz4_end
+                0x0003122e                incbin_DesireReversedLetterData_start
+                0x000312f0                incbin_DesireReversedLetterData_end
+                0x000312f2                incbin_DesireReversedLetterDataLz4_start
+                0x00033b04                incbin_DesireReversedLetterDataLz4_end
+                0x00033b06                incbin_MercuryCubeData1_start
+                0x00033bc8                incbin_MercuryCubeData1_end
+                0x00033bca                incbin_MercuryCubeData1Lz4_start
+                0x00035be0                incbin_MercuryCubeData1Lz4_end
+                0x00035be2                incbin_MercuryLetterData1_start
+                0x00035d1c                incbin_MercuryLetterData1_end
+                0x00035d1e                incbin_MercuryLetterData1Lz4_start
+                0x00038858                incbin_MercuryLetterData1Lz4_end
+                0x0003885a                incbin_MercuryCubeData2_start
+                0x0003891c                incbin_MercuryCubeData2_end
+                0x0003891e                incbin_MercuryCubeData2Lz4_start
+                0x0003a259                incbin_MercuryCubeData2Lz4_end
+                0x0003a25a                incbin_MercuryLetterData2_start
+                0x0003a364                incbin_MercuryLetterData2_end
+                0x0003a366                incbin_MercuryLetterData2Lz4_start
+                0x0003c2e4                incbin_MercuryLetterData2Lz4_end
 
 .rodata1
  *(.rodata1)
@@ -232,7 +231,7 @@ CODE            0x00006b42      0xd16
 
 .exception_ranges
  *(.exception_ranges*)
-                0x00044702                        . = DATA_SEGMENT_ALIGN (CONSTANT (MAXPAGESIZE), CONSTANT (COMMONPAGESIZE))
+                0x00044574                        . = DATA_SEGMENT_ALIGN (CONSTANT (MAXPAGESIZE), CONSTANT (COMMONPAGESIZE))
 
 .eh_frame
  *(.eh_frame)
@@ -251,7 +250,7 @@ CODE            0x00006b42      0xd16
 .exception_ranges
  *(.exception_ranges*)
 
-.tdata          0x00044702        0x0
+.tdata          0x00044574        0x0
                 [!provide]                        PROVIDE (__tdata_start = .)
  *(.tdata .tdata.* .gnu.linkonce.td.*)
 
@@ -259,22 +258,22 @@ CODE            0x00006b42      0xd16
  *(.tbss .tbss.* .gnu.linkonce.tb.*)
  *(.tcommon)
 
-.preinit_array  0x00044702        0x0
-                0x00044702                        PROVIDE (__preinit_array_start = .)
+.preinit_array  0x00044574        0x0
+                0x00044574                        PROVIDE (__preinit_array_start = .)
  *(.preinit_array)
-                0x00044702                        PROVIDE (__preinit_array_end = .)
+                0x00044574                        PROVIDE (__preinit_array_end = .)
 
-.init_array     0x00044702        0x0
-                0x00044702                        PROVIDE (__init_array_start = .)
+.init_array     0x00044574        0x0
+                0x00044574                        PROVIDE (__init_array_start = .)
  *(SORT_BY_INIT_PRIORITY(.init_array.*) SORT_BY_INIT_PRIORITY(.ctors.*))
  *(.init_array EXCLUDE_FILE(*crtend?.o *crtend.o *crtbegin?.o *crtbegin.o) .ctors)
-                0x00044702                        PROVIDE (__init_array_end = .)
+                0x00044574                        PROVIDE (__init_array_end = .)
 
-.fini_array     0x00044702        0x0
-                0x00044702                        PROVIDE (__fini_array_start = .)
+.fini_array     0x00044574        0x0
+                0x00044574                        PROVIDE (__fini_array_start = .)
  *(SORT_BY_INIT_PRIORITY(.fini_array.*) SORT_BY_INIT_PRIORITY(.dtors.*))
  *(.fini_array EXCLUDE_FILE(*crtend?.o *crtend.o *crtbegin?.o *crtbegin.o) .dtors)
-                0x00044702                        PROVIDE (__fini_array_end = .)
+                0x00044574                        PROVIDE (__fini_array_end = .)
 
 .ctors
  *crtbegin.o(.ctors)
@@ -299,7 +298,7 @@ CODE            0x00006b42      0xd16
 
 .dynamic
  *(.dynamic)
-                0x00044702                        . = DATA_SEGMENT_RELRO_END (., 0x0)
+                0x00044574                        . = DATA_SEGMENT_RELRO_END (., 0x0)
 
 .got
  *(.got.plt)
@@ -307,53 +306,51 @@ CODE            0x00006b42      0xd16
  *(.got)
  *(.igot)
 
-.data           0x00044704    0x214e4
+.data           0x00044574    0x214e4
  *(.data .data.* .gnu.linkonce.d.*)
- .data          0x00044704    0x214e2 C:\Users\uersu\AppData\Local\Temp\cc8YJNpa.ltrans0.ltrans.o
- *fill*         0x00065be6        0x2 
- .data          0x00065be8        0x0 obj/gcc8_a_support.o
- .data          0x00065be8        0x0 obj/depacker_doynax.o
- .data          0x00065be8        0x0 obj/smartlinefill.o
- .data          0x00065be8        0x0 obj/utilsasm.o
+ .data          0x00044574    0x214e2 C:\Users\uersu\AppData\Local\Temp\ccdKB1bA.ltrans0.ltrans.o
+ *fill*         0x00065a56        0x2 
+ .data          0x00065a58        0x0 obj/gcc8_a_support.o
+ .data          0x00065a58        0x0 obj/depacker_doynax.o
+ .data          0x00065a58        0x0 obj/utilsasm.o
 
 .INCBIN.MEMF_CHIP
-                0x00065be8    0x23dcb
+                0x00065a58    0x23dcb
  .INCBIN.MEMF_CHIP
-                0x00065be8    0x23dcb C:\Users\uersu\AppData\Local\Temp\cc8YJNpa.ltrans0.ltrans.o
-                0x00065be8                incbin_module_start
-                0x0006ed3a                incbin_module_end
-                0x0006ed3c                incbin_Sw_font_start
-                0x000781ac                incbin_Sw_font_end
-                0x000781ae                incbin_Sw_XMaskLeft_start
-                0x0007a9ae                incbin_Sw_XMaskLeft_end
-                0x0007a9b0                incbin_Sw_XMaskRight_start
-                0x0007d1b0                incbin_Sw_XMaskRight_end
-                0x0007d1b2                incbin_End_Bitmap_start
-                0x000899b2                incbin_End_Bitmap_end
+                0x00065a58    0x23dcb C:\Users\uersu\AppData\Local\Temp\ccdKB1bA.ltrans0.ltrans.o
+                0x00065a58                incbin_module_start
+                0x0006ebaa                incbin_module_end
+                0x0006ebac                incbin_Sw_font_start
+                0x0007801c                incbin_Sw_font_end
+                0x0007801e                incbin_Sw_XMaskLeft_start
+                0x0007a81e                incbin_Sw_XMaskLeft_end
+                0x0007a820                incbin_Sw_XMaskRight_start
+                0x0007d020                incbin_Sw_XMaskRight_end
+                0x0007d022                incbin_End_Bitmap_start
+                0x00089822                incbin_End_Bitmap_end
 
 .data1
  *(.data1)
-                0x000899b3                        _edata = .
+                0x00089823                        _edata = .
                 [!provide]                        PROVIDE (edata = .)
-                0x000899b3                        . = .
-                0x000899b3                        __bss_start = .
+                0x00089823                        . = .
+                0x00089823                        __bss_start = .
 
-.bss            0x000899b4      0x49c
+.bss            0x00089824      0x498
  *(.dynbss)
  *(.bss .bss.* .gnu.linkonce.b.*)
- .bss           0x000899b4      0x49c C:\Users\uersu\AppData\Local\Temp\cc8YJNpa.ltrans0.ltrans.o
- .bss           0x00089e50        0x0 obj/gcc8_a_support.o
- .bss           0x00089e50        0x0 obj/depacker_doynax.o
- .bss           0x00089e50        0x0 obj/smartlinefill.o
- .bss           0x00089e50        0x0 obj/utilsasm.o
+ .bss           0x00089824      0x498 C:\Users\uersu\AppData\Local\Temp\ccdKB1bA.ltrans0.ltrans.o
+ .bss           0x00089cbc        0x0 obj/gcc8_a_support.o
+ .bss           0x00089cbc        0x0 obj/depacker_doynax.o
+ .bss           0x00089cbc        0x0 obj/utilsasm.o
  *(COMMON)
-                0x00089e50                        . = ALIGN ((. != 0x0)?0x4:0x1)
-                0x00089e50                        . = ALIGN (0x4)
-                0x00089e50                        . = SEGMENT_START ("ldata-segment", .)
-                0x00089e50                        . = ALIGN (0x4)
-                0x00089e50                        _end = .
+                0x00089cbc                        . = ALIGN ((. != 0x0)?0x4:0x1)
+                0x00089cbc                        . = ALIGN (0x4)
+                0x00089cbc                        . = SEGMENT_START ("ldata-segment", .)
+                0x00089cbc                        . = ALIGN (0x4)
+                0x00089cbc                        _end = .
                 [!provide]                        PROVIDE (end = .)
-                0x00089e50                        . = DATA_SEGMENT_END (.)
+                0x00089cbc                        . = DATA_SEGMENT_END (.)
 
 .stab
  *(.stab)
@@ -375,14 +372,14 @@ CODE            0x00006b42      0xd16
 
 .comment        0x00000000       0x12
  *(.comment)
- .comment       0x00000000       0x12 C:\Users\uersu\AppData\Local\Temp\cc8YJNpa.ltrans0.ltrans.o
+ .comment       0x00000000       0x12 C:\Users\uersu\AppData\Local\Temp\ccdKB1bA.ltrans0.ltrans.o
                                  0x13 (size before relaxing)
- .comment       0x00000012       0x13 C:\Users\uersu\AppData\Local\Temp\cc3r4Wkc.debug.temp.o
- .comment       0x00000012       0x13 C:\Users\uersu\AppData\Local\Temp\ccWZO1pe.debug.temp.o
- .comment       0x00000012       0x13 C:\Users\uersu\AppData\Local\Temp\cc5FhNDf.debug.temp.o
- .comment       0x00000012       0x13 C:\Users\uersu\AppData\Local\Temp\ccO0nL6g.debug.temp.o
- .comment       0x00000012       0x13 C:\Users\uersu\AppData\Local\Temp\ccJrKXIh.debug.temp.o
- .comment       0x00000012       0x13 C:\Users\uersu\AppData\Local\Temp\ccih1BBi.debug.temp.o
+ .comment       0x00000012       0x13 C:\Users\uersu\AppData\Local\Temp\cct99A7y.debug.temp.o
+ .comment       0x00000012       0x13 C:\Users\uersu\AppData\Local\Temp\cc8Se5f8.debug.temp.o
+ .comment       0x00000012       0x13 C:\Users\uersu\AppData\Local\Temp\cctIjhnG.debug.temp.o
+ .comment       0x00000012       0x13 C:\Users\uersu\AppData\Local\Temp\ccwAUOCe.debug.temp.o
+ .comment       0x00000012       0x13 C:\Users\uersu\AppData\Local\Temp\ccv4hF2M.debug.temp.o
+ .comment       0x00000012       0x13 C:\Users\uersu\AppData\Local\Temp\ccKMSqvl.debug.temp.o
 
 .gnu.build.attributes
  *(.gnu.build.attributes .gnu.build.attributes.*)
@@ -399,94 +396,88 @@ CODE            0x00006b42      0xd16
 .debug_sfnames
  *(.debug_sfnames)
 
-.debug_aranges  0x00000000       0xd0
+.debug_aranges  0x00000000       0xb0
  *(.debug_aranges)
  .debug_aranges
-                0x00000000       0x30 C:\Users\uersu\AppData\Local\Temp\cc8YJNpa.ltrans0.ltrans.o
+                0x00000000       0x30 C:\Users\uersu\AppData\Local\Temp\ccdKB1bA.ltrans0.ltrans.o
  .debug_aranges
                 0x00000030       0x20 obj/gcc8_a_support.o
  .debug_aranges
                 0x00000050       0x20 obj/depacker_doynax.o
  .debug_aranges
-                0x00000070       0x20 obj/smartlinefill.o
+                0x00000070       0x20 obj/utilsasm.o
  .debug_aranges
-                0x00000090       0x20 obj/utilsasm.o
- .debug_aranges
-                0x000000b0       0x20 obj/P6112-Play.o
+                0x00000090       0x20 obj/P6112-Play.o
 
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000    0x2698a
+.debug_info     0x00000000    0x2641d
  *(.debug_info .gnu.linkonce.wi.*)
- .debug_info    0x00000000     0x4d26 C:\Users\uersu\AppData\Local\Temp\cc8YJNpa.ltrans0.ltrans.o
- .debug_info    0x00004d26     0x9ad3 C:\Users\uersu\AppData\Local\Temp\cc3r4Wkc.debug.temp.o
-                0x00004d26                utils.c.57649ad4
- .debug_info    0x0000e7f9     0x4348 C:\Users\uersu\AppData\Local\Temp\ccWZO1pe.debug.temp.o
-                0x0000e7f9                main.c.7427a9f9
- .debug_info    0x00012b41     0x2e3c C:\Users\uersu\AppData\Local\Temp\cc5FhNDf.debug.temp.o
-                0x00012b41                swscroller.c.6f8e79a7
- .debug_info    0x0001597d     0x210c C:\Users\uersu\AppData\Local\Temp\ccO0nL6g.debug.temp.o
-                0x0001597d                theend.c.0f78017c
- .debug_info    0x00017a89     0xe03b C:\Users\uersu\AppData\Local\Temp\ccJrKXIh.debug.temp.o
-                0x00017a89                g3dframework.c.2e164062
- .debug_info    0x00025ac4      0xd1f C:\Users\uersu\AppData\Local\Temp\ccih1BBi.debug.temp.o
-                0x00025ac4                gcc8_c_support.c.61bce95b
- .debug_info    0x000267e3       0x89 obj/gcc8_a_support.o
- .debug_info    0x0002686c       0x35 obj/depacker_doynax.o
- .debug_info    0x000268a1       0x26 obj/smartlinefill.o
- .debug_info    0x000268c7       0x26 obj/utilsasm.o
- .debug_info    0x000268ed       0x9d obj/P6112-Play.o
+ .debug_info    0x00000000     0x4ac4 C:\Users\uersu\AppData\Local\Temp\ccdKB1bA.ltrans0.ltrans.o
+ .debug_info    0x00004ac4     0x9ad3 C:\Users\uersu\AppData\Local\Temp\cct99A7y.debug.temp.o
+                0x00004ac4                utils.c.57649ad4
+ .debug_info    0x0000e597     0x4348 C:\Users\uersu\AppData\Local\Temp\cc8Se5f8.debug.temp.o
+                0x0000e597                main.c.84e1f878
+ .debug_info    0x000128df     0x2beb C:\Users\uersu\AppData\Local\Temp\cctIjhnG.debug.temp.o
+                0x000128df                swscroller.c.00ec0a26
+ .debug_info    0x000154ca     0x210c C:\Users\uersu\AppData\Local\Temp\ccwAUOCe.debug.temp.o
+                0x000154ca                theend.c.0f78017c
+ .debug_info    0x000175d6     0xdfa7 C:\Users\uersu\AppData\Local\Temp\ccv4hF2M.debug.temp.o
+                0x000175d6                g3dframework.c.89b60919
+ .debug_info    0x0002557d      0xd1f C:\Users\uersu\AppData\Local\Temp\ccKMSqvl.debug.temp.o
+                0x0002557d                gcc8_c_support.c.61bce95b
+ .debug_info    0x0002629c       0x89 obj/gcc8_a_support.o
+ .debug_info    0x00026325       0x35 obj/depacker_doynax.o
+ .debug_info    0x0002635a       0x26 obj/utilsasm.o
+ .debug_info    0x00026380       0x9d obj/P6112-Play.o
 
-.debug_abbrev   0x00000000     0x1239
+.debug_abbrev   0x00000000     0x1213
  *(.debug_abbrev)
- .debug_abbrev  0x00000000      0x209 C:\Users\uersu\AppData\Local\Temp\cc8YJNpa.ltrans0.ltrans.o
- .debug_abbrev  0x00000209      0x269 C:\Users\uersu\AppData\Local\Temp\cc3r4Wkc.debug.temp.o
- .debug_abbrev  0x00000472      0x34a C:\Users\uersu\AppData\Local\Temp\ccWZO1pe.debug.temp.o
- .debug_abbrev  0x000007bc      0x253 C:\Users\uersu\AppData\Local\Temp\cc5FhNDf.debug.temp.o
- .debug_abbrev  0x00000a0f      0x1d3 C:\Users\uersu\AppData\Local\Temp\ccO0nL6g.debug.temp.o
- .debug_abbrev  0x00000be2      0x372 C:\Users\uersu\AppData\Local\Temp\ccJrKXIh.debug.temp.o
- .debug_abbrev  0x00000f54      0x269 C:\Users\uersu\AppData\Local\Temp\ccih1BBi.debug.temp.o
- .debug_abbrev  0x000011bd       0x21 obj/gcc8_a_support.o
- .debug_abbrev  0x000011de       0x21 obj/depacker_doynax.o
- .debug_abbrev  0x000011ff       0x14 obj/smartlinefill.o
- .debug_abbrev  0x00001213       0x14 obj/utilsasm.o
- .debug_abbrev  0x00001227       0x12 obj/P6112-Play.o
+ .debug_abbrev  0x00000000      0x209 C:\Users\uersu\AppData\Local\Temp\ccdKB1bA.ltrans0.ltrans.o
+ .debug_abbrev  0x00000209      0x269 C:\Users\uersu\AppData\Local\Temp\cct99A7y.debug.temp.o
+ .debug_abbrev  0x00000472      0x34a C:\Users\uersu\AppData\Local\Temp\cc8Se5f8.debug.temp.o
+ .debug_abbrev  0x000007bc      0x253 C:\Users\uersu\AppData\Local\Temp\cctIjhnG.debug.temp.o
+ .debug_abbrev  0x00000a0f      0x1d3 C:\Users\uersu\AppData\Local\Temp\ccwAUOCe.debug.temp.o
+ .debug_abbrev  0x00000be2      0x360 C:\Users\uersu\AppData\Local\Temp\ccv4hF2M.debug.temp.o
+ .debug_abbrev  0x00000f42      0x269 C:\Users\uersu\AppData\Local\Temp\ccKMSqvl.debug.temp.o
+ .debug_abbrev  0x000011ab       0x21 obj/gcc8_a_support.o
+ .debug_abbrev  0x000011cc       0x21 obj/depacker_doynax.o
+ .debug_abbrev  0x000011ed       0x14 obj/utilsasm.o
+ .debug_abbrev  0x00001201       0x12 obj/P6112-Play.o
 
-.debug_line     0x00000000    0x12f65
+.debug_line     0x00000000    0x12ddd
  *(.debug_line .debug_line.* .debug_line_end)
- .debug_line    0x00000000    0x107b1 C:\Users\uersu\AppData\Local\Temp\cc8YJNpa.ltrans0.ltrans.o
- .debug_line    0x000107b1      0x4f8 C:\Users\uersu\AppData\Local\Temp\cc3r4Wkc.debug.temp.o
- .debug_line    0x00010ca9      0x56b C:\Users\uersu\AppData\Local\Temp\ccWZO1pe.debug.temp.o
- .debug_line    0x00011214      0x41e C:\Users\uersu\AppData\Local\Temp\cc5FhNDf.debug.temp.o
- .debug_line    0x00011632      0x3af C:\Users\uersu\AppData\Local\Temp\ccO0nL6g.debug.temp.o
- .debug_line    0x000119e1      0x64d C:\Users\uersu\AppData\Local\Temp\ccJrKXIh.debug.temp.o
- .debug_line    0x0001202e      0x1fa C:\Users\uersu\AppData\Local\Temp\ccih1BBi.debug.temp.o
- .debug_line    0x00012228       0xe9 obj/gcc8_a_support.o
- .debug_line    0x00012311       0xc7 obj/depacker_doynax.o
- .debug_line    0x000123d8       0x9d obj/smartlinefill.o
- .debug_line    0x00012475      0x759 obj/utilsasm.o
- .debug_line    0x00012bce      0x397 obj/P6112-Play.o
+ .debug_line    0x00000000    0x106c6 C:\Users\uersu\AppData\Local\Temp\ccdKB1bA.ltrans0.ltrans.o
+ .debug_line    0x000106c6      0x4f8 C:\Users\uersu\AppData\Local\Temp\cct99A7y.debug.temp.o
+ .debug_line    0x00010bbe      0x56b C:\Users\uersu\AppData\Local\Temp\cc8Se5f8.debug.temp.o
+ .debug_line    0x00011129      0x41e C:\Users\uersu\AppData\Local\Temp\cctIjhnG.debug.temp.o
+ .debug_line    0x00011547      0x3af C:\Users\uersu\AppData\Local\Temp\ccwAUOCe.debug.temp.o
+ .debug_line    0x000118f6      0x64d C:\Users\uersu\AppData\Local\Temp\ccv4hF2M.debug.temp.o
+ .debug_line    0x00011f43      0x1fa C:\Users\uersu\AppData\Local\Temp\ccKMSqvl.debug.temp.o
+ .debug_line    0x0001213d       0xe9 obj/gcc8_a_support.o
+ .debug_line    0x00012226       0xc7 obj/depacker_doynax.o
+ .debug_line    0x000122ed      0x759 obj/utilsasm.o
+ .debug_line    0x00012a46      0x397 obj/P6112-Play.o
 
 .debug_frame    0x00000000     0x1188
  *(.debug_frame)
- .debug_frame   0x00000000     0x10bc C:\Users\uersu\AppData\Local\Temp\cc8YJNpa.ltrans0.ltrans.o
+ .debug_frame   0x00000000     0x10bc C:\Users\uersu\AppData\Local\Temp\ccdKB1bA.ltrans0.ltrans.o
  .debug_frame   0x000010bc       0xcc obj/gcc8_a_support.o
 
-.debug_str      0x00000000      0x7eb
+.debug_str      0x00000000      0x78a
  *(.debug_str)
- .debug_str     0x00000000        0x9 C:\Users\uersu\AppData\Local\Temp\cc8YJNpa.ltrans0.ltrans.o
- .debug_str     0x00000009       0xe9 C:\Users\uersu\AppData\Local\Temp\cc3r4Wkc.debug.temp.o
- .debug_str     0x000000f2      0x124 C:\Users\uersu\AppData\Local\Temp\ccWZO1pe.debug.temp.o
- .debug_str     0x00000216       0xf6 C:\Users\uersu\AppData\Local\Temp\cc5FhNDf.debug.temp.o
- .debug_str     0x0000030c       0x4c C:\Users\uersu\AppData\Local\Temp\ccO0nL6g.debug.temp.o
- .debug_str     0x00000358      0x255 C:\Users\uersu\AppData\Local\Temp\ccJrKXIh.debug.temp.o
- .debug_str     0x000005ad       0x8a C:\Users\uersu\AppData\Local\Temp\ccih1BBi.debug.temp.o
- .debug_str     0x00000637      0x1b4 obj/gcc8_a_support.o
+ .debug_str     0x00000000        0x9 C:\Users\uersu\AppData\Local\Temp\ccdKB1bA.ltrans0.ltrans.o
+ .debug_str     0x00000009       0xe9 C:\Users\uersu\AppData\Local\Temp\cct99A7y.debug.temp.o
+ .debug_str     0x000000f2      0x124 C:\Users\uersu\AppData\Local\Temp\cc8Se5f8.debug.temp.o
+ .debug_str     0x00000216       0xf6 C:\Users\uersu\AppData\Local\Temp\cctIjhnG.debug.temp.o
+ .debug_str     0x0000030c       0x4c C:\Users\uersu\AppData\Local\Temp\ccwAUOCe.debug.temp.o
+ .debug_str     0x00000358      0x238 C:\Users\uersu\AppData\Local\Temp\ccv4hF2M.debug.temp.o
+ .debug_str     0x00000590       0x8a C:\Users\uersu\AppData\Local\Temp\ccKMSqvl.debug.temp.o
+ .debug_str     0x0000061a      0x170 obj/gcc8_a_support.o
                                  0xd1 (size before relaxing)
- .debug_str     0x000007eb       0xa3 obj/depacker_doynax.o
- .debug_str     0x000007eb       0x87 obj/smartlinefill.o
- .debug_str     0x000007eb       0x82 obj/utilsasm.o
+ .debug_str     0x0000078a       0xa3 obj/depacker_doynax.o
+ .debug_str     0x0000078a       0x82 obj/utilsasm.o
 
 .debug_loc
  *(.debug_loc)
@@ -520,10 +511,10 @@ CODE            0x00006b42      0xd16
  *(.debug_line_str)
 
 .debug_loclists
-                0x00000000     0x8c8c
+                0x00000000     0x8b9a
  *(.debug_loclists)
  .debug_loclists
-                0x00000000     0x8c8c C:\Users\uersu\AppData\Local\Temp\cc8YJNpa.ltrans0.ltrans.o
+                0x00000000     0x8b9a C:\Users\uersu\AppData\Local\Temp\ccdKB1bA.ltrans0.ltrans.o
 
 .debug_macro
  *(.debug_macro)
@@ -532,10 +523,10 @@ CODE            0x00006b42      0xd16
  *(.debug_names)
 
 .debug_rnglists
-                0x00000000      0xa54
+                0x00000000      0xa41
  *(.debug_rnglists)
  .debug_rnglists
-                0x00000000      0xa54 C:\Users\uersu\AppData\Local\Temp\cc8YJNpa.ltrans0.ltrans.o
+                0x00000000      0xa41 C:\Users\uersu\AppData\Local\Temp\ccdKB1bA.ltrans0.ltrans.o
 
 .debug_str_offsets
  *(.debug_str_offsets)

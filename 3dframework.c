@@ -95,19 +95,6 @@ WORD *ptrvectorlettersreversed;
 WORD *ptrvector;
 UBYTE KeyCode;
 
-
-void SmartLineFillAsm(UWORD startx, UWORD starty, WORD height, UWORD length, UWORD minterm,  UWORD bltwidth, UWORD bltstart) { // returns end of output data, input needs to be 16-bit aligned!
-	register volatile void* _d0 ASM("d0") = startx;
-	register volatile void* _d1 ASM("d1") = starty;
-  register volatile void* _d2 ASM("d2") = height;
-  register volatile void* _d3 ASM("d3") = length;
-  register volatile void* _d4 ASM("d4") = minterm;
-  register volatile void* _d5 ASM("d5") = bltwidth;
-  register volatile void* _d6 ASM("d6") = bltstart;
-	__asm volatile (
-		"jsr _smartlinefillasm");
-}
-
 void Utils_Lz4DepackAsm(UBYTE *src, UBYTE *dst, UWORD size) { 
   register volatile void* _a0 ASM("a0") = src + 11; //Skip Header
 	register volatile void* _a1 ASM("a1") = dst;
