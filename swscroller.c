@@ -395,7 +395,7 @@ void Sw_Cleanup() {
   FreeMem( Sw_ScreenBuffer1, BPLSIZE*BPLDEPTH);
   FreeMem( Sw_ScreenBuffer2, BPLSIZE*BPLDEPTH);
   FreeMem( Sw_FontBuffer,  80*50);
-  FreeMem( Sw_font, 38000);
+
   RemIntServer( INTB_COPER, Sw_Vbint);
 }
 
