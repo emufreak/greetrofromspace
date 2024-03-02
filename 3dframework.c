@@ -15,7 +15,7 @@
 #include "data/cubes/abyss.h"
 #include "data/cubes/atw.h"
 #include "data/cubes/tek.h"
-#include "spread.h"
+#include "data/cubes/spread.h"
 #include "data/cubes/point.h"
 #include "data/cubes/flex.h"
 #include "data/cubes/desire.h"

@@ -1,44 +1,63 @@
 {
-    "version": "0.2.0",
-    "configurations": [
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "amiga",
+      "request": "launch",
+      "preLaunchTask": "compile",
+      "name": "AROS",
+      "config": "A500",
+      "program": "${workspaceFolder}/${config:amiga.program}",
+      "internalConsoleOptions": "openOnSessionStart"
+    },
+    {
+      "type": "amiga",
+      "request": "launch",
+      "preLaunchTask": "compile",
+      "name": "Amiga 500",
+      "config": "A500",
+      "program": "${workspaceFolder}/${config:amiga.program}",
+      "kickstart": "C:\\KickRoms\\kick13a500.rom",
+      "internalConsoleOptions": "openOnSessionStart"
+    },
+    {
+      "type": "amiga",
+      "request": "launch",
+      "preLaunchTask": "compile",
+      "name": "Amiga 1200",
+      "config": "A1200",
+      "program": "${workspaceFolder}/${config:amiga.program}",
+      "kickstart": "C:\\KickRoms\\kick31a1200.rom",
+      "internalConsoleOptions": "openOnSessionStart"
+    },
+    {
+      "type": "amiga",
+      "request": "launch",
+      "preLaunchTask": "compile",
+      "name": "Amiga 4000",
+      "config": "A4000",
+      "program": "${workspaceFolder}/${config:amiga.program}",
+      "kickstart": "${config:amiga.rom-paths.A4000}",
+      "internalConsoleOptions": "openOnSessionStart"
+    },
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "cppdbg",
+      "request": "launch",
+      "args": [],
+      "stopAtEntry": false,
+      "externalConsole": true,
+      "cwd": "c:/Users/uersu/Documents/GitData/greetro_from_space",
+      "program": "c:/Users/uersu/Documents/GitData/greetro_from_space/build/Debug/outDebug",
+      "MIMode": "gdb",
+      "miDebuggerPath": "gdb",
+      "setupCommands": [
         {
-            "type": "amiga",
-            "request": "launch",
-            "preLaunchTask": "compile",
-            "name": "AROS",
-            "config": "A500",
-            "program": "${workspaceFolder}/${config:amiga.program}",
-            "internalConsoleOptions": "openOnSessionStart"
-        },
-        {
-            "type": "amiga",
-            "request": "launch",
-            "preLaunchTask": "compile",
-            "name": "Amiga 500",
-            "config": "A500",
-            "program": "${workspaceFolder}/${config:amiga.program}",
-            "kickstart": "C:\\KickRoms\\kick13a500.rom",
-            "internalConsoleOptions": "openOnSessionStart"
-        },
-        {
-            "type": "amiga",
-            "request": "launch",
-            "preLaunchTask": "compile",
-            "name": "Amiga 1200",
-            "config": "A1200",
-            "program": "${workspaceFolder}/${config:amiga.program}",
-            "kickstart": "C:\\KickRoms\\kick31a1200.rom",
-            "internalConsoleOptions": "openOnSessionStart"
-        },
-        {
-            "type": "amiga",
-            "request": "launch",
-            "preLaunchTask": "compile",
-            "name": "Amiga 4000",
-            "config": "A4000",
-            "program": "${workspaceFolder}/${config:amiga.program}",
-            "kickstart": "${config:amiga.rom-paths.A4000}",
-            "internalConsoleOptions": "openOnSessionStart"
-        }        
-    ]
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ]
+    }
+  ]
 }

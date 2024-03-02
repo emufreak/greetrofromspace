@@ -165,8 +165,6 @@ void Sw_DrawScreen3() {
 
   WaitBlit();
 
-  //custom->color[0] = 0x0f00;
-
   custom->bltcon0 = 0x0d30; // No Shift, Channels A+B+D, Minterm: Set if Channel A = 1 and Channel B = 0 
   custom->bltafwm = 0xffff;
 
