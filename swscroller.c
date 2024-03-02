@@ -20,6 +20,7 @@
 #define COPCOLOR 68
 #define COPCOLORDIM 72
 
+
 ULONG *Sw_ScreenBuffer2;
 ULONG *Sw_ScreenBuffer1;
 UWORD *Sw_DrawBuffer;
@@ -34,13 +35,12 @@ UWORD *Sw_ViewCopper;
 UWORD *Sw_DrawCopper;
 
 UWORD *Sw_FontBuffer;
+UWORD *Sw_XMaskLeft;
+UWORD *Sw_XMaskRight;
+UBYTE *Sw_ClColorDim;
+//INCBIN( Sw_ClColorDim, "data/swscroller/clcolordim.raw")
 
-INCBIN_CHIP( Sw_font, "data/swscroller/font.fnt");
-INCBIN_CHIP( Sw_XMaskLeft, "data/swscroller/xmaskleft.raw")
-INCBIN_CHIP( Sw_XMaskRight, "data/swscroller/xmaskright.raw")
-INCBIN( Sw_ClColorDim, "data/swscroller/clcolordim.raw")
-//INCBIN_CHIP( theend, "data/theend/voidlogo2.raw")
-
+UWORD *Sw_font;
 ULONG Sw_ClsSprites[] = { 0x001200000, 0x001220000,0x001240000,0x001260000, 0x001280000, 
         0x0012a0000, 0x0012c0000, 0x0012e0000, 0x001300000, 0x001320000, 0x001340000,
                  0x001360000, 0x001380000, 0x0013a0000, 0x0013c0000, 0x0013e0000  };
@@ -174,7 +174,9 @@ void Sw_DrawScreen3() {
   custom->bltdmod = 40; // Skip Left Part of Screen
   custom->bltapt = Sw_ViewBufferP1+Sw_CopyLines[Sw_framecountscreen]*40+60;
   custom->bltdpt = Sw_DrawBuffer+Sw_CopyLines[Sw_framecountscreen]*40+20;
-  custom->bltbpt = Sw_XMaskRight+Sw_CopyLines[Sw_framecountscreen]*40;
+  ULONG bltbpd = Sw_XMaskRight;
+  bltbpd += Sw_CopyLines[Sw_framecountscreen]*40;
+  custom->bltbpt = bltbpd;
   custom->bltsize = (255-Sw_CopyLines[Sw_framecountscreen])*64+20;
 
   //Generate Right Part of Screen Part 2
@@ -188,7 +190,9 @@ void Sw_DrawScreen3() {
   custom->bltamod = 38; // Skip Left Part of Screen
   custom->bltdmod = 38; // Skip Left Part of Screen
   custom->bltapt = Sw_ViewBufferP1+Sw_CopyLines[Sw_framecountscreen]*40+60;
-  custom->bltbpt = Sw_XMaskRight+Sw_CopyLines[Sw_framecountscreen]*40;
+  bltbpd = Sw_XMaskRight;
+  bltbpd += Sw_CopyLines[Sw_framecountscreen]*40;
+  custom->bltbpt = bltbpd;
   custom->bltcpt = Sw_DrawBuffer+Sw_CopyLines[Sw_framecountscreen]*40-1+20;
   custom->bltdpt = Sw_DrawBuffer+Sw_CopyLines[Sw_framecountscreen]*40-1+20;    
   custom->bltsize = (255-Sw_CopyLines[Sw_framecountscreen])*64+21;
@@ -206,8 +210,10 @@ void Sw_DrawScreen3() {
   custom->bltamod = 40; // Skip Right Part of Screen
   custom->bltdmod = 40; // Skip Right Part of Screen
   custom->bltapt = Sw_ViewBufferP1+Sw_CopyLines[Sw_framecountscreen]*40+40;
-  custom->bltdpt = Sw_DrawBuffer+Sw_CopyLines[Sw_framecountscreen]*40;
-  custom->bltbpt = Sw_XMaskLeft+Sw_CopyLines[Sw_framecountscreen]*40;
+  custom->bltdpt = Sw_DrawBuffer+Sw_CopyLines[Sw_framecountscreen]*40;  
+  bltbpd = Sw_XMaskLeft;
+  bltbpd += Sw_CopyLines[Sw_framecountscreen]*40;
+  custom->bltbpt = bltbpd;
   custom->bltsize = (255-Sw_CopyLines[Sw_framecountscreen])*64+20;
 
   //Generate Left Part of Screen Part 2
@@ -221,7 +227,9 @@ void Sw_DrawScreen3() {
   custom->bltamod = 40; // Skip Right Part of Screen
   custom->bltdmod = 40; // Skip Right Part of Screen
   custom->bltapt = Sw_ViewBufferP1+Sw_CopyLines[Sw_framecountscreen]*40+40;
-  custom->bltbpt = Sw_XMaskLeft+Sw_CopyLines[Sw_framecountscreen]*40;
+  bltbpd = Sw_XMaskLeft;
+  bltbpd += Sw_CopyLines[Sw_framecountscreen]*40;
+  custom->bltbpt = bltbpd;
   custom->bltcpt = Sw_DrawBuffer+Sw_CopyLines[Sw_framecountscreen]*40;
   custom->bltdpt = Sw_DrawBuffer+Sw_CopyLines[Sw_framecountscreen]*40;    
   custom->bltsize = (255-Sw_CopyLines[Sw_framecountscreen])*64+20;
@@ -318,6 +326,72 @@ ULONG *Sw_ScreenBufferList[15];
 
 UWORD debugpal[] = { 0x0000, 0x0fff };
 
+void Sw_LoadResources() {
+    BPTR filehandler = Open("font.fnt", MODE_OLDFILE);
+    if( filehandler == 0) {
+      Write(Output(), "Error loading font.fnt\n", 24);
+    }
+    Sw_font = AllocMem(38000, MEMF_CHIP);
+    if(Sw_font == 0) {
+      Write(Output(), "Cannot allocate Memory for Sw_font.\n", 37);
+      Exit(1);
+    }
+    ULONG readlength = Read(  filehandler, Sw_font, 38000);
+    if( readlength == 0) {
+      Write(Output(), "Cannot read Sw_font.\n", 37);
+      Exit(1);
+    }
+
+    filehandler = Open("xmaskleft.raw", MODE_OLDFILE);
+    if( filehandler == 0) {
+      Write(Output(), "Error loading xmaskleft.raw\n", 29);
+    }
+
+    Sw_XMaskLeft = AllocMem(10240, MEMF_CHIP);
+    if(Sw_XMaskLeft == 0) {
+      Write(Output(), "Cannot allocate Memory for xmaskleft.raw\n", 42);
+      Exit(1);
+    }
+    readlength = Read(  filehandler, Sw_XMaskLeft, 10240);
+    if( readlength == 0) {
+      Write(Output(), "Cannot read xmaskleft.raw\n", 27);
+      Exit(1);
+    }
+
+    filehandler = Open("xmaskright.raw", MODE_OLDFILE);
+    if( filehandler == 0) {
+      Write(Output(), "Error loading xmaskright.raw\n", 29);
+    }
+
+    Sw_XMaskRight = AllocMem(10240, MEMF_CHIP);
+    if(Sw_XMaskRight == 0) {
+      Write(Output(), "Cannot allocate Memory for xmaskleft.raw\n", 42);
+      Exit(1);
+    }
+    readlength = Read(  filehandler, Sw_XMaskRight, 10240);
+    if( readlength == 0) {
+      Write(Output(), "Cannot read xmaskleft.raw\n", 27);
+      Exit(1);
+    }
+
+    filehandler = Open("clcolordim.raw", MODE_OLDFILE);
+    if( filehandler == 0) {
+      Write(Output(), "Error loading clcolordimg.raw\n", 29);
+    }
+
+    Sw_ClColorDim = AllocMem(22644, MEMF_CHIP);
+    if(Sw_ClColorDim == 0) {
+      Write(Output(), "Cannot allocate Memory for clcolordim.raw\n", 43);
+      Exit(1);
+    }
+
+    readlength = Read(  filehandler, Sw_ClColorDim, 22644);
+    if( readlength == 0) {
+      Write(Output(), "Cannot read clcolordim.raw\n", 29);
+      Exit(1);
+    }
+}
+
 int Sw_PrepareDisplay() {
 
   SwScrollerFinished = 0;
@@ -395,6 +469,10 @@ void Sw_Cleanup() {
   FreeMem( Sw_ScreenBuffer1, BPLSIZE*BPLDEPTH);
   FreeMem( Sw_ScreenBuffer2, BPLSIZE*BPLDEPTH);
   FreeMem( Sw_FontBuffer,  80*50);
+  FreeMem( Sw_font, 38000);
+  FreeMem( Sw_XMaskLeft, 10240);
+  FreeMem( Sw_XMaskRight, 10240);  
+  FreeMem( Sw_ClColorDim, 22644);  
 
   RemIntServer( INTB_COPER, Sw_Vbint);
 }
@@ -430,6 +508,16 @@ void Sw_SetBplPointers() {
 }
 
 UWORD ColPos = 0;
+
+void Sw_ClearColors() {
+  ULONG *cl;
+  UWORD *copword = Sw_DrawCopper;
+  cl = (ULONG *) &copword[COPCOLOR];
+  *cl++ = 0x1820000;
+  *cl++ = 0x1840000;
+  *cl++ = 0x1860000;
+  *cl++ = 0xfffffffe;
+}
 
 void Sw_SetColors() {
   ULONG *cl;

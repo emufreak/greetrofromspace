@@ -22,6 +22,7 @@ volatile struct Custom *custom;
 struct DosLibrary *DOSBase;
 struct GfxBase *GfxBase;
 
+
 //backup
 static UWORD SystemInts;
 static UWORD SystemDMA;
@@ -82,7 +83,7 @@ __attribute__((always_inline)) inline void WaitBlt() {
 }
 
 void TakeSystem() {
-	Forbid();
+	Forbid();	
 	//Save current interrupts and DMA settings so we can restore them upon exit. 
 	SystemADKCON=custom->adkconr;
 	SystemInts=custom->intenar;
@@ -108,8 +109,6 @@ void TakeSystem() {
 	//set all colors black
 	for(int a=0;a<32;a++)
 		custom->color[a]=0;
-
-
 
 	WaitVbl();
 	WaitVbl();
@@ -370,34 +369,40 @@ int main() {
 
 	//warpmode(1);
 	// TODO: precalc stuff here
-#ifdef MUSIC
-	if(p61Init(module) != 0)
-		KPrintF("p61Init failed!\n");
-#endif
 	//warpmode(0);
+	Sw_LoadResources();
 
 	TakeSystem();
+
+	#ifdef MUSIC
+	if(p61Init(module) != 0)
+		KPrintF("p61Init failed!\n");
+	#endif
 	WaitVbl();
 
-	Sw_PrepareDisplay();
+	custom->intena=0xf020;//Enable vblank
 	custom->dmacon = 0x83f0;	
+	Sw_PrepareDisplay();
 	custom->intena=0xe020;//Enable vblank
 
 	while(SwScrollerFinished == 0) {
 		Sw_Run();
 	}
+	Sw_ClearColors();
 	Sw_Cleanup();
 
 	WaitBlit();
 		
-	custom->dmacon = 0x83ff;
-	PrepareDisplay();	
+	custom->dmacon = 0x82f0;
+	custom->dmacon = 0x0100;
+	PrepareDisplay();		
 	custom->intena=0xc020;//Enable vblank
 
 	//WarmUp
 	SetBplPointers();
 	//LoadVectors();
 	SwapCl();
+	custom->dmacon = 0x83f0;
 	WaitVbl();	
 
 	while( CubeFinished == 0) {		
@@ -416,7 +421,7 @@ int main() {
 
 	CleanUp( );
 	WaitVbl();
-	custom->dmacon = 0x83ff;
+	custom->dmacon = 0x83f0;
 	custom->intena=0xe020;//Enable vblank
 	
 	End_PrepareDisplay();
